@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6F0219AB-76DB-4BFE-9DFA-CDF39BEFC99C}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.NAP.Settlement</RootNamespace>
+    <AssemblyName>Fanex.NAP.Settlement</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DesktopBuildPackageLocation>obj\Debug\Package5</DesktopBuildPackageLocation>
+    <PackageAsSingleFile>false</PackageAsSingleFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Apollo.UMService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Fanex.NAP.Core\Fanex.NAP.Core\Apollo.UMService.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.Core">
+      <HintPath>..\..\packages\BundleTransformer.Core.1.7.19\lib\net40\BundleTransformer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="BundleTransformer.Less">
+      <HintPath>..\..\packages\BundleTransformer.Less.1.7.16\lib\net40\BundleTransformer.Less.dll</HintPath>
+    </Reference>
+    <Reference Include="dotless.Core">
+      <HintPath>..\..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common">
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Logging">
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Core, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Fanex.NAP.Core\Fanex.NAP.Core\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\..\Dependencies\Fanex.NAP.Core\Fanex.NAP.Framework\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet">
+      <HintPath>..\..\packages\Glimpse.AspNet.1.3.1\lib\net40\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Glimpse.1.5.0\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc4, Version=1.3.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.Mvc4.1.3.2\lib\net40\Glimpse.Mvc4.dll</HintPath>
+    </Reference>
+    <Reference Include="IBCCrypt">
+      <HintPath>..\..\Dependencies\3rds\IBCCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\Dependencies\3rds\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Microsoft\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Microsoft\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Logging, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Microsoft\Microsoft.Practices.EnterpriseLibrary.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Microsoft\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Microsoft\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NetUtility">
+      <HintPath>..\..\Dependencies\3rds\NetUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\Dependencies\3rds\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RemotingRef, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\3rds\RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\3rds\SPSRemoting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Net.Http">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.20505.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.20505.0\lib\net40\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20505.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20505.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20505.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20505.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Settlement\SettlementAreaRegistration.cs" />
+    <Compile Include="Areas\UserLogin\Controllers\BaseController.cs" />
+    <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />
+    <Compile Include="Areas\UserLogin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\UserLogin\Controllers\SSOController.cs" />
+    <Compile Include="Areas\UserLogin\Controllers\UserSiteController.cs" />
+    <Compile Include="Areas\UserLogin\UserLogInAreaRegistration.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\FanexSpName.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\SportTypeSetting.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Areas\UserControl\Header.cshtml" />
+    <Content Include="Areas\UserControl\LeaguesList.cshtml" />
+    <Content Include="Areas\UserControl\LeaguesListNotShowAll.cshtml" />
+    <Content Include="Areas\UserControl\SportList.cshtml" />
+    <Content Include="Areas\UserControl\StatusList.cshtml" />
+    <Content Include="Areas\UserLogin\Scripts\ReCheckIn.js" />
+    <Content Include="Areas\UserLogin\Themes\img\auth-bg.png" />
+    <Content Include="Areas\UserLogin\Themes\img\bg.png" />
+    <Content Include="Areas\UserLogin\Themes\img\bg_header.png" />
+    <Content Include="Areas\UserLogin\Themes\img\down.png" />
+    <Content Include="Areas\UserLogin\Themes\img\lock.png" />
+    <Content Include="Areas\UserLogin\Themes\img\password.png" />
+    <Content Include="Areas\UserLogin\Themes\img\title-bg.jpg" />
+    <Content Include="Areas\UserLogin\Themes\img\tool-sprites.gif" />
+    <Content Include="Areas\UserLogin\Themes\img\username.png" />
+    <Content Include="Areas\UserLogin\Themes\img\warn.png" />
+    <Content Include="Areas\UserLogin\Themes\img\welcome-napadmin.png" />
+    <Content Include="Areas\UserLogin\Themes\img\welcome.png" />
+    <Content Include="Areas\UserLogin\Themes\login.css" />
+    <Content Include="Areas\UserLogin\Themes\none-permission.css" />
+    <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
+    <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
+    <Content Include="Areas\UserLogin\Views\Common\Style\Images\UnderMaintenance.gif" />
+    <Content Include="Areas\UserLogin\Views\Login\Index.cshtml" />
+    <Content Include="Areas\UserLogin\Views\Login\NonePermission.cshtml" />
+    <Content Include="Areas\UserLogin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\UserLogin\Views\SSO\SSOIndex.cshtml" />
+    <Content Include="Areas\UserLogin\Views\UserSite\Site.cshtml" />
+    <Content Include="Areas\UserLogin\Views\Web.config" />
+    <Content Include="Content\extension\jquery-block-ui.ext.css" />
+    <Content Include="Content\extension\images\confirm-title_bg.jpg" />
+    <Content Include="Content\extension\images\error-red_bg.jpg" />
+    <Content Include="Content\extension\images\loader.gif" />
+    <Content Include="Content\extension\images\popup-title-bg.png" />
+    <Content Include="Content\libraries\jquery-ui\jquery-ui.css" />
+    <Content Include="Content\libraries\jquery-ui\images\close_bt.png" />
+    <Content Include="Content\libraries\jquery-ui\images\popup-title-bg.jpg" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_flat_10_000000_40x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_100_f6f6f6_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_100_fdf5ce_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_gloss-wave_35_f6a828_500x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_highlight-soft_100_eeeeee_1x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-bg_highlight-soft_75_ffe45c_1x100.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_228ef1_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_ef8c08_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_ffd27a_256x240.png" />
+    <Content Include="Content\libraries\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\plugin\tipsy\tipsy.css" />
+    <Content Include="Content\sites\grid26.css" />
+    <Content Include="Content\sites\global.css" />
+    <Content Include="Content\sites\calc.css" />
+    <Content Include="Content\sites\refund.css" />
+    <Content Include="Content\sites\rule.css" />
+    <Content Include="Content\extension\jquery-ui.ext.css" />
+    <Content Include="Content\sites\global.grid.css" />
+    <Content Include="Content\sites\outright.css" />
+    <Content Include="Content\sites\log-action.css" />
+    <Content Include="Content\sites\images\attention.png" />
+    <Content Include="Content\sites\images\bg.png" />
+    <Content Include="Content\sites\images\bgleague.png" />
+    <Content Include="Content\sites\images\blank.jpg" />
+    <Content Include="Content\sites\images\bullet-orange.png" />
+    <Content Include="Content\sites\images\button.png" />
+    <Content Include="Content\sites\images\calc-header-bg-action.png" />
+    <Content Include="Content\sites\images\calc-mp.png" />
+    <Content Include="Content\sites\images\calculate-button.png" />
+    <Content Include="Content\sites\images\calendar.png" />
+    <Content Include="Content\sites\images\error.gif" />
+    <Content Include="Content\sites\images\fail_icon.png" />
+    <Content Include="Content\sites\images\first-last-goal.png" />
+    <Content Include="Content\sites\images\header.png" />
+    <Content Include="Content\sites\images\loading.gif" />
+    <Content Include="Content\sites\images\logout_icon.png" />
+    <Content Include="Content\sites\images\notify_icon.png" />
+    <Content Include="Content\sites\images\pointer.png" />
+    <Content Include="Content\sites\images\popup-title-bg.png" />
+    <Content Include="Content\sites\images\logo.png" />
+    <Content Include="Content\sites\images\subnav_btn.png" />
+    <Content Include="Content\sites\images\sub_right.png" />
+    <Content Include="Content\sites\images\sub_rightup.png" />
+    <Content Include="Content\sites\images\filter_bg.png" />
+    <Content Include="Content\sites\images\goal-record-header.png" />
+    <Content Include="Content\sites\images\loader.gif" />
+    <Content Include="Content\sites\images\no_icon.png" />
+    <Content Include="Content\sites\images\no_icon_disable.png" />
+    <Content Include="Content\sites\images\refresh_icon.png" />
+    <Content Include="Content\sites\images\refund-button.png" />
+    <Content Include="Content\sites\images\sub_left.png" />
+    <Content Include="Content\sites\images\sub_mid.png" />
+    <Content Include="Content\sites\images\sub_right_ico.png" />
+    <Content Include="Content\sites\images\success_icon.png" />
+    <Content Include="Content\sites\images\switches.png" />
+    <Content Include="Content\sites\images\switch_2_1x.png" />
+    <Content Include="Content\sites\images\top_bg.png" />
+    <Content Include="Content\sites\images\undo.png" />
+    <Content Include="Content\sites\images\yes_icon.png" />
+    <Content Include="Content\sites\images\yes_icon_disable.png" />
+    <Content Include="Content\sites\settlement-log.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Scripts\extension\jquery.ext.js" />
+    <Content Include="Scripts\extension\jquery-ui.autocomplete.ext.js" />
+    <Content Include="Scripts\libraries\jquery-ui.js" />
+    <Content Include="Scripts\libraries\jquery.blockUI.js" />
+    <Content Include="Scripts\libraries\jquery.js" />
+    <Content Include="Scripts\plugin\tipsy\jquery.tipsy.js" />
+    <Content Include="Scripts\plugin\validators\validators.js" />
+    <Content Include="Scripts\sites\global.js" />
+    <Content Include="Scripts\sites\nap.message-box.js" />
+    <Content Include="Scripts\sites\dialog-box.js" />
+    <Content Include="Scripts\sites\calculate.js" />
+    <Content Include="Scripts\sites\calc.js" />
+    <Content Include="Scripts\sites\refund.js" />
+    <Content Include="Scripts\sites\outright.js" />
+    <Content Include="Scripts\sites\settlement-log.js" />
+    <Content Include="Scripts\sites\multiple-ticket.js" />
+    <Content Include="Scripts\sites\single-ticket.js" />
+    <Content Include="Scripts\sites\type.js" />
+    <Content Include="Scripts\sites\languages.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Business\Fanex.NAP.Settlement.Services\Fanex.NAP.Settlement.Services.csproj">
+      <Project>{5EEA3326-3619-4597-877F-EF5EC92DA766}</Project>
+      <Name>Fanex.NAP.Settlement.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Fanex.NAP.Settlement.DTO\Fanex.NAP.Settlement.DTO.csproj">
+      <Project>{7CEA4A9C-3ADD-4DA6-97EF-D5939F4C0DF3}</Project>
+      <Name>Fanex.NAP.Settlement.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Fanex.NAP.Settlement.ViewModels\Fanex.NAP.Settlement.ViewModels.csproj">
+      <Project>{9B613BBD-0E3C-4155-A749-39C9EE976DB6}</Project>
+      <Name>Fanex.NAP.Settlement.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.NAP.Settlement.Controllers\Fanex.NAP.Settlement.Controllers.csproj">
+      <Project>{F6AC9AC3-F739-4771-809F-2A6643DBD00F}</Project>
+      <Name>Fanex.NAP.Settlement.Controllers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Web.csproj">
+      <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
+      <Name>Fanex.NAP.Settlement.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Code\RazorHelper.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Layout\NoInfo.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\Soccer.cshtml" />
+    <Content Include="Areas\Settlement\Views\Web.config" />
+    <Content Include="Areas\Settlement\Views\Shared\Layout\_LayoutSettlement.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\Index.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\Filter.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\RowOnList.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\Soccer.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\RowOnList.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\Refund.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Layout\_LayoutRefund.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\RowOnPopup.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\RowOnPopup.cshtml" />
+    <Content Include="Areas\Settlement\Views\UserControl\ButtonRefund.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Layout\_LayoutCalc.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\Calc.cshtml" />
+    <Content Include="Areas\Settlement\Views\UserControl\ButtonCalc.cshtml" />
+    <Content Include="Areas\Settlement\Views\UserControl\GoalRecord.cshtml" />
+    <Content Include="Areas\Settlement\Views\UserControl\UnreadyMatch.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\RefreshContent.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\DirectScore\Baseball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\DirectScore\Tennis.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\DirectScore\Basketball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\DirectScore\IceHockey.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\DirectScore\Soccer.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\Baseball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\Baseball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\Basketball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\Basketball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\Billiard.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\Billiard.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\IceHockey.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\IceHockey.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\Tennis.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\Tennis.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\Volleyball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\Volleyball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\Index.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\Filter.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\Header.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\OverOnly.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\FilterOverOnly.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\HTOverOnly.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\FilterHTOverOnly.cshtml" />
+    <Content Include="Areas\UserControl\Web.config" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\NumberGame.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\NumberGame.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\ViewIpInfo.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\ReferenceActions.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Soccer.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\Soccer.cshtml" />
+    <Content Include="Areas\Settlement\Views\UserControl\ListAction.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Tennis.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\Tennis.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Baseball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Billiard.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Basketball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\IceHockey.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Volleyball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\Baseball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\Billiard.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\Basketball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\IceHockey.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\LogAction\Header\Volleyball.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\Shared\_LayoutLogAction.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Areas\Settlement\Views\Outright\Index.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\Filter.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\Matches.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\Status.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\LogAction.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\Shared\_LayoutPopup.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Settlement\Views\Log\Popup.cshtml" />
+    <Content Include="Areas\Settlement\Views\Outright\SettledMatches.cshtml" />
+    <None Include="Areas\UserLogin\Themes\fonts\Abel.woff" />
+    <None Include="Areas\UserLogin\Themes\select-site.less" />
+    <Content Include="Areas\UserLogin\Views\Common\AccessDenied.cshtml" />
+    <Content Include="Areas\UserLogin\Views\Common\Offline.cshtml" />
+    <None Include="BundleTransformer.Configuration.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

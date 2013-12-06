@@ -1,0 +1,68 @@
+﻿@model MatchLog
+@{var betStatus = Model.BetStatusAccess;}
+@if (Model.ActionId > 0 && Model.ActionId < 11)
+{
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home1Q, betStatus.Away1Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home2Q, betStatus.Away2Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home3Q, betStatus.Away3Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home4Q, betStatus.Away4Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home5Q, betStatus.Away5Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home6Q, betStatus.Away6Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home7Q, betStatus.Away7Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home8Q, betStatus.Away8Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.Home9Q, betStatus.Away9Q)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", betStatus.HomeEi, betStatus.AwayEi)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", Model.HtHomeScore, Model.HtAwayScore)
+    </td>
+    <td>
+        @string.Format("{0} - {1}", Model.FinalHomeScore, Model.FinalAwayScore)
+    </td>
+}
+else
+{
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+    <td>
+    </td>
+}

@@ -1,0 +1,14 @@
+﻿@model MatchLog
+@{var betStatus = Model.BetStatusAccess;}
+@if (Model.ActionId > 0 && Model.ActionId < 11)
+{
+    <td>
+        @string.Format("{0} - {1}", Model.FinalHomeScore, Model.FinalAwayScore)
+    </td>
+
+}
+else
+{
+    <td>
+    </td>
+}

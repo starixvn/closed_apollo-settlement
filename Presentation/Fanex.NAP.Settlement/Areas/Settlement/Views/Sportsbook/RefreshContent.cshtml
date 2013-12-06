@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+@model CalculateViewModel
+@{
+    var index = 0;
+    var matchList = Model.MainMatchList;
+    var listAction = Model.ActionList;
+    foreach (var match in matchList)
+    {
+        var oddOrEven = index % 2 != 0 ? "even" : string.Empty;
+        match.ListAction = listAction.Where(m => m.MatchId == match.MatchId).ToList();
+        Html.RenderPartial(string.Format("{0}/{1}", "Content", Model.Template), Tuple.Create(match, Model.Permission, Model.PageType, oddOrEven));
+        index++;
+    }
+}
+<script type="text/javascript">
+    jQuery(window.document).ready(function () {
+        $('.tooltip').tipsy({
+            live: true,
+            gravity: 'se'
+        });
+    });
+</script>

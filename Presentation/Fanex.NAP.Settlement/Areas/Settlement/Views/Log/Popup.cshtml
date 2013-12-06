@@ -1,0 +1,160 @@
+﻿@model SettlementLogViewModel
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if (IE 9)&!(IEMobile)]><html class="no-js ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|(gt IEMobile 7)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/css/jquery-ui", "~/css/log-settlement")
+</head>
+<body>
+    <div id="match-log" class="popup">
+        @using (Html.BeginForm("Popup", "Log", FormMethod.Post, new { @id = "SettlementLogForm" }))
+        {
+            <div id="filter-container">
+                @{ Html.RenderPartial("Filter"); }
+            </div>
+
+            <div id="content-cotainer">
+                @{
+                   var matchBlockIndex = 0;
+                   foreach (var matchLog in Model.MainData)
+                   {
+                       matchBlockIndex++;
+                       var index = 1;
+
+                    <div class="clear">
+                    </div>
+                    <div class="btn-league@(matchBlockIndex)" onclick=" SettlementLog.displayMatchInfoBlock(@matchBlockIndex) ">
+                        <div class="league">
+                            <div class="btn-left">
+                            </div>
+                            <div class="btn-middle">
+                                <span>@matchLog.LeagueName</span>
+                            </div>
+                            <div class="btn-right" id="btnRight@(matchBlockIndex)">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Calculation log Block-->
+                    <div id="matchBlock@(matchBlockIndex)">
+                        <div class="clear">
+                            &nbsp;</div>
+                        <div class="match">
+                            <div class="team">
+                                @matchLog.MatchName
+                            </div>
+                            <div class="event-date">@ViewResources.EventDate: @matchLog.EventDate.ToString("yyyy-MM-dd")</div>
+                        </div>
+                        <div class="clear">
+                        </div>
+                        <!--Header-->
+                        <div class="head-table">
+                            <table class="table-calculation">
+                                <thead>
+                                    <tr>
+                                        <th class="index">
+                                            #
+                                        </th>
+                                        <th class="match-date">@ViewResources.Date
+                                        </th>
+                                        <th class="user-name">@ViewResources.Username
+                                        </th>
+                                        <th class="action">@ViewResources.Action
+                                        </th>
+                                        <th class="score">@ViewResources.HTScore
+                                        </th>
+                                        <th class="score">@ViewResources.FTScore
+                                        </th>
+                                        <th class="goal-record">@ViewResources.GoalRecord
+                                        </th>
+                                        <th class="result-string">@ViewResources.ResultString
+                                        </th>
+                                        <th>@ViewResources.Remark
+                                        </th>
+                                        <th class="ip">@ViewResources.IP
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!--Header-->
+                        <!--Scroll content-->
+                        <div class="popup-scroll">
+                            <table class="table-calculation">
+                                <tbody>
+                                    @foreach (var matchDetail in matchLog.MatchLogDetailsList)
+                                    {
+                                        var username = string.IsNullOrEmpty(matchDetail.UserName) ? ViewResources.Auto : matchDetail.UserName;
+                                        <tr>
+                                            <td class="index">@(index++)
+                                            </td>
+                                            <td class="match-date">
+                                                @matchDetail.SettlementDate.ToString("yyyy-MM-dd hh:mm:ss tt")
+                                            </td>
+                                            <td class="user-name">
+                                                @username
+                                            </td>
+                                            <td class="action">@matchDetail.ActionName
+                                            </td>
+                                            <td class="score">@Utility.GetScore(matchDetail.HtHomeScore, true) - @Utility.GetScore(matchDetail.HtAwayScore, true)
+                                            </td>
+                                            <td class="score">
+                                                @(Utility.GetScore(matchDetail.FinalHomeScore, true))
+                                                - @(Utility.GetScore(matchDetail.FinalAwayScore, true))
+                                            </td>
+                                            <td class="goal-record">
+                                                @(string.IsNullOrWhiteSpace(matchDetail.GoalRecord) ? "-" : matchDetail.GoalRecord)
+                                            </td>
+                                            <td class="result-string">
+                                                @matchDetail.BetStatus
+                                            </td>
+                                            <td>
+                                                @Html.Raw(matchDetail.Remark)
+                                            </td>
+                                            <td class="ip">
+                                                <a href="javascript:;" class="action-ip-info" ip="@matchDetail.Ip">@matchDetail.Ip</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--Scroll content-->
+                    </div>
+                    <!--Calculation log Block-->
+                    <div class="clear">
+                    </div>
+                   }
+
+                   if (!Model.MainData.Any())
+                   {
+                    <div class="header">@string.Format(ViewResources.EventFromTo, Model.Param.FromDate.ToString("yyyy-MM-dd"), Model.Param.ToDate.ToString("yyyy-MM-dd"))</div>
+                       Html.RenderPartial("Layout/NoInfo");
+                   }
+                }
+            </div>
+
+            <div class="loading">
+            </div>
+            <div class="block-body">
+            </div>
+        }
+    </div>
+    @Scripts.Render("~/scripts/jquery-all",
+    "~/scripts/log-settlement")
+    <script type="text/ecmascript">
+        Site.unBlockUI();
+        Site.getAbsoluteUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
+        SettlementLog.init();
+        $("#SettlementLog").addClass("item-active");
+    </script>
+</body>
+</html>

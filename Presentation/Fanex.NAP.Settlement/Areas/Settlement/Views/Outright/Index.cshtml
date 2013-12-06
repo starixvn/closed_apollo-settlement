@@ -1,0 +1,161 @@
+﻿@{
+    ViewBag.Title = "Outright";
+    Layout = Request.IsAjaxRequest() ? null : "Shared/_Layout.cshtml";
+}
+@using Fanex.NAP.Settlement.DTO.Domain
+@model OutrightViewModel
+@section ContentFilter
+{
+    @{ Html.RenderPartial("Filter"); }
+}
+<div class="head-table">
+    <table class="table-calculation">
+        <thead>
+            <tr>
+                <th class="code">
+                    No
+                </th>
+                <th class="code">@ViewResources.KickOffTime
+                </th>
+                <th>
+                    @ViewResources.Event
+                </th>
+                <th class="event-status">
+                    @ViewResources.EventStatus
+                </th>
+                <th class="confirm">
+                    @ViewResources.Confirm
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+@if (Model.OutrightList.Any())
+{
+    <div class="content-scroll">
+        <table class="table-calculation">
+            <tbody>
+                @{
+
+    var outrightList = Model.OutrightList;
+    var leagueList = outrightList.GroupBy(m => m.LeagueId).Select(m => m.Key).ToList();
+    var index = 0;
+    foreach (var leagueId in leagueList)
+    {
+
+        var classAutoSettled = "on act-auto-settle";
+        var classCal = "cal-button";
+        var classUnCal = "cal-button";
+        var outrightByLeagueId = outrightList.Where(m => m.LeagueId == leagueId).ToList();
+        var firstRow = outrightByLeagueId[0];
+        if (Model.DisabledAutoSettle)
+        {
+            classAutoSettled = "cursor-default";
+            classCal = "atc-cal-button";
+            classUnCal = "atc-uncal-button";
+        }
+        else //ON
+        {
+            if (firstRow.DisabledAutoSettle)
+            {
+                classAutoSettled = "act-auto-settle";
+                classCal = "atc-cal-button";
+                classUnCal = "atc-uncal-button";
+            }
+        }
+                    <tr class="calculation-leagues" data-league-item="@leagueId">
+                        <td colspan="3">
+                            <div class="float-left" style="margin: 6px">
+                                @firstRow.LeagueName
+                            </div>
+                            <div class="float-left outright">
+                                @if (outrightByLeagueId.Any())
+                                {
+                                    @firstRow.MatchCode;
+                                }
+                            </div>
+                        </td>
+                        <td colspan="2">
+                            @if (Model.Permission.CanCalculateOutright)
+                            {
+                                <div class="float-right">
+                                    <div class="@classCal float-left" id="calc-@leagueId">
+                                        @ViewResources.Calculate</div>
+                                    @if (Model.Permission.CanUncalculateOutright)
+                                    {
+                                        <div class="@classUnCal float-left" id="uncalc-@leagueId">
+                                            @ViewResources.Uncalculate</div>
+                                    }
+                                </div>
+                                <div class="float-right auto-set">
+                                    <label>@ViewResources.AutoSettlement</label>
+                                    <i class="@classAutoSettled" id="auto-id-@leagueId" data-league-id="@leagueId"></i>
+                                </div>
+                            }
+                        </td>
+                    </tr>
+                            foreach (var item in outrightByLeagueId)
+                            {
+                                index++;
+                                var oddOrEven = index % 2 != 0 ? string.Empty : "even";
+                    <tr class="@oddOrEven" data-league-item="@leagueId">
+                        <td class="code">@index
+                        </td>
+                        <td class="code">
+                            @Html.Raw(item.KickOffTime.ToString("yyyy-MM-dd<br/>hh:mm:ss tt"))
+                        </td>
+                        <td align="left" class="league">
+                            <b>@item.TeamName</b>
+                        </td>
+                        <td class="event-status">
+                            @Utility.UppercaseFirst(item.OddsStatus)
+                            @if (item.FailedActionId > 0)
+                            {
+                                <div style="color: Red">@Utility.GetActionStatusById(item.FailedActionId)</div>
+                            }
+                        </td>
+                        <td class="confirm">
+                            @{
+                            var listAction = Model.LogActionList.Where(m => m.OrId == item.OrId).ToList();
+                            var i = 0;
+                            var count = listAction.Count;
+                            if (count > 0)
+                            {
+                                foreach (var action in listAction)
+                                {
+                                <div class="calc-notifier disable">
+                                    @Utility.UppercaseFirst(action.Status)
+                                </div>
+                                    if (i < (count - 1))
+                                    {
+                                @Html.Raw("&nbsp;»");
+                                    }
+                                    i++;
+                                }
+                                <div class="act-view-log" style="text-decoration: underline; margin-left: 4px; width:50px;
+                            margin-top: 5px; color: #0273FF; cursor: pointer" data-orid="@item.OrId"  data-team-id="@item.TeamId">
+                                    @ViewResources.ViewLog</div>
+                            }
+                            }
+                        </td>
+                    </tr>
+                            }
+    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    Html.RenderPartial("Layout/NoInfo");
+}
+@if (Request.IsAjaxRequest())
+{
+    <script type="text/javascript">
+        jQuery(window.document).ready(function () {
+            Site.resize(200);
+        });
+
+    </script>
+}

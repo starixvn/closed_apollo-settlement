@@ -1,0 +1,76 @@
+﻿@using Fanex.NAP.Core.Configuration
+@{
+    ViewBag.Title = "LogActionList";
+    Layout = "Shared/_LayoutLogAction.cshtml";
+}
+@model LogActionViewModel
+@{
+    var i = 1;
+    var rowbg = string.Empty;
+    var listAction = Model.MatchLogList;
+    var match = Model.CurrentMatch;
+}
+@if (listAction.Any())
+{
+    <div>
+        <div id="tab-title">
+            <div class="left">
+            </div>
+            <div class="middle">@match.LeagueName</div>
+            <div class="right">
+            </div>
+        </div>
+    </div>
+    <div id="match-log">
+        <div class="match">
+            <div class="team">
+                @string.Format("{0} -vs- {1}", match.HomeName, match.AwayName)
+            </div>
+            <div class="event-date">@ViewResources.EventDate: @match.KickOffTime.ToString("yyyy-MM-dd")</div>
+        </div>
+        <div class="clear">
+        </div>
+    </div>
+    <div>
+        <table class="table-calculation">
+            <thead>
+                <tr>
+                    <th class="order">
+                        #
+                    </th>
+                    <th class="date">
+                        @ViewResources.Date
+                    </th>
+                    <th>
+                        @ViewResources.Action
+                    </th>
+                    @{
+    Html.RenderPartial(string.Format("{0}/{1}", "LogAction/Header", Model.Template), match.SportType);
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in listAction)
+                {
+                    item.GroupSport = Model.GroupSport;
+                    item.SportType = match.SportType;
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @item.LogTime.ToString("yyyy-MM-dd hh:mm:ss tt")
+                        </td>
+                        <td class="@rowbg">
+                            @Html.ActionName(item.ActionId)
+                        </td>
+                        @{
+                    Html.RenderPartial(string.Format("{0}/{1}", "LogAction/Content", Model.Template), item);
+                        }
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+}

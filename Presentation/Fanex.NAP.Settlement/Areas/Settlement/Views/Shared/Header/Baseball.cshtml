@@ -1,0 +1,52 @@
+﻿@using Fanex.NAP.Settlement.DTO.Domain
+@model BaseViewModel
+@{
+    switch (Model.PageType)
+    {
+        case PageType.Refund:
+        case PageType.Calc:
+            Layout = "RowOnPopup.cshtml";
+            break;
+        default:
+            Layout = "RowOnList.cshtml";
+            break;
+    }
+}
+@section Score{
+    <th class="score-betstatus" rowspan="2">
+        1
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        2
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        3
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        4
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        5
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        6
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        7
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        8
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        9
+    </th>
+    <th class="score-betstatus" rowspan="2">
+        E.I
+    </th>
+    <th class="score" rowspan="2">
+        @ViewResources.HTScore
+    </th>
+    <th class="score" rowspan="2">
+        @ViewResources.FinalScore
+    </th>
+}

@@ -1,0 +1,91 @@
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
+@model Tuple<Match, SettlementPermission, String>
+@{
+    var match = Model.Item1;
+    var permission = Model.Item2;
+    var oddOrEven = Model.Item3;
+    var eventStatus = Utility.MapEventStatusString(match.EventStatus, match.IsPending, match.IsHtCal, match.IsCalculated);
+    var backgroundCalculate = match.EventStatus.ToLower().Trim() == "completed" ? Background.Calculated : string.Empty;
+    var isNowDate = Utility.IsNowDate(match.EventDate);
+    var listAction = match.ListAction; // Model Log Action
+}
+<tr class="row-@match.LeagueId number-game @oddOrEven" data-match-code="@match.MatchCode" data-match-id="@match.MatchId" data-sport-id="@match.SportType">
+    <td>
+        <div class='@(permission.CanViewSettlementLog ? "act-match-log code-link" : "no-link")'>@match.MatchCode</div>
+    </td>
+    <td>
+        <div>
+            @match.KickOffTime.ToString("yyyy-MM-dd")</div>
+        <div>
+            @match.KickOffTime.ToString("hh:mm:ss tt")</div>
+    </td>
+    <td class="match-home">
+        @string.Format(ViewResources.NumberGameNo, match.MatchCode)
+    </td>
+    <td>
+        @{
+            var secondBall = 0;
+            var thirdBall = 0;
+            var totalNumber = 0;
+            var firstBall = string.Empty;
+            var lastBall = string.Empty;
+
+            if (!string.IsNullOrEmpty(match.Number))
+            {
+                var listBall = match.Number.Split(',');
+                var count = listBall.Count();
+
+                if (count >= 2)
+                {
+                    secondBall = Convert.ToInt32(listBall[1]);
+                }
+                if (count >= 3)
+                {
+                    thirdBall = Convert.ToInt32(listBall[2]);
+                }
+
+                for (var i = 0; i < count; i++)
+                {
+                    var number = Convert.ToInt32(listBall[i]);
+                    var imgnumber = number < 10 ? "0" + number.ToString() + ".jpg" : number.ToString() + ".jpg";
+                    totalNumber += number;
+                    if (i == 0)
+                    {
+                        firstBall = "<img src='../Content/sites/images/number/" + imgnumber + "'/>";
+                    }
+
+                    if (i == count - 1)
+                    {
+                        lastBall = "<img src='../Content/sites/images/number/" + imgnumber + "'/>";
+                    }
+
+                    if (number == 0 && count == 1)
+                    {
+                        break;
+                    }
+            <img src="~/Content/sites/images/number/@imgnumber" />
+                }
+            }
+            else
+            {
+                // all balls are invalid
+            @ViewResources.NA
+            }
+        }
+    </td>
+    <td class="@Utility.BackgroundColorEventStatus(eventStatus, match.IsPending)">@eventStatus
+    </td>
+    <td class="@backgroundCalculate">
+        @if (isNowDate && permission.NumberGame.CanReclculate)
+        {
+            <div class="code-link act-recalc">@ViewResources.ReCalc</div>
+        }
+        else
+        {
+            @ViewResources.ReCalc
+        }
+    </td>
+    <td>
+        @Html.Action("ListAction", "Sportsbook", new { groupSport = match.GroupSport, listAction })
+    </td>
+</tr>

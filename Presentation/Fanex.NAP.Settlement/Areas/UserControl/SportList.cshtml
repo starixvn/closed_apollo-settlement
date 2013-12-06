@@ -1,0 +1,14 @@
+﻿@{
+    Layout = null;
+}
+@model IList<Sport>
+@{
+    var dllSportList = Model.Select(i => new SelectListItem
+    {
+        Text = i.SportName,
+        Value = i.SportType.ToString()
+
+    }).ToList();
+
+    @Html.DropDownList("SportTypeId", dllSportList, new { @class = "select-sport-type" })
+}

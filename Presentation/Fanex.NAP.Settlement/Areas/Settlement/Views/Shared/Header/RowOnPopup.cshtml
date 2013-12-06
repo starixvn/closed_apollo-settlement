@@ -1,0 +1,24 @@
+﻿@using Fanex.NAP.Settlement.DTO.Domain
+@model BaseViewModel
+<div id="tab-title">
+    <div class="left">
+    </div>
+    <div class="middle">@Model.LeagueName</div>
+    <div class="right">
+    </div>
+</div>
+<table class="table-calculation">
+    <thead>
+        <tr>
+            <th rowspan="2" class="code">
+                @ViewResources.MatchCode
+            </th>
+            <th rowspan="2" class="kick-off-time">@ViewResources.KickOffTime
+            </th>
+            <th rowspan="2" class="event">
+                @Model.HeaderEvent
+            </th>
+            @RenderSection("Score")
+        </tr>
+    </thead>
+</table>

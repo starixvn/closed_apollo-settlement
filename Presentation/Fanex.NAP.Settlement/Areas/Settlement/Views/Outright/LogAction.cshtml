@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "Reference action log";
+    Layout = "Shared/_LayoutPopup.cshtml";
+}
+@model OutrightLogActionViewModel
+<div id="tab-title">
+    <div class="left">
+    </div>
+    <div class="middle">@Model.LeagueName</div>
+    <div class="right">
+    </div>
+</div>
+<div id="match-log">
+    <div class="match">
+        <div class="team">
+            @Model.TeamName
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<table id="outright" class="table-calculation">
+    <thead>
+        <tr>
+            <th>
+                #
+            </th>
+            <th>@ViewResources.Date
+            </th>
+            <th class="code">
+                @ViewResources.Action
+            </th>
+            <th class="confirm">
+                @ViewResources.DeadHeat
+            </th>
+        </tr>
+    </thead>
+    @if (Model.LogActionList.Any())
+    {
+        <tbody>
+            @{
+        var index = 0;
+        foreach (var item in Model.LogActionList)
+        {
+            index++;
+            var oddOrEven = index % 2 != 0 ? string.Empty : "even";
+                <tr class="@oddOrEven">
+                    <td>
+                        @index
+                    </td>
+                    <td>
+                        @Html.Raw(string.Format("{0} {1}", item.LogTime.ToString("yyyy-MM-dd"), item.LogTime.ToString("hh:mm:ss tt")))
+                    </td>
+                    <td class="code">
+                        @Html.Raw(Utility.UppercaseFirst(string.IsNullOrEmpty(item.Status) ? ViewResources.Running : item.Status))
+                    </td>
+                    <td>
+                        @Html.Raw(item.DeadHeat > 0 ? "True" : "False")
+                    </td>
+                </tr>
+        }
+            }
+        </tbody>
+
+    }
+</table>
+@Html.Hidden("isClose", 1)

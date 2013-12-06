@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Calculate";
+    Layout = Request.IsAjaxRequest() ? null : "../Shared/Layout/_LayoutSettlement.cshtml";
+}
+@using Fanex.NAP.Settlement.DTO.Domain
+@model CalculateViewModel
+@section ContentFilter
+{
+    @{ Html.RenderPartial("Filter"); }
+}
+@if (!string.IsNullOrWhiteSpace(Model.Template))
+{
+    <div class="head-table">
+        @{
+    Html.RenderPartial(string.Format("{0}/{1}", "Header", Model.Template), Model);
+        }
+    </div>
+    if (Model.MainMatchList.Any())
+    {
+    <div class="content-scroll">
+        <table class="table-calculation">
+            <tbody>
+                @{
+
+        var matchList = Model.MainMatchList;
+        var listAction = Model.ActionList;
+        var index = 0;
+        var currentLeagueId = 0;
+        foreach (var row in matchList)
+        {
+            var leagueId = row.LeagueId;
+            if (!currentLeagueId.Equals(leagueId))
+            {
+                index = 0;
+                currentLeagueId = leagueId;
+                    <tr class="calculation-leagues league-item-@leagueId">
+                        <td colspan="@Model.Colspan">
+                            &nbsp;@row.LeagueName
+                        </td>
+                        <td style="text-align: center">
+                            @if (Model.IsCheckBoxCalcMp)
+                            {
+                                @Html.CheckBox("CheckBoxLeagueCalc-" + leagueId,
+                                                   new { @class = "multiple-league-name parlay-chk league-chk league-" + leagueId, @data_league_id = leagueId })
+                            }
+                        </td>
+                        <td colspan="4">
+                            <div class="leagues-icon-refresh act-refresh-league" data-league-id="@leagueId">
+                            </div>
+                        </td>
+                    </tr>
+            }
+
+            row.ListAction = listAction.Where(m => m.MatchId == row.MatchId).ToList();
+            row.GroupSport = Model.GroupSport;
+
+            var oddOrEven = index % 2 != 0 ? "even" : string.Empty;
+            Html.RenderPartial(string.Format("{0}/{1}", "Content", Model.Template), Tuple.Create(row, Model.Permission, Model.PageType, oddOrEven));
+            index++;
+
+        }
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+    else
+    {
+        Html.RenderPartial("Layout/NoInfo");
+    }
+}
+@section scripts
+{
+    <script type="text/javascript">
+        jQuery(window.document).ready(function () {
+            Site.resize(200);
+            $("#Calculate").addClass("item-active");
+        });
+    </script>
+}

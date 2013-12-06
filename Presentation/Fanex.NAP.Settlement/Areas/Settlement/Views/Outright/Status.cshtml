@@ -1,0 +1,37 @@
+﻿@model string
+@{
+    var item = Model.Split('|');
+    var selectedItem = Convert.ToInt32(item[1]);
+    var list = new List<SelectListItem>
+        {
+              new SelectListItem
+                {
+                    Text = ViewResources.Running,
+                    Value = Convert.ToString(OutrightStatus.Running),
+                    Selected = selectedItem.Equals(OutrightStatus.Running)
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Won,
+                    Value = Convert.ToString(OutrightStatus.Won),
+                    Selected = selectedItem.Equals(OutrightStatus.Won)
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Lose,
+                    Value = Convert.ToString(OutrightStatus.Lose),
+                    Selected =  selectedItem.Equals(OutrightStatus.Lose)
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Refund,
+                    Value = Convert.ToString(OutrightStatus.Refund),
+                    Selected =  selectedItem.Equals(OutrightStatus.Refund)
+                }
+        };
+    if (!selectedItem.Equals(OutrightStatus.Running))
+    {
+        list.RemoveAt(0);
+    }
+    @Html.DropDownList("status-" + item[0], list);
+}

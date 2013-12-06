@@ -1,0 +1,33 @@
+﻿@model Fanex.NAP.Settlement.DTO.IP.IpInfo
+@*@{Layout = "../Shared/Layout/_Layout.cshtml";}*@
+<div id="ipInfo">
+    <table width="100%" cellpadding="3" cellspacing="0">
+        <tr>
+            <td width="60px">
+                <b>@ViewResources.Country:</b>
+            </td>
+            <td class="tdvalue">
+                @Model.CountryName
+                @if (!string.IsNullOrEmpty(Model.CountryCode))
+                {                    
+                    <img src='~/Content/sites/images/flags/@string.Format("{0}.gif", Model.CountryCode)'  alt="@Model.CountryCode" />
+                }
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>@ViewResources.City:</b>
+            </td>
+            <td class="tdvalue">
+                @Model.City
+            </td>
+        </tr>
+    </table>
+    <fieldset class="note">
+        <legend><b>@ViewResources.AdditionalInformation</b></legend>Please <a href="http://whois.domaintools.com/@Model.Ip" target="_blank">
+            click here</a> for additional information at DNSstuff . Note: Country and city
+        information is provided by IP2Location™ and DNSstuff which might only serve as a
+        reference, with no warranty. Please consult other reliable sources for the current
+        and accurate information, if required.
+    </fieldset>
+</div>

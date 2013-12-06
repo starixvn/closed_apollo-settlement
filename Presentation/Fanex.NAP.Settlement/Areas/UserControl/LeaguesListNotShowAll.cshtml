@@ -1,0 +1,13 @@
+﻿@{
+    Layout = null;
+}
+@model IList<League>
+@{
+    var ddlLeagues = Model.Select(i => new SelectListItem
+    {
+        Text = i.LeagueName,
+        Value = i.LeagueId.ToString()
+    });
+
+    @Html.DropDownList("LeagueId", ddlLeagues, new { @class = "select-league", @style = "display: none;" })
+}

@@ -1,0 +1,73 @@
+﻿.color-away-team
+{
+	color: #000;
+}
+.final-score-color
+{
+	color: #FD537D;
+}
+.ht-score-color, .total-game-color
+{
+	color: #6877B4;
+}
+.bg-pending
+{
+	background-color: Yellow;
+}
+.bg-postponed
+{
+	background-color: #FDFD87;
+}
+.bg-calculated
+{
+	background-color: #dac093;
+}
+.bg-refund
+{
+	background-color: #aeeff9;
+}
+.bg-halftime
+{
+	background-color: #FBBDFB;
+}
+.bg-row-undecided
+{
+	background-color: #f8d7d7 !important;
+}
+
+.bg-row-actionfailed
+{
+	background-color: #D0D0D0 !important;
+}
+
+/* Color action*/
+.calc-notifier
+{
+	display: inline-block;
+	padding: 0 5px;
+	margin: 4px 0 1px 3px;
+	background-color: #B8DE7A;
+	border: 1px solid #6d8c26; /* darken(#BAD972, 30%) */
+	border-bottom-width: 2px;
+	color: #55813F; /* darken(#BAD972, 40%) */
+	font-weight: bold;
+	cursor: pointer;
+}
+.calc-notifier.rf
+{
+	background-color: #FFCA5E;
+	border-color: #C89023;
+	color: #95713D !important;
+}
+.calc-notifier.unsettle
+{
+	background-color: #DC6565;
+	border-color: #891f1f;
+	color: #4E6434;
+}
+.calc-notifier.disable
+{
+	background-color: #C2CEDA;
+	border-color: #6382a0;
+	color: #4f6881;
+}

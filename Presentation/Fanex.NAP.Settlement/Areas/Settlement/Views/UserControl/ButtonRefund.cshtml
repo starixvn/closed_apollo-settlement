@@ -1,0 +1,95 @@
+﻿@using Fanex.NAP.Settlement.DTO.Domain
+@model RefundViewModel
+<div class="display-button">
+    <!-- Refund -->
+    <div class="line-height-refund">
+        @{
+            var isShowRefundHt = ((string.IsNullOrEmpty(Model.CurrentMatch.BetStatus)
+                                   || !Model.CurrentMatch.BetStatus.Contains("Refund HT"))
+                                  && (Model.CurrentMatch.SportType == SportType.Soccer
+                                  || Model.CurrentMatch.SportType == SportType.BasketBall))
+                                 || Model.CurrentMatch.SportType == SportType.FootBall
+                                 || Model.CurrentMatch.SportType == SportType.BaseBall
+                                 || Model.CurrentMatch.SportType == SportType.NetBall
+                                 || Model.CurrentMatch.SportType == SportType.Rugby;
+
+        }
+        @if (isShowRefundHt)
+        {
+            <div class="line-height">
+                <div class="refund-button act-refund-ht">@ViewResources.RefundHT</div>
+            </div>
+        }
+        <div class="line-height">
+            <div class="refund-button act-refund-ft">@ViewResources.RefundFT</div>
+        </div>
+        <div class="line-height">
+            <div class="refund-button act-refund-all">@ViewResources.RefundAll</div>
+        </div>
+        <div class="clear">
+        </div>
+        <!-- Refund Parlay -->
+        <div>
+            @{
+                var isShowParlayHt = Model.CurrentMatch.SportType == SportType.Soccer || Model.CurrentMatch.SportType == SportType.BasketBall;
+                var isShowParlayFt = false;
+                if (Model.CurrentMatch.SportType == SportType.FootBall 
+                    || Model.CurrentMatch.SportType == SportType.BaseBall
+                    || Model.CurrentMatch.SportType == SportType.Soccer 
+                    || Model.CurrentMatch.SportType == SportType.BasketBall 
+                    || Model.CurrentMatch.SportType == SportType.Rugby)
+                {
+                    if (Model.CurrentMatch.SportType == SportType.FootBall 
+                        || Model.CurrentMatch.SportType == SportType.BaseBall 
+                        || Model.CurrentMatch.SportType == SportType.Rugby)
+                    {
+                        isShowParlayFt = true;
+                    }
+                    else if (!string.IsNullOrEmpty(Model.CurrentMatch.BetStatus) && Model.CurrentMatch.BetStatus.Contains("Refund HT"))
+                    {
+                        isShowParlayFt = false;
+                    }
+                    else {
+                        isShowParlayFt = true;
+                    }
+                }
+                
+
+                if (isShowParlayHt)
+                {
+                <div class="line-height">
+                    <div class="refund-button act-refund-parlay-ht">@ViewResources.RefundMultiHT</div>
+                </div>
+                }
+                if (isShowParlayFt)
+                {
+                <div class="line-height">
+                    <div class="refund-button act-refund-parlay-ft">@ViewResources.RefundMultiFT</div>
+                </div>
+                }
+                <div class="line-height">
+                    <div class="refund-button act-refund-parlay-all">@ViewResources.RefundMultiAll</div>
+                </div>
+            }
+        </div>
+        <div class="clear">
+        </div>
+        <!-- Refund FGLG -->
+        <div>
+            @if (Model.CurrentMatch.IsExistFgLg)
+            {
+                <div class="line-height">
+                    <div class="refund-button act-refund-all-fglg">@ViewResources.RefundAllFGLG</div>
+                </div>
+            }
+            @if (Model.CurrentMatch.IsExistLG)
+            {
+                <div class="line-height">
+                    <div class="refund-button act-refund-all-lg">@ViewResources.RefundAllLastGoal</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>

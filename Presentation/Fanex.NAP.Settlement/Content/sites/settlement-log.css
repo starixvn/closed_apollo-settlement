@@ -1,0 +1,198 @@
+﻿#match-log .header-table
+{
+    height: auto;
+}
+#match-log .table-calculation, .empty-data
+{
+    min-width: 820px;
+}
+
+#match-log .popup #content-cotainer
+{
+    max-height: 350px;
+    overflow-y: auto;
+    -ms-overflow-y: auto;
+    height: 350px;
+}
+
+#match-log #content-cotainer
+{
+    max-height: 800px;
+    overflow-y: auto;
+    -ms-overflow-y: auto;
+}
+#match-log #filter-container
+{
+    height: 50px;
+    min-width: 768px;
+    margin: 0 2px;
+}
+#match-log .table-calculation .index
+{
+    width: 20px;
+}
+#match-log .table-calculation .match-date
+{
+    width: 135px;
+}
+#match-log .user-name
+{
+    width: 80px;
+}
+#match-log .action
+{
+    width: 80px;
+}
+#match-log .goal-record
+{
+    width: 45px;
+}
+#match-log .result-string
+{
+    width: 80px;
+}
+#match-log .ip
+{
+    width: 130px;
+    border-right: 0;
+}
+#match-log .league div
+{
+    padding-top: 2px;
+    cursor: pointer;
+    float: left;
+}
+#match-log .btn-left
+{
+    background: url("images/sub_left.png") no-repeat scroll left top transparent;
+    height: 30px;
+    width: 29px;
+}
+#match-log .btn-middle
+{
+    background: url("images/sub_mid.png") repeat scroll 0 0 transparent;
+    border-width: 0;
+    color: #c64424;
+    font-size: 12px;
+    line-height: 24px;
+    padding-left: 15px;
+    padding-right: 32px;
+    text-align: left;
+    vertical-align: middle;
+    height: 25px;
+}
+#match-log .btn-right
+{
+    background: url("images/sub_right.png") no-repeat scroll left top transparent;
+    height: 27px;
+    width: 29px;
+}
+#match-log .btn-right-up
+{
+    background: url("images/sub_rightup.png") no-repeat scroll left top transparent;
+    height: 27px;
+    width: 29px;
+}
+#match-log .match
+{
+    /*background: url("images/bgleague.png") repeat-x;*/
+    background: #3E4954;
+    border-left: 1px solid #CBC9CA;
+    border-top: 1px solid #CBC9CA;
+    color: #FFF;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 24px;
+    width: 99.85%;
+}
+
+.btn-league
+{
+    margin-top: 7px;
+}
+
+#match-log .vs
+{
+    color: #000;
+}
+#match-log .match div
+{
+    float: left;
+    line-height: 24px;
+    padding-left: 5px;
+}
+#match-log .event-date
+{
+    padding-left: 30px !important;
+}
+#match-log .hide
+{
+    display: none;
+}
+#ipInfo .note
+{
+    color: #666;
+    font-size: 0.9em;
+    margin-top: 10px;
+    padding: 5px;
+}
+#match-log td > a
+{
+    text-decoration: none;
+}
+#match-log .header
+{
+    /*background: url("images/header.png") repeat-x scroll 0 0 transparent;*/
+    background: #2E373F;
+    border-bottom: solid 1px #CBC9CA;
+    color: white;
+    height: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding-top: 5px;
+}
+/* Scroll content */
+#match-log .content-scroll
+{
+    max-height: 620px;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-x: hidden;
+    border-bottom: 1px solid #CBCBCB;
+    margin-bottom: 5px;
+}
+#match-log .popup-scroll
+{
+    max-height: 150px;
+    width: 100%;
+    overflow-y: scroll;
+    -ms-overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-x: hidden;
+    border-bottom: 1px solid #CBCBCB;
+    margin-bottom: 5px;
+}
+
+#match-log .ui-dialog-content
+{
+    overflow-x: hidden;
+    overflow-y: scroll !important;
+}
+
+/* Dialog */
+
+.ui-dialog-titlebar
+{
+    border-radius: 4px 4px 0 0;
+}
+
+/* Calendar */
+
+.ui-datepicker-header
+{
+    background: #2F3840;
+}

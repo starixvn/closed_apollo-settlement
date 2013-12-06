@@ -1,0 +1,17 @@
+﻿@model CalcViewModel
+<div class="goal-record-header"> @ViewResources.GoalRecord </div>
+@{
+    var homeScore = 0;
+    var awayScore = 0;
+}
+<div class="goal-record-content">
+    @foreach (var goal in Model.CurrentMatch.GoalRecord)
+    {
+        homeScore += 'h' == char.ToLower(goal) ? 1 : 0;
+        awayScore += 'a' == char.ToLower(goal) ? 1 : 0;
+        <div class="goal-record-row">
+            <div class="goal-record-score"> @homeScore - @awayScore </div>
+            <div> @('h' == char.ToLower(goal) ? ViewResources.Home : ViewResources.Away) </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F6AC9AC3-F739-4771-809F-2A6643DBD00F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.NAP.Settlement.Controllers</RootNamespace>
+    <AssemblyName>Fanex.NAP.Settlement.Controllers</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <DontImportPostSharp>True</DontImportPostSharp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Fanex.BroadcastCommand.Client">
+      <HintPath>..\..\Dependencies\Fanex\Fanex.BroadcastCommand.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BroadcastCommand.Core">
+      <HintPath>..\..\Dependencies\Fanex\Fanex.BroadcastCommand.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BroadcastCommand.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Fanex\Fanex.BroadcastCommand.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Core">
+      <HintPath>..\..\Dependencies\Fanex.NAP.Core\Fanex.NAP.Core\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\..\Dependencies\Fanex.NAP.Core\Fanex.NAP.Framework\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet">
+      <HintPath>..\..\packages\Glimpse.AspNet.1.3.1\lib\net40\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\..\packages\Glimpse.1.5.0\lib\net40\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc4">
+      <HintPath>..\..\packages\Glimpse.Mvc4.1.3.2\lib\net40\Glimpse.Mvc4.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.20710.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.0.20710.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.20710.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.20710.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\Dependencies\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseController.cs" />
+    <Compile Include="Settlement\AutoSettlementController.cs" />
+    <Compile Include="Settlement\LogController.cs" />
+    <Compile Include="Settlement\OutrightController.cs" />
+    <Compile Include="Settlement\SportsbookController.Calc.cs">
+      <DependentUpon>SportsbookController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settlement\SportsbookController.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="HomeController.cs" />
+    <Compile Include="Settlement\SportsbookController.Refund.cs">
+      <DependentUpon>SportsbookController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TicketController\DoSingleTicketController.Calc.cs">
+      <DependentUpon>DoSingleTicketController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TicketController\DoSingleTicketController.cs" />
+    <Compile Include="TicketController\DoMultipleTicketController.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TicketController\DoSingleTicketController.Refund.cs">
+      <DependentUpon>DoSingleTicketController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TicketController\TicketBaseController.cs" />
+    <Compile Include="UserControlController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Business\Fanex.NAP.Settlement.Services\Fanex.NAP.Settlement.Services.csproj">
+      <Project>{5EEA3326-3619-4597-877F-EF5EC92DA766}</Project>
+      <Name>Fanex.NAP.Settlement.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Fanex.NAP.Settlement.DTO\Fanex.NAP.Settlement.DTO.csproj">
+      <Project>{7CEA4A9C-3ADD-4DA6-97EF-D5939F4C0DF3}</Project>
+      <Name>Fanex.NAP.Settlement.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Fanex.NAP.Settlement.MetaModels\Fanex.NAP.Settlement.MetaModels.csproj">
+      <Project>{0C4BD0B7-C71E-4DA2-84B2-87E315182C64}</Project>
+      <Name>Fanex.NAP.Settlement.MetaModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Fanex.NAP.Settlement.ViewModels\Fanex.NAP.Settlement.ViewModels.csproj">
+      <Project>{9B613BBD-0E3C-4155-A749-39C9EE976DB6}</Project>
+      <Name>Fanex.NAP.Settlement.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Web.csproj">
+      <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
+      <Name>Fanex.NAP.Settlement.Web</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\PostSharp.3.0.32\tools\PostSharp.targets" Condition="Exists('..\..\packages\PostSharp.3.0.32\tools\PostSharp.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

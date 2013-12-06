@@ -1,0 +1,50 @@
+﻿@{
+    var session = new Fanex.NAP.Core.Web.Session.CurrentSession();
+}
+@if (session != null && session.Menu != null)
+{
+    /* get level 0 meneu*/
+    var menuItems = session.Menu.Where(i => i.Parent == null).OrderBy(i => i.DisplayOrder).ToList();
+    <div id="nav-menu">
+        <ul class="topnav">
+            <li>
+                <div class="logo">
+                    <div>
+                    </div>
+                </div>
+            </li>
+            <!--render level 0 menu -->
+            @foreach (var menu in menuItems)
+            {
+                var level1Menu = session.Menu.Where(i => i.Parent != null && i.Parent.Id == menu.Id).ToList();
+
+                <li @(level1Menu.Count > 0 ? "class=has-child" : string.Empty) data-url="@menu.Url" id="@(menu.Name.Replace(" ", string.Empty).ToString())">
+                    <div class="item">
+                        <a href="@(level1Menu.Count > 0 ? "#" : Url.Content("~/" + menu.Url))">
+                            @(menu.Name)
+                        </a>
+                    </div>
+                    <!--Render Level 1 menu-->
+                    @if (level1Menu.Count > 0)
+                    {
+                        <ul class="subnav">
+                            @foreach (var menu1 in level1Menu)
+                            {
+                                <li><a href="@Url.Content("~/" + menu1.Url)">@menu1.Name</a> </li>
+                            }
+                        </ul>
+                    }
+                </li>
+
+            }
+        </ul>
+        <div id="welcome">
+            <span>Welcome</span>,<b> @User.Identity.Name</b>
+        </div>
+        <div id="logout">
+            <div>
+                <a href="@Url.Action("LogOut", "../Login")">Logout </a>
+            </div>
+        </div>
+    </div>
+}

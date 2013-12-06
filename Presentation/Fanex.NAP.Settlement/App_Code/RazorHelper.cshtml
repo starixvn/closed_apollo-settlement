@@ -1,0 +1,137 @@
+﻿@using System.Web.WebPages.Html
+@using Fanex.NAP.Settlement.DTO
+@using Fanex.NAP.Settlement.DTO.Domain
+@helper BuildDropDownList(IEnumerable<SelectListItem> listItems, IDictionary<string, object> htmlAttributies)
+    {
+        var id = htmlAttributies.ContainsKey("id") ? "id=" + htmlAttributies["id"] : string.Empty;
+        var name = htmlAttributies.ContainsKey("name") ? "name=" + htmlAttributies["name"] : string.Empty;
+        var className = htmlAttributies.ContainsKey("class") ? "class=" + htmlAttributies["class"] : string.Empty;
+        var style = htmlAttributies.ContainsKey("style") ? "style=" + htmlAttributies["style"] : string.Empty;
+    <select @(id) @(name) @(className) @(style)>
+        @foreach (var item in listItems)
+        {
+            <option value="@item.Value"  @(item.Selected ? "selected=selected" : string.Empty)>@(item.Text)</option>
+        }
+    </select>
+}
+@helper ListStatus(int selectedItem = 0)
+    {
+        var list = new List<SelectListItem>
+        {
+            new SelectListItem
+                {
+                    Text = ViewResources.All,
+                    Value = MatchStatus.All.ToString(),
+                    Selected = MatchStatus.All == selectedItem
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Running,
+                    Value = MatchStatus.Running.ToString(),
+                    Selected = MatchStatus.Running == selectedItem
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Closed,
+                    Value = MatchStatus.Closed.ToString(),
+                    Selected = MatchStatus.Closed == selectedItem
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Completed,
+                    Value = MatchStatus.Completed.ToString(),
+                    Selected = MatchStatus.Completed == selectedItem
+                },
+            new SelectListItem
+                {
+                    Text = ViewResources.Refund,
+                    Value = MatchStatus.Refund.ToString(),
+                    Selected = MatchStatus.Refund == selectedItem
+                }
+        };
+
+    @BuildDropDownList(list, new Dictionary<string, object>
+        {
+            {"id", "StatusId"},
+            {"name", "StatusId"},
+            {"class", "select-status"}
+        })
+}
+@helper SportTypeForHtOverOnly()
+    {
+        var list = new List<SelectListItem>
+        {
+            new SelectListItem
+                {
+                    Text = "Soccer",
+                    Value = SportType.Soccer.ToString(),
+                    Selected = true
+                },
+            new SelectListItem
+                {
+                    Text = "Basketball",
+                    Value = SportType.BasketBall.ToString()
+                },
+            new SelectListItem
+                {
+                    Text = "Football",
+                    Value = SportType.FootBall.ToString()
+                },
+            new SelectListItem
+                {
+                    Text = "Netball",
+                    Value = SportType.NetBall.ToString()
+                }
+        };
+    @BuildDropDownList(list, new Dictionary<string, object>
+        {
+            {"id", "SportTypeId"},
+            {"class", "select-sport-type"}
+        })
+}
+@helper Leagues(IList<League> leagues, bool showAll)
+    {
+        if (leagues == null)
+        {
+            leagues = new List<League>();
+        }
+        if (showAll)
+        {
+            leagues.Insert(0, new League { LeagueId = 0, LeagueName = ViewResources.ShowAllLeagues });
+        }
+        var list = leagues.Select(i => new SelectListItem
+            {
+                Text = i.LeagueName,
+                Value = i.LeagueId.ToString()
+            });
+
+    @BuildDropDownList(list, new Dictionary<string, object>
+        {
+            {"id", "LeagueId"},
+            {"name", "LeagueId"},
+            {"class", "select-league"}
+        })
+}
+@helper Sports(IList<Sport> sports)
+    {
+        if (sports == null)
+        {
+            sports = new List<Sport>();
+        }
+        var list = sports.Select(i => new SelectListItem
+            {
+                Text = i.SportName,
+                Value = i.SportType.ToString()
+            });
+
+    @BuildDropDownList(list, new Dictionary<string, object>
+        {
+            {"id", "SportTypeId"},
+            {"name", "SportTypeId"},
+            {"class", "select-sport-type"}
+        })
+}
+@helper DisplayScore(int? homeScore, int? awayScore, string seperator = " - ")
+    {
+    @homeScore@seperator@awayScore;               
+}

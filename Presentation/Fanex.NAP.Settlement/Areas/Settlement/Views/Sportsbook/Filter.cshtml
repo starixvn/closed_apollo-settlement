@@ -1,0 +1,105 @@
+﻿@{
+    Layout = null;
+}
+@model CalculateViewModel
+@using (Html.BeginForm("Index", "Sportsbook", FormMethod.Post, new { @id = "calculate-form" }))
+{
+    <div class="line">
+    </div>
+    <div class="container_26">
+        <div class="row">
+            <div class="grid_3 label">
+                <label for="FromDate">
+                    @ViewResources.From
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                @Html.TextBox("FromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 85px;", @readonly = "readonly" })
+            </div>
+            <div class="grid_2 label">
+                <label for="ToDate">
+                    @ViewResources.To
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                @Html.TextBox("ToDate", Model.Param.ToDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 85px", @readonly = "readonly" })
+            </div>
+            <div class="grid_10 span">
+                <span>
+                    @Html.CheckBox("UnCalculate", Model.Param.UnCalculate)
+                    <label for="UnCalculate">@ViewResources.UncalculateGameOnly</label>
+                </span><span>
+                    @Html.CheckBox("UncalculateMultiple", Model.Param.UncalculateMultiple)
+                    <label for="UncalculateMultiple">@ViewResources.UncalculateMultipleOnly</label>
+                </span>
+            </div>
+            <div class="grid_2 label">
+                <label for="input-StatusId">
+                    @ViewResources.Status
+                </label>
+            </div>
+            <div class="grid_3 alpha field">
+                <div>
+                    @RazorHelper.ListStatus()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="grid_3 label">
+                <label for="MatchCode">
+                    @ViewResources.MatchCode
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                <div>
+                    @Html.TextBox("MatchCode", Model.Param.MatchCode, new { @class = "inputtext", style = "width: 108px", @maxlength = 50 })
+                </div>
+            </div>
+            <div class="grid_2 label">
+                <label for="input-SportTypeId">
+                    @ViewResources.Sport
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                @RazorHelper.Sports(Model.SportsList)
+            </div>
+            <div class="grid_2 label">
+                <label for="input-LeagueId">
+                    @ViewResources.League
+                </label>
+            </div>
+            <div id="league-div" class="grid_11 alpha field" style="min-width: 326px;">
+                @RazorHelper.Leagues(Model.LeaguesList, true) &nbsp;
+            </div>
+            <div class="grid_1 alpha">
+                <div class="button" style="padding-left: 35px;" id="SubmitButton">@ViewResources.Submit</div>
+            </div>
+        </div>
+    </div>
+    <div class="auto-set">
+        <label>@ViewResources.AutoSettlement &mdash;</label>
+        @{
+    var autoSettle = "on";
+    if (ViewBag.DisabledAutoSettle)
+    {
+        autoSettle = string.Empty;
+    }
+        }
+        <i class="btn-auto-settle-all @autoSettle"></i>
+    </div>
+    <div class="line">
+    </div>
+    <div class="line">
+    </div>
+
+    <!-- Hiden fields catch FromDate, ToDate when refresh page -->
+    @Html.Hidden("OriginalFromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"))
+    @Html.Hidden("OriginalToDate", Model.Param.ToDate.ToString("yyyy-MM-dd"))
+
+    <!-- Save the original criteria to serve refresh page on a league -->
+    @Html.Hidden("HiddenCriteria", string.Empty)
+    @Html.Hidden("CanSetAutoSettlement", Model.Permission.CanSetAutoSettlement)
+    @Html.Hidden("CanCalculate", Model.Permission.SportsBook.CanCalculate)
+    @Html.Hidden("CanRefund", Model.Permission.SportsBook.CanRefund)
+
+}

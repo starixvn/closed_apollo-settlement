@@ -1,0 +1,42 @@
+﻿.popup
+{
+	overflow-x: hidden;
+	-ms-overflow-x: hidden;
+	overflow-y: auto;
+	-ms-overflow-y: auto;
+	width: 705px;
+	background: #fff;
+}
+#log-action .table-calculation
+{
+	min-width: 700px;
+	border-top: 1px solid #fff;
+}
+#log-action .order
+{
+	width: 20px;
+}
+#log-action .date
+{
+	width: 140px;
+}
+#log-action .set-score
+{
+	width: 30px;
+	max-width: 30px;
+}
+#log-action .score
+{
+	width: 40px;
+	max-width: 40px;
+}
+#log-action .goal-record
+{
+	width: 60px;
+	max-width: 60px;
+}
+
+td.goal-record
+{
+	text-transform: uppercase;
+}

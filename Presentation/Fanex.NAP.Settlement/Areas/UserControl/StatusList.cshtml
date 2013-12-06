@@ -1,0 +1,9 @@
+﻿@{
+    Layout = null;
+}
+@model String
+@{
+    var data = Model.Split('|');
+    var selectedItem = Convert.ToInt32(data[1]);
+}
+@RazorHelper.ListStatus(selectedItem)

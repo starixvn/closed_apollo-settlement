@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null;
+}
+@model CalculateViewModel
+@using (Html.BeginForm("HtOverOnly", "Sportsbook", FormMethod.Post, new { @id = "calculate-form" }))
+{
+    <div class="line">
+    </div>
+    <div class="container_26">
+        <div class="row">
+            <div class="grid_2 label">
+                @ViewResources.Date
+            </div>
+            <div class="grid_3 alpha field" style="width: 105px">
+                @Html.TextBox("FromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 78px;", @readonly = "readonly" })
+            </div>
+            <div class="grid_1 label">
+                @ViewResources.Sport
+            </div>
+            <div class="grid_4 alpha field">
+                @RazorHelper.SportTypeForHtOverOnly()
+            </div>
+            <div class="grid_1 alpha">
+                <div style="padding-left: 35px;" class="button" id="SubmitButton">@ViewResources.Submit</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="auto-set">
+        <label>@ViewResources.AutoSettlement &mdash;</label>
+        @{
+    var autoSettle = "on";
+    if (ViewBag.DisabledAutoSettle)
+    {
+        autoSettle = string.Empty;
+    }
+        }
+        <i class="btn-auto-settle-all @autoSettle"></i>
+    </div>
+
+    <div class="line">
+    </div>
+    <div class="line">
+    </div>
+
+    // Hiden fields catch FromDate when refresh page
+    @Html.Hidden("OriginalFromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"))
+
+    <!-- Save the original criteria to serve refresh page on a league -->
+    @Html.Hidden("HiddenCriteria", string.Empty)
+    @Html.Hidden("htOverOnly", "1")
+    @Html.Hidden("CanSetAutoSettlement", Model.Permission.CanSetAutoSettlement)
+    @Html.Hidden("CanCalculate", Model.Permission.SportsBook.CanCalculate)
+    @Html.Hidden("CanRefund", Model.Permission.SportsBook.CanRefund)
+}

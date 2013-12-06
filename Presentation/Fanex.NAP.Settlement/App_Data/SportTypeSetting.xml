@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SportTypes>
+  <SportTypeMapping GroupSport="1"
+                    Template="Soccer"
+                    DirectlyTemplate = "DirectScore/Soccer"
+                    IsCheckBoxCalcMP ="true"
+                    Colspan="8">
+    <SportType Name="Soccer" Id="1" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="2"
+                    Template="Basketball"
+                    DirectlyTemplate = "DirectScore/Basketball"
+                    IsCheckBoxCalcMP ="true"
+                    Colspan="13">
+    <SportType Name="Basketball" Id="2" />
+    <SportType Name="Football" Id="3" />
+    <SportType Name="Rugby" Id="26" />
+    <SportType Name="Netball" Id="32" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="3"
+                    Template="IceHockey"
+                    DirectlyTemplate = "DirectScore/IceHockey"
+                    IsCheckBoxCalcMP ="true"
+                    Colspan="11">
+    <SportType Name="IceHockey" Id="4" />
+    <SportType Name="FiledHockey" Id="28" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="4"
+                    Template="Tennis"
+                    DirectlyTemplate = "DirectScore/Tennis"
+                    IsCheckBoxCalcMP ="true"
+                    Colspan="13">
+    <SportType Name="Tennis" Id="5" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="5"
+                    Template="Baseball"
+                    DirectlyTemplate = "DirectScore/Baseball"
+                    IsCheckBoxCalcMP ="true"
+                    Colspan="18">
+    <SportType Name="Baseball" Id="8" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="6"
+                    Template="Billiard"
+                    IsCheckBoxCalcMP ="true"
+                    Colspan="7">
+    <SportType Name="Billiard" Id="7" />
+    <SportType Name="Golf" Id="10" />
+    <SportType Name="Motorsports" Id="11" />
+    <SportType Name="Darts" Id="25" />
+    <SportType Name="Winter Sport" Id="29" />
+    <SportType Name="Cycling" Id="33" />
+    <SportType Name="Fencing" Id="34" />
+    <SportType Name="Judo" Id="35" />
+    <SportType Name="Modern Pentathlon" Id="36" />
+    <SportType Name="Rowing" Id="37" />
+    <SportType Name="Sailing" Id="38" />
+    <SportType Name="Shooting" Id="39" />
+    <SportType Name="Taekwondo" Id="40" />
+    <SportType Name="Triathlon" Id="41" />
+    <SportType Name="Wrestling" Id="42" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="7"
+                     Template="Volleyball"
+                     DirectlyTemplate = "DirectScore/Tennis"
+                     IsCheckBoxCalcMP ="true"
+                     Colspan="13">
+    <SportType Name="Volleyball" Id="6" />
+    <SportType Name="Badminton" Id="9" />
+    <SportType Name="Squash" Id="30" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="8"
+                   Template="NumberGame"
+                   IsCheckBoxCalcMP ="false"
+                   Colspan="3">
+    <SportType Name="NumberGame" Id="161" />
+  </SportTypeMapping>
+
+  <SportTypeMapping GroupSport="10"
+                    Template="HorseRacing"
+                    IsCheckBoxCalcMP ="false"
+                    Colspan="9">
+    <SportType Name="Horse Racing" Id="151" />
+    <SportType Name="Greyhounds" Id="152" />
+    <SportType Name="Harness" Id="153" />
+  </SportTypeMapping>
+</SportTypes>

@@ -1,0 +1,116 @@
+﻿.popup
+{
+    overflow-x: hidden;
+    -ms-overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-y: auto;
+    width: 770px;
+    background: #fff;
+}
+.popup .table-calculation
+{
+    min-width: 768px;
+}
+#outright .table-calculation .calculation-leagues .outright
+{
+    border: solid 1px #323136;
+    background: #504E4F;
+    padding: 5px;
+    color: #fff;
+    margin: 2px 5px 2px 10px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+#outright .cal-button
+{
+    margin: 2px 5px 2px 0;
+    border: solid 1px #9B9B9B;
+    background: #9ea09f;
+    padding: 5px 15px;
+    color: #000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#outright .atc-cal-button, .atc-uncal-button
+{
+    margin: 2px 5px 2px 0;
+    border: solid 1px #9B9B9B;
+    background: #F1F1F1;
+    padding: 5px 15px;
+    color: #000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+#outright .atc-cal-button:hover, .atc-uncal-button:hover
+{
+    color: #fff;
+    background-color: #DC6565;
+    border-color: #891f1f;
+}
+#outright .table-calculation .auto-set
+{
+    width: 155px;
+}
+#outright .table-calculation .auto-set > *
+{
+    float: left;
+}
+#outright .table-calculation .auto-set label
+{
+    padding: 7px 8px 0 0;
+}
+#outright .table-calculation .auto-set i
+{
+    margin: 3px 0 2px 0;
+}
+#outright .calc-notifier
+{
+    cursor: default;
+}
+#outright .match
+{
+    background: url("images/bgleague.png") repeat-x;
+    border-left: 1px solid #CBC9CA;
+    border-top: 1px solid #CBC9CA;
+    color: #FFFFFF;
+    float: left;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 24px;
+    width: 99.8%;
+}
+.calc-all-button
+{
+    background: url("images/calculate-button.png") no-repeat scroll -5px -3px transparent;
+    height: 29px;
+    width: 130px;
+    float: left;
+    margin-right: 5px;
+    line-height: 31px;
+    cursor: pointer;
+    color: #4E4848;
+}
+
+.calc-all-button:hover
+{
+    background: url("images/calculate-button.png") no-repeat scroll -5px -33px transparent;
+    color: #fff;
+    text-shadow: 0 0 0.2em #333;
+}
+.calc-all-disabled
+{
+    background: url("images/calculate-button.png") no-repeat scroll -5px -62px transparent;
+    color: #d1d1d1;
+    height: 29px;
+    width: 130px;
+    float: left;
+    margin-right: 5px;
+    line-height: 31px;
+    cursor: default;
+}

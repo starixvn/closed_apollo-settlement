@@ -1,0 +1,13 @@
+﻿@model CalcViewModel
+<div class="soccer">
+    @if (this.Model.CurrentMatch.SportType == 1)
+    { 
+    <div class="set-directly">
+        @ViewResources.GoalRecord
+        @(this.Model.CurrentMatch.IsExistFgLg ? this.Html.TextBox("GoalRecord", this.Model.CurrentMatch.GoalRecord, new { style = "width: 78px; text-transform:uppercase;", @tabindex = 5 }) : this.Html.TextBox("GoalRecord", this.Model.CurrentMatch.GoalRecord, new { @disabled = "disabled", style = "width: 78px" }))
+    </div>
+    }
+    @Html.Hidden("IsExistFgLg", Model.CurrentMatch.IsExistFgLg)
+    @Html.Hidden("statusFGLG", Model.CurrentMatch.BetStatus)
+    @Html.Hidden("IsLive", Model.CurrentMatch.IsLive.ToString())
+</div>

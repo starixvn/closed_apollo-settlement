@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Refund Confimation Box";
+    Layout = "../Shared/Layout/_LayoutRefund.cshtml";
+}
+@model RefundViewModel
+<form id="frm-calculate">
+@{
+    Html.RenderPartial(string.Format("{0}/{1}", "Header", Model.Template), Model);
+}
+<table class="table-calculation">
+    <tbody>
+        @{
+            var match = Model.CurrentMatch as Match;
+            match.GroupSport = Model.GroupSport;
+            Html.RenderPartial(string.Format("{0}/{1}", "Content", Model.Template), Tuple.Create(match, Model.Permission, Model.PageType, string.Empty));
+        }
+    </tbody>
+</table>
+@{
+    // Display button
+    Html.RenderPartial("../UserControl/ButtonRefund");
+
+    @Html.Hidden("MatchId", Model.CurrentMatch.MatchId)
+    @Html.Hidden("MatchCode", Model.CurrentMatch.MatchCode)
+    @Html.Hidden("SportId", Model.CurrentMatch.SportType)
+    @Html.Hidden("ActionType")
+}
+<div id="messageBox" class="message-box">
+    <div id="messageInfo" class="msgerror">
+        Display error!
+    </div>
+</div>

@@ -1,0 +1,19 @@
+﻿@using Fanex.NAP.Settlement.DTO.Domain
+@model BaseViewModel
+@{
+    switch (Model.PageType)
+    {
+        case PageType.Refund:
+        case PageType.Calc:
+            Layout = "RowOnPopup.cshtml";
+            break;
+        default:
+            Layout = "RowOnList.cshtml";
+            break;
+    }
+}
+@section Score{
+    <th class="score" rowspan="2">
+        @ViewResources.FinalScore
+    </th>
+}

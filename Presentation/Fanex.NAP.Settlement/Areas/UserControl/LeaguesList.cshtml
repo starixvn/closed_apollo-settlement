@@ -1,0 +1,14 @@
+﻿@{
+    Layout = null;
+}
+@model IList<League>
+@{
+    Model.Insert(0, new League { LeagueId = 0, LeagueName = ViewResources.ShowAllLeagues });
+    var ddlLeagues = Model.Select(i => new SelectListItem
+    {
+        Text = i.LeagueName,
+        Value = i.LeagueId.ToString()
+    });
+
+    @Html.DropDownList("LeagueId", ddlLeagues, new { @class = "select-league", @style = "display: none;" })
+}

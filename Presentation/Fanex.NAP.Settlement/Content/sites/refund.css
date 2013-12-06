@@ -1,0 +1,75 @@
+﻿#refund-popup
+{
+	width: 770px;
+	background: #fff;
+}
+/*--- Override CSS for Refund popup page ---*/
+#refund-popup .table-calculation
+{
+	min-width: 768px;
+}
+
+#refund-popup .code-link
+{
+	color: #000;
+	cursor: default;
+	text-decoration: none;
+}
+/*--- Button ---*/
+#refund-popup .display-button
+{
+	padding-top: 10px;
+	padding-left: 2px;
+}
+#refund-popup .display-button .line-height-refund
+{
+	padding-top: 7px;
+}
+
+#refund-popup .display-button .icon-bullet-orange
+{
+	background: url('images/bullet-orange.png') no-repeat;
+	width: 13px;
+	height: 16px;
+	float: left;
+	margin-top: 3px;
+}
+#refund-popup .display-button .normal-tickets
+{
+	font-size: 12px;
+	font-weight: bold;
+	color: #f96900;
+	padding-top: 3px;
+	padding-bottom: 5px;
+}
+
+#refund-popup .display-button .line-height
+{
+	float: left;
+	padding-right: 5px;
+	padding-bottom: 4px;
+}
+
+#refund-popup .refund-button
+{
+	color: #636363;
+	font-size: 12px;
+	font-weight: bold;
+	background: url(images/refund-button.png) no-repeat;
+	width: 130px;
+	height: 21px;
+	padding-top: 4px;
+	display: block;
+	text-align: left;
+	text-decoration: none;
+	padding-left: 26px;
+	cursor: pointer;
+}
+
+#refund-popup .refund-button:hover
+{
+	background: url(images/refund-button.png) 0 -27px no-repeat;
+	display: block;
+	width: 130px;
+	color: #E05452;
+}

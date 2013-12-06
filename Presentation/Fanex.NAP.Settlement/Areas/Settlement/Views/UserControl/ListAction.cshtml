@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "ListAction";
+}
+@using Fanex.NAP.Settlement.DTO.Domain
+@model Tuple<IList<MatchLog>, int>
+@{
+    var listMatch = Model.Item1;
+    var groupSport = Model.Item2;
+    var count = listMatch.Count;
+    var i = 0;
+
+}
+@if (listMatch.Any())
+{
+    <div class="float-left">
+        @foreach (var item in listMatch)
+        {
+
+            string[] value = Utility.RefActionStyle[item.ActionId].Split('|');
+            var className = value[0];
+            var actionName = value[1];
+            var disable = item.Disabled ? "disable" : string.Empty;
+            item.GroupSport = groupSport;
+
+            if (!string.IsNullOrEmpty(item.Tooltip))
+            {
+            <div class="@className @disable tooltip" original-title="@item.Tooltip" data-action-id="@item.ActionId" data-log-id="@item.LogId">@actionName</div>
+            }
+            else
+            {
+            <div class="@className @disable" data-action-id="@item.ActionId" data-log-id="@item.LogId">@actionName</div>
+            }
+            if (i < (count - 1))
+            {
+            @Html.Raw("&nbsp;»");
+            }
+
+            i++;
+        }
+    </div>
+    <div class="code-link float-left act-view-log" style="text-decoration: underline;
+        margin-left: 4px; margin-top: 5px;">
+        @ViewResources.ViewLog</div>
+
+}

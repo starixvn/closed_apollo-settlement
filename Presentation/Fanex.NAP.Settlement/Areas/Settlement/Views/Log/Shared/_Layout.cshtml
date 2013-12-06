@@ -1,0 +1,41 @@
+﻿@model SettlementLogViewModel
+<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if (IE 9)&!(IEMobile)]><html class="no-js ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|(gt IEMobile 7)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/css/jquery-ui", "~/css/log-settlement")
+</head>
+<body>
+    <div id="match-log">
+        <div id="header-container">
+            @{ Html.RenderPartial("~/Areas/UserControl/Header.cshtml"); }
+        </div>
+        <div id="filter-container">
+            @RenderSection("ContentFilter")
+        </div>
+        <div id="content-cotainer">
+            @RenderBody()
+        </div>
+        <div class="loading">
+        </div>
+        <div class="block-body">
+        </div>
+    </div>
+    @Scripts.Render("~/scripts/jquery-all",
+    "~/scripts/log-settlement")
+    <script type="text/ecmascript">
+        Site.unBlockUI();
+        Site.getAbsoluteUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
+        SettlementLog.init();
+        $("#SettlementLog").addClass("item-active");
+    </script>
+</body>
+</html>

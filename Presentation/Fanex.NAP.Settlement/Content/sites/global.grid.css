@@ -1,0 +1,664 @@
+﻿/* Menu */
+/* Menu */
+@font-face
+{
+    font-family: 'Verdana';
+    font-style: normal;
+    font-weight: 400;
+}
+#nav-menu a
+{
+    text-decoration: none;
+    color: #C8CACD;
+}
+
+#nav-menu
+{
+    font-family: Verdana;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 13px;
+    display: block;
+    color: #C8CACD;
+}
+/*segment-menu*/
+ul.topnav
+{
+    background: url("images/top_bg.png") repeat-x;
+    min-width: 1000px;
+    height: 36px;
+    list-style: none;
+    margin: 0;
+    padding: 5px 0;
+}
+
+ul.topnav li
+{
+    float: left;
+    padding-left: 0;
+    margin: 0;
+    border-left: solid 1px #1C262B;
+    border-bottom: solid 1px #1C262B;
+    position: relative;
+    display: block;
+    z-index: 1001;
+}
+
+ul.topnav li a
+{
+    display: block;
+    text-decoration: none;
+    float: left;
+    cursor: pointer;
+}
+
+ul.topnav li div /* add second border*/
+{
+    border: solid 1px #39454F;
+    height: 20px;
+    text-align: center;
+    padding: 3px 5px;
+}
+
+ul.topnav div.item /* item content*/
+{
+    background: #313A42;
+    display: block;
+    padding: 3px 8px;
+}
+
+ul.topnav li.item-active div ul.topnav .has-child div.item
+{
+    padding-left: 20px;
+}
+
+ul.topnav li div.item:hover, ul.topnav li.item-active div.item
+{
+    border-top: 2px solid #F5A9A3;
+}
+
+ul.topnav li.item-active div.item, ul.topnav li.item-active div.item:hover
+{
+    height: 21px;
+    padding: 2px 8px 2px;
+}
+
+ul.topnav li div.item:hover
+{
+    height: 21px;
+    padding: 2px 8px;
+    cursor: pointer;
+}
+
+#nav-menu ul.topnav li.item-active a
+{
+    color: #fff;
+}
+
+ul.topnav li span
+{
+    width: 16px;
+    height: 17px;
+    float: left;
+    background: url(images/subnav_btn.png) no-repeat left top;
+    position: absolute;
+    left: 2px;
+    top: 5px;
+}
+
+ul.topnav li span.subhover
+{
+    background-position: center bottom;
+    cursor: pointer;
+    top: 3px;
+}
+/*--Hover effect for trigger--*/
+ul.topnav li ul.subnav
+{
+    list-style: none;
+    position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+    left: 0;
+    top: 29px;
+    background: #333;
+    margin: 0;
+    padding: 0;
+    display: none;
+    float: left;
+    border: 1px solid #111;
+    border-radius: 2px;
+    z-index: 999;
+}
+ul.topnav li ul.subnav li
+{
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #252525; /*--Create bevel effect--*/
+    border-bottom: 1px solid #444; /*--Create bevel effect--*/
+    clear: both;
+}
+html ul.topnav li ul.subnav li a
+{
+    float: left;
+    padding-top: 2px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    width: 145px;
+    background: #333 url(images/subnav_btn.png) no-repeat left 3px;
+}
+html ul.topnav li ul.subnav li a:hover
+{
+    /*--Hover effect for subnav links--*/
+    color: #DE524F !important;
+    background: #222 url(images/subnav_btn.png) no-repeat left -21px;
+}
+/*segment-logo*/
+#nav-menu div.logo
+{
+    padding-top: 6px;
+    margin-left: 5px;
+    height: 17px;
+}
+#nav-menu div.logo div
+{
+    border: none;
+    background: url("images/logo.png") no-repeat;
+    height: 13px;
+    width: 125px;
+}
+/*segment-logo*/
+
+/* segment - Welcome & logout*/
+#nav-menu .line
+{
+    border-top: solid 1px #303859;
+    border-bottom: solid 1px #505a7f;
+    height: 0;
+    width: 1275px;
+}
+
+#nav-menu div#welcome, div#logout
+{
+    height: 15px;
+    margin-right: 20px;
+    position: absolute;
+    top: 10px;
+    height: 15px;
+}
+#nav-menu div#welcome
+{
+    right: 60px;
+    border-right: solid 1px #454d55;
+    padding-right: 10px;
+}
+#nav-menu div#welcome
+{
+    color: #fff;
+}
+#nav-menu div#logout
+{
+    margin-top: 2px;
+    padding-left: 15px;
+    right: 0px;
+    background: url('images/logout_icon.png') left bottom no-repeat;
+}
+#nav-menu div#logout div
+{
+    padding-bottom: 5px;
+}
+/* End Menu*/
+
+/* Filter */
+#filter-container
+{
+    position: relative; /*background: url("images/filter_bg.png") repeat-x;*/
+    background: #EBEBEB;
+    min-width: 1000px;
+    font-size: 12px;
+    color: #717171;
+    font-family: 'Segoe UI';
+}
+#filter-container .container_26
+{
+    padding-top: 5px;
+}
+#filter-container .row
+{
+    clear: both;
+    height: 28px;
+}
+#filter-container .label
+{
+    padding-top: 3px;
+    text-align: right;
+    font-weight: bold;
+}
+
+#filter-container .span > span
+{
+    padding-right: 10px;
+    font-weight: bold;
+    margin-left: -4px;
+}
+
+#filter-container .span > span *
+{
+    vertical-align: middle;
+}
+
+#filter-container .field > div
+{
+    float: left;
+}
+#filter-container .field > *
+{
+    float: left;
+    vertical-align: middle;
+}
+#filter-container .field .calendar
+{
+    margin-left: 3px;
+    width: 24px;
+    height: 24px;
+    background: url(images/calendar.png) no-repeat left top;
+    display: block;
+}
+#filter-container .line
+{
+    border-top: solid 1px #fff;
+    border-bottom: solid 1px #cdcdcd;
+    height: 0;
+    margin-bottom: 2px;
+}
+/* Set width for all DropdownList */
+#filter-container .select-sport-type
+{
+    width: 80px;
+}
+#filter-container .select-filter-by
+{
+    width: 150px;
+}
+#filter-container .select-league
+{
+    width: 324px;
+}
+#filter-container .select-status
+{
+    width: 63px;
+}
+
+/*** AUTO SETTELEMT SWITCH ***/
+#filter-container .auto-set
+{
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    padding-bottom: 3px;
+    z-index: 1000;
+}
+#filter-container .auto-set label
+{
+    float: left;
+    padding: 6px 3px 0 0;
+}
+#filter-container .auto-set i
+{
+    background: url(images/switch_2_1x.png) no-repeat;
+    float: left;
+    width: 60px;
+    height: 29px;
+    cursor: pointer;
+}
+#filter-container .auto-set i.on
+{
+    background-position: 0 -43px;
+}
+/* End Filter */
+
+/* Container */
+#calculation, #result
+{
+    background: url("images/bg.png");
+    overflow: hidden;
+}
+#header-container
+{
+    min-width: 1000px;
+    height: 40px;
+}
+
+#content-cotainer
+{
+    padding: 5px 2px 0 2px;
+}
+/* End Container */
+
+/* Table */
+div .head-table
+{
+    /*background: url("images/header.png") repeat-x;*/
+    background: #313A42;
+    border: 1px solid #CBC9CA;
+    padding-right: 15px;
+}
+.table-calculation
+{
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 1000px;
+    line-height: 17px;
+    text-align: center;
+}
+.table-calculation th
+{
+    border-right: 1px solid #CBC9CA;
+    font-size: 13px;
+    font-weight: normal;
+    vertical-align: middle;
+}
+.table-calculation td
+{
+    border: solid 1px #bbb;
+    padding: 1px;
+    vertical-align: middle;
+}
+.table-calculation thead
+{
+    /*background: url("images/header.png") repeat-x;*/
+    background: #2E373F;
+    color: white;
+}
+.table-calculation tbody
+{
+    background: #FAFAFA;
+}
+.table-calculation tbody .even
+{
+    background-color: #F3EFEE;
+}
+/*--- Calculation columns ---*/
+.table-calculation .calculation-leagues
+{
+    font-weight: bold;
+    text-align: left;
+    line-height: 7px;
+    height: 21px;
+}
+.table-calculation .calculation-leagues td
+{
+    color: #403F3B;
+    background: #E5DAD6;
+    vertical-align: middle;
+    border: 0;
+}
+.table-calculation td:first-child
+{
+    border-left: solid 1px #C8C8C8;
+}
+
+.table-calculation .calculation-leagues .leagues-icon-refresh
+{
+    width: 12px;
+    height: 13px;
+    margin-right: 3px;
+    float: right;
+    background: url("images/refresh_icon.png") 0 -14px no-repeat;
+    display: block;
+    cursor: pointer;
+}
+.table-calculation .calculation-leagues .leagues-icon-refresh:hover
+{
+    width: 12px;
+    height: 13px;
+    margin-right: 3px;
+    float: right;
+    background: url("images/refresh_icon.png") no-repeat;
+    display: block;
+    cursor: pointer;
+}
+
+.table-calculation .code
+{
+    min-width: 10%;
+    width: 10%;
+}
+
+.table-calculation tr.bg-row-actionfailed td.home-away
+{
+    border-bottom: 1px solid #bbb;
+}
+
+.table-calculation tr td.home-away
+{
+    border-bottom: 1px solid #ddd;
+}
+
+.table-calculation tr.bg-row-actionfailed:first-child td.home-away, .table-calculation tr:first-child .home-away
+{
+    border-bottom: none;
+}
+
+.table-calculation .kick-off-time
+{
+    min-width: 65px;
+    width: 65px;
+}
+.table-calculation .event
+{
+    min-width: 85px;
+}
+.table-calculation .match-name
+{
+    text-align: left;
+    min-width: 82px;
+}
+.table-calculation .match-home
+{
+    font-size: 12px;
+    padding-left: 3px;
+    font-weight: bold;
+    text-align: left;
+}
+.table-calculation .match-away
+{
+    font-size: 12px;
+    padding-left: 3px;
+    text-align: left;
+}
+.table-calculation .score
+{
+    min-width: 38px;
+    width: 38px;
+}
+.table-calculation .score-game
+{
+    min-width: 42px;
+    width: 42px;
+}
+.table-calculation .score-betstatus
+{
+    min-width: 17px;
+    width: 17px;
+}
+.table-calculation .event-status
+{
+    min-width: 10%;
+    width: 10%;
+}
+.table-calculation .header-action
+{
+    min-width: 83px;
+    width: 83px;
+}
+.table-calculation .calc-refund
+{
+    min-width: 40px;
+    width: 40px;
+}
+.table-calculation .calc-mp
+{
+    min-width: 42px;
+    width: 42px;
+}
+.table-calculation .calc-mp-button
+{
+    background: url("images/calc-mp.png") no-repeat;
+    height: 22px;
+    width: 42px;
+}
+.table-calculation .calc-mp-button:hover
+{
+    background: url("images/calc-mp.png") 0 -20px no-repeat;
+    cursor: pointer;
+}
+
+.table-calculation .horse-racing .race
+{
+    width: 156px;
+}
+.table-calculation .horse-racing .results
+{
+    font-weight: bold;
+    text-align: left;
+    padding-left: 3px;
+}
+.table-calculation .horse-racing .place, .win
+{
+    width: 100px;
+}
+.table-calculation .horse-racing .status
+{
+    width: 334px;
+}
+.table-calculation .official
+{
+    color: Red;
+    font-weight: bold;
+}
+
+.table-calculation .auto-set
+{
+    width: 66px;
+}
+.table-calculation .auto-set i
+{
+    background: url(images/switches.png) no-repeat;
+    display: block;
+    width: 40px;
+    height: 17px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+.table-calculation .auto-set i.on
+{
+    background-position: 0 -24px;
+}
+
+.table-calculation .confirm
+{
+    width: 20%;
+    padding: 3px;
+    border-bottom: 1px solid #CBC9CA;
+}
+.table-calculation td.confirm
+{
+    text-align: left;
+}
+
+.content-scroll .table-calculation .league
+{
+    width: 50%;
+}
+
+.table-calculation tr.bg-row-actionfailed td
+{
+    border: 1px solid #aaa;
+}
+
+.empty-data
+{
+    height: 20px;
+    min-width: 1000px;
+    background-color: #fff;
+    border: solid 1px #CBC9CA;
+    border-top: 0;
+    text-align: center;
+    padding: 5px 0 0 5px;
+}
+
+/* Icon: first goal and last goal*/
+.first-last-goal
+{
+    background: url(images/first-last-goal.png) no-repeat right 4px;
+    padding-right: 25px;
+    float: left;
+}
+.first-goal
+{
+    background: url(images/first-last-goal.png) no-repeat right -26px;
+    padding-right: 25px;
+    float: left;
+}
+.last-goal
+{
+    background: url(images/first-last-goal.png) no-repeat right -11px;
+    padding-right: 25px;
+    float: left;
+}
+
+/*--- style link on grid ---*/
+.no-link
+{
+    color: #0273FF;
+    cursor: default;
+    text-decoration: none;
+}
+.code-link
+{
+    color: #0273FF;
+    cursor: pointer;
+    text-decoration: none;
+}
+.code-link:hover
+{
+    color: #D2592D;
+    text-decoration: underline;
+}
+
+/*--- Scroll Content ---*/
+.content-scroll
+{
+    width: 100%;
+    max-height: 690px;
+    overflow-y: scroll;
+    -ms-overflow-y: scroll;
+    overflow-x: hidden;
+    -ms-overflow-x: hidden;
+}
+/*--- Width on TextBox ---*/
+.score-width-soccer
+{
+    width: 32px;
+}
+.score-width
+{
+    width: 17px;
+}
+.total-score-width
+{
+    width: 30px;
+}
+
+/* Tooltip */
+#toolTip
+{
+    position: absolute;
+    background-color: #cfc;
+    padding: 4px;
+    border: 2px solid #9c9;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 12px;
+}

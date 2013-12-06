@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<!--[if IEMobile 7]><html class="no-js iem7 oldie"><![endif]-->
+<!--[if (IE 7)&!(IEMobile)]><html class="no-js ie7 oldie" lang="en"><![endif]-->
+<!--[if (IE 8)&!(IEMobile)]><html class="no-js ie8 oldie" lang="en"><![endif]-->
+<!--[if (IE 9)&!(IEMobile)]><html class="no-js ie9" lang="en"><![endif]-->
+<!--[if (gt IE 9)|(gt IEMobile 7)]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/css/jquery-all")
+    @Styles.Render("~/css/refund")
+</head>
+<body>
+    <div id="refund-popup">
+        <div class="content-cotainer">
+            <div class="loading">
+            </div>
+            <div class="block-body">
+            </div>
+            @RenderBody()
+        </div>
+    </div>
+    @Scripts.Render("~/scripts/jquery-all",
+    "~/scripts/refund")
+    <script type="text/ecmascript">
+        Site.unBlockUI();
+        Site.getAbsoluteUrl = function (relativeUrl) {
+            return '@Url.Content("~/")' + relativeUrl;
+        };
+        Refund.init();
+    </script>
+</body>
+</html>

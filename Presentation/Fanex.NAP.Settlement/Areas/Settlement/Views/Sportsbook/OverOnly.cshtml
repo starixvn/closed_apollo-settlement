@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "OverOnly";
+    Layout = Request.IsAjaxRequest() ? null : "../Shared/Layout/_LayoutSettlement.cshtml";
+}
+@using Fanex.NAP.Settlement.DTO.Domain
+@model CalculateViewModel
+@section ContentFilter
+{
+    @{ Html.RenderPartial("FilterOverOnly"); }
+}
+<div class="head-table">
+    @{
+        Html.RenderPartial(string.Format("{0}/{1}", "Header", Model.Template), Model);
+    }
+</div>
+@if (Model.MainMatchList.Any())
+{
+    <div class="content-scroll">
+        <table class="table-calculation">
+            <tbody>
+                @{
+
+    var matchList = Model.MainMatchList;
+    var leagueList = matchList.GroupBy(m => m.LeagueId).Select(m => m.Key).ToList();
+    var listAction = Model.ActionList;
+    var index = 0;
+
+    foreach (var leagueId in leagueList)
+    {
+        var matchInLeague = matchList.Where(m => m.LeagueId == leagueId).ToList();
+                    <tr class="calculation-leagues league-item-@leagueId">
+                        <td colspan="@Model.Colspan">
+                            &nbsp;@CacheRef.GetLeagueName(leagueId)
+                        </td>
+                        <td colspan="5">
+                            <div class="leagues-icon-refresh act-refresh-league" data-league-id="@leagueId">
+                            </div>
+                        </td>
+                    </tr>
+        foreach (var match in matchInLeague)
+        {
+            match.ListAction = listAction.Where(m => m.MatchId == match.MatchId).ToList();
+            match.GroupSport = Model.GroupSport;
+            var oddOrEven = index % 2 != 0 ? "even" : string.Empty;
+            Html.RenderPartial(string.Format("{0}/{1}", "Content", Model.Template), Tuple.Create(match, Model.Permission, Model.PageType, oddOrEven));
+            index++;
+        }
+    }
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    Html.RenderPartial("Layout/NoInfo");
+}
+@section scripts
+{
+    <script type="text/javascript">
+        jQuery(window.document).ready(function () {
+            Site.resize(200);
+            $("#OverOnly").addClass("item-active");
+        });
+    </script>
+}

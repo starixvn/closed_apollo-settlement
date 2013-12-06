@@ -1,0 +1,151 @@
+﻿@{
+    ViewBag.Title = "Outright";
+    Layout = "Shared/_LayoutPopup.cshtml";
+}
+@model OutrightLogActionViewModel
+<div id="tab-title">
+    <div class="left">
+    </div>
+    <div class="middle">@Model.LeagueName
+        @Html.Hidden("leagueId", Model.LeagueId)
+    </div>
+    <div class="right">
+    </div>
+</div>
+<div class="clear">
+</div>
+<div>
+    @using (Html.BeginForm())
+    {
+        <table id="outright" class="table-calculation">
+            <thead>
+                <tr>
+                    <th>@ViewResources.Team
+                    </th>
+                    <th class="code">
+                        @ViewResources.Result
+                    </th>
+                    <th class="confirm">
+                        @ViewResources.Confirm
+                    </th>
+                </tr>
+            </thead>
+            @if (Model.OutrightList.Any())
+            {
+
+                <tbody>
+                    @{
+
+                var outrightList = Model.OutrightList;
+                var index = 0;
+                var orIds = string.Empty;
+                var orIdsFail = string.Empty;
+                var teamIds = string.Empty;
+                foreach (var item in outrightList)
+                {
+                    index++;
+
+                    var oddOrEven = index % 2 != 0 ? string.Empty : "even";
+                        <tr class="@oddOrEven">
+                            <td class="match-home">
+                                @item.TeamName
+                            </td>
+                            <td style="padding: 3px 0;">
+                                @if (Model.Permission.CanCalculateOutright)
+                                {
+                                    var statusId = 1;
+                                    if (!string.IsNullOrEmpty(item.Status))
+                                    {
+                                        switch (item.Status.ToLower())
+                                        {
+                                            case "running":
+                                                statusId = OutrightStatus.Running;
+                                                break;
+                                            case "won":
+                                                statusId = OutrightStatus.Won;
+                                                break;
+                                            case "lose":
+                                                statusId = OutrightStatus.Lose;
+                                                break;
+                                            case "refund":
+                                                statusId = OutrightStatus.Refund;
+                                                break;
+                                        }
+                                    }
+                                    teamIds += string.Join("|", item.TeamId, "");
+                                    orIds += string.Format("{0},{1}|", item.OrId, statusId);
+                                    Html.RenderPartial("Status", string.Format("{0}|{1}", item.OrId, statusId));
+                                }
+                                else
+                                {
+                                    @ViewResources.Running
+                                }
+                                @if (item.FailedActionId > 0)
+                                {
+                                    <div style="color: Red">@Utility.GetActionStatusById(item.FailedActionId)</div>
+                                    orIdsFail += string.Join(",", item.OrId, "");
+                                }
+                            </td>
+                            <td align="left">
+                                @{
+                                var listAction = Model.LogActionList.Where(m => m.OrId == item.OrId).ToList();
+                                var i = 0;
+                                var count = listAction.Count;
+                                if (count > 0)
+                                {
+                                    foreach (var action in listAction)
+                                    {
+                                    <div class="calc-notifier disable">
+                                        @Utility.UppercaseFirst(action.Status)
+                                    </div>
+                                        if (i < (count - 1))
+                                        {
+                                    @Html.Raw("&nbsp;»");
+                                        }
+                                        i++;
+                                    }
+                                    <div class="act-view-log" style="text-decoration: underline; margin-left: 4px;
+                            margin-top: 5px; color: #0273FF; cursor: pointer" data-orid="@item.OrId"  data-team-id="@item.TeamId">
+                                        @ViewResources.ViewLog</div>
+                                }
+                                }
+                            </td>
+                        </tr>
+
+                }
+                    }
+                    @if (Model.Permission.CanCalculateOutright)
+                    {
+                        <tr>
+                            <td colspan="3">
+                                <div class="act-calc calc-all-button">
+                                    @ViewResources.Calculate</div>
+                                @Html.Hidden("orIds", orIds)
+                                @Html.Hidden("orIdsFail", orIdsFail)
+                                @Html.Hidden("teamIds", teamIds)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            }
+            else
+            {
+                Html.RenderPartial("Layout/NoInfo");
+            }
+        </table>
+
+    }
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        jQuery(window).load(function () {
+            // Event click to Calculate
+            $("#outright").on("click", ".act-calc", OUTRIGHT.calculate);
+
+            // Event click to View log action
+            $("#outright").on("click", ".act-view-log", OUTRIGHT.openPopupLog);
+        });
+    </script>
+}

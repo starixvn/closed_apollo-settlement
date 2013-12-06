@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+@model OutrightViewModel
+@using (Html.BeginForm("Index", "Outright", FormMethod.Post, new { @id = "outright-form" }))
+{
+    <div class="line">
+    </div>
+    <div class="container_26">
+        <div class="row">
+            <div class="grid_3 label">
+                @ViewResources.From
+            </div>
+            <div class="grid_4 alpha field">
+                @Html.TextBox("FromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 85px;", @readonly = "readonly" })
+            </div>
+            <div class="grid_2 label">
+                @ViewResources.To
+            </div>
+            <div class="grid_4 alpha field">
+                @Html.TextBox("ToDate", Model.Param.ToDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 85px", @readonly = "readonly" })
+            </div>
+            <div class="grid_10 span">
+            </div>
+            <div class="grid_2 label">
+            </div>
+            <div class="grid_3 alpha field">
+            </div>
+        </div>
+        <div class="row">
+            <div class="grid_3 label">
+                @ViewResources.Sport
+            </div>
+            <div class="grid_4 alpha field">
+                @RazorHelper.Sports(Model.Param.SportsList)
+            </div>
+            <div class="grid_2 label">
+                @ViewResources.League
+            </div>
+            <div id="league-div" class="grid_11 alpha field" style="min-width: 326px;">
+                @RazorHelper.Leagues(Model.Param.LeaguesList, true) &nbsp;
+            </div>
+            <div class="grid_1 alpha">
+                <div class="button" style="padding-left: 35px;" id="SubmitButton">@ViewResources.Submit</div>
+            </div>
+        </div>
+    </div>
+    <div class="auto-set">
+        <label>@Html.CheckBox("IsSettled", Model.Param.IsSettled)</label>
+        <label for="IsSettled">@ViewResources.ShowSettledEvent</label>
+        <label>
+            &nbsp; |&nbsp;</label>
+        <label>
+            @ViewResources.AutoSettlement &mdash;</label>
+        @{
+    var autoSettle = "on";
+    if (Model.DisabledAutoSettle)
+    {
+        autoSettle = string.Empty;
+    }
+        }
+        <i class="btn-auto-settle-all @autoSettle"></i>
+    </div>
+    <div class="line">
+    </div>
+    <div class="line">
+    </div>
+
+    <!-- Hiden fields catch FromDate, ToDate when refresh page -->
+    @Html.Hidden("OriginalFromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"))
+    @Html.Hidden("OriginalToDate", Model.Param.ToDate.ToString("yyyy-MM-dd"))
+
+    <!-- Save the original criteria to serve refresh page on a league -->
+    @Html.Hidden("HiddenCriteria", string.Empty)
+    @Html.Hidden("IsOutright", true)
+    @Html.Hidden("CanSetAutoSettlement", Model.Permission.CanSetAutoSettlement)
+
+}

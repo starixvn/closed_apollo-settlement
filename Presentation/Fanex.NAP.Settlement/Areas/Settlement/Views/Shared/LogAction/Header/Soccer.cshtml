@@ -1,0 +1,13 @@
+﻿@model byte
+<th class="score">
+    @ViewResources.HTScore
+</th>
+<th class="score">
+    @ViewResources.FTScore
+</th>
+@if (Model == SportType.Soccer)
+{
+    <th class="goal-record">
+        @ViewResources.GoalRecord
+    </th>
+}

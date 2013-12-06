@@ -1,0 +1,81 @@
+﻿@model CalcViewModel
+<div class="calc-action-container">
+    <!--Calculate-->
+    @if (Model.ShowFullButton)
+    {
+        <!--HT-->
+        <div class="calc-action-row">
+            <div class="calc-action-header">
+                @ViewResources.FirstHalf
+            </div>
+            <div class="calc-action-status @(Model.CurrentMatch.HtStatus == "Calculated" ? "bg-calculated" : "")">
+                @Model.CurrentMatch.HtStatus
+            </div>
+            <div class="calc-action-button">
+                @if (Model.Permission.SportsBook.CanCalculate)
+                {
+                    <div class="act-calc-ht calc-button">@ViewResources.CalculateHT</div>
+                }
+            </div>
+        </div>
+        <!--FT-->
+        <div class="calc-action-row">
+            <div class="calc-action-header">
+                @ViewResources.FullTime
+            </div>
+            <div class="calc-action-status @(Model.CurrentMatch.FtStatus == "Calculated" ? "bg-calculated" : "")">
+                @Model.CurrentMatch.FtStatus
+            </div>
+            <div class="calc-action-button">
+                @if (Model.Permission.SportsBook.CanCalculate)
+                {
+                    <div class="@( Model.CurrentMatch.IsHtOnly || Model.CurrentMatch.HtStatus == "Running" ? "calc-button-disabled" : "act-calc-ft calc-button")">@ViewResources.CalculateFT</div>
+                }
+            </div>
+        </div>
+        <!--FGLG-->
+                if (Model.CurrentMatch.IsExistFgLg)
+                {
+        <div class="calc-action-row">
+            <div class="calc-action-header">
+                @ViewResources.FGLG
+            </div>
+            <div class="calc-action-status @(Model.CurrentMatch.FgLgStatus == "Calculated" ? "bg-calculated" : "")">
+                @Model.CurrentMatch.FgLgStatus
+            </div>
+            <div class="calc-action-button">
+                @if (Model.Permission.SportsBook.CanCalculate)
+                {
+                    <div class="act-calc-fgng">@ViewResources.CalculateFGNG</div>
+                }
+            </div>
+        </div>
+                }
+    }
+    <!--CalculateAll-->
+    <div class="calc-all-action">
+        @{
+            var calculated = Model.CurrentMatch.HtStatus == "Calculated" || Model.CurrentMatch.FtStatus == "Calculated"
+                             || Model.CurrentMatch.FgLgStatus == "Calculated";
+            var betStatus = string.IsNullOrEmpty(Model.CurrentMatch.BetStatus) ? string.Empty : Model.CurrentMatch.BetStatus.ToLower();
+
+        }
+        @if (Model.Permission.SportsBook.CanCalculate)
+        {
+            <div class="@(Model.CurrentMatch.IsHtOnly ? "calc-all-disabled" : "act-calc-all calc-all-button")">@ViewResources.CalculateAll</div>
+        }
+        @if (Model.Permission.SportsBook.CanUncalculate)
+        {
+            <div class="act-uncalc calc-all-button">@ViewResources.Uncalculate</div>
+        }
+    </div>
+</div>
+<!--GoalRecord-->
+<div class="calc-action-goal-record">
+    @if (!string.IsNullOrEmpty(Model.CurrentMatch.GoalRecord))
+    {
+        Html.RenderPartial("~/Areas/Settlement/Views/UserControl/GoalRecord.cshtml");
+    }
+</div>
+<div class="clear">
+</div>

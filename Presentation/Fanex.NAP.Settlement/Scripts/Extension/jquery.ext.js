@@ -1,0 +1,42 @@
+﻿ (function ($) {
+ 	$.fn.checkboxgroup = function () {
+
+ 		var allChk = this.first();
+ 		var elseChk = this.slice(1);
+ 		elseChk = elseChk.filter(":not(:disabled)");
+
+ 		allChk.attr('checked', elseChk.filter(":checked").length >= elseChk.length && elseChk.length > 0);
+
+ 		allChk.change(function () {
+ 			var thisIsChecked = $(this).is(':checked');
+ 			elseChk.attr('checked', thisIsChecked);
+ 		});
+
+ 		elseChk.change(function () {
+ 			var checked = $(this).is(':checked') ? elseChk.filter(":checked").length >= elseChk.length : false;
+ 			allChk.attr('checked', checked);
+ 		});
+
+ 		return this;
+ 	};
+})(jQuery);
+
+ $.extend({
+     /*
+     *Source:stackoverflow.com
+     *Edit by: Alex.Nguyen
+     * Create DialogBox by ID
+     *Read more: http://forum.pclayer.com/jquery-getorcreatedialog-t23641.html#ixzz2DOyeH5Aj
+     *
+     * @param { String } elementID
+     */
+    getOrCreateDialog: function(id) {
+     
+        $box = $('#' + id);
+        if (!$box.length) {
+            $box = $('<div id="' + id + '"><p style="margin: 7px 7px;"></p></div>').hide().appendTo('body');
+        }
+        return $box;
+    }   
+    });
+

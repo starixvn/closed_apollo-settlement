@@ -1,0 +1,256 @@
+﻿#calc-popup
+{
+	width: 770px;
+	background: #fff;
+}
+
+/*--- Override CSS for Refund popup page ---*/
+#calc-popup .table-calculation
+{
+	min-width: 768px;
+}
+
+#calc-popup .code-link
+{
+	color: #000;
+	cursor: default;
+	text-decoration: none;
+}
+#calc-popup .set-directly
+{
+	height: 20px;
+	width: 763px;
+	padding-top: 4px;
+	border-left: solid 1px #C8C8C8;
+	border-right: solid 1px #C8C8C8;
+	border-bottom: solid 1px #C8C8C8;
+	text-align: right;
+	padding-right: 5px;
+}
+#calc-popup .set-directly > *
+{
+	vertical-align: middle;
+	cursor: pointer;
+}
+#calc-popup .set-directly > div
+{
+	float: left;
+}
+#calc-popup .table-calculation .score
+{
+	width: 40px;
+}
+#calc-popup .table-calculation .score-betstatus
+{
+	width: 22px;
+}
+
+/* Hedge match */
+#calc-popup .hedge-match
+{
+	padding-top: 10px;
+}
+
+/* Calc Button */
+#calc-popup .calc-action-container
+{
+	border: 1px solid #30383C;
+	margin: 10px 0;
+	text-align: center;
+	float: left;
+	font-weight: bold;
+	color: #FFF;
+}
+
+#calc-popup .calc-action-container .calc-action-row
+{
+	clear: both;
+}
+
+#calc-popup .calc-action-container .calc-action-row div
+{
+	border-bottom: 1px solid #30383C;
+	font-weight: bold;
+	float: left;
+}
+
+#calc-popup .calc-action-container .calc-action-header
+{
+	width: 120px;
+	/*background: url("images/calc-header-bg-action.png") repeat-x;*/
+	background: #47525B;
+	height: 27px;
+	color: #FFF;
+	line-height: 28px;
+}
+
+#calc-popup .calc-action-container .calc-action-status
+{
+	width: 130px;
+	height: 27px;
+	background-color: #A4A9AD;
+	line-height: 28px;
+	color: #fff;
+}
+
+#calc-popup .calc-action-container .calc-action-button
+{
+	width: 250px;
+	margin-top: 2px;
+	height: 25px;
+}
+
+#calc-popup .calc-button
+{
+	background: url("images/calculate-button.png") no-repeat scroll -7px -92px transparent;
+	height: 16px;
+	width: 102px;
+	margin-left: 5px;
+	padding-left: 10px;
+	padding-top: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+#calc-popup .calc-action-container .calc-button:hover
+{
+	background: url("images/calculate-button.png") no-repeat scroll -7px -116px transparent;
+	color: #E05452;
+}
+
+#calc-popup .calc-action-container .calc-button-disabled
+{
+	background: url("images/calculate-button.png") no-repeat scroll -7px -140px transparent;
+	float: left;
+	width: 102px;
+	height: 16px;
+	padding-top: 5px;
+	padding-left: 10px;
+	margin-left: 5px;
+	cursor: default;
+	color: #8d8d8d;
+}
+
+#calc-popup .calc-action-container .calc-action-button .act-calc-fgng
+{
+	background: url("images/calculate-button.png") no-repeat scroll -7px -190px transparent;
+	padding-top: 4px;
+	padding-left: 10px;
+	margin-left: 5px;
+	height: 16px;
+	width: 205px;
+	cursor: pointer;
+}
+
+#calc-popup .calc-action-container .calc-action-button .act-calc-fgng:hover
+{
+	background: url("images/calculate-button.png") no-repeat scroll -7px -213px transparent;
+	color: #E05452;
+}
+
+#calc-popup .calc-action-container .calc-all-action
+{
+	height: 32px;
+	clear: both;
+	padding: 1px 110px 0 110px;
+	float: right;
+}
+
+#calc-popup .calc-all-button
+{
+	background: url("images/calculate-button.png") no-repeat scroll -5px -3px transparent;
+	height: 29px;
+	width: 130px;
+	float: left;
+	margin-right: 5px;
+	line-height: 31px;
+	cursor: pointer;
+	color: #4E4848;
+}
+
+#calc-popup .calc-all-button:hover
+{
+	background: url("images/calculate-button.png") no-repeat scroll -5px -33px transparent;
+	color: #fff;
+	text-shadow: 0 0 0.2em #333;
+}
+
+#calc-popup .calc-all-disabled
+{
+	background: url("images/calculate-button.png") no-repeat scroll -5px -62px transparent;
+	color: #d1d1d1;
+	height: 29px;
+	width: 130px;
+	float: left;
+	margin-right: 5px;
+	line-height: 31px;
+	cursor: default;
+}
+
+/* Goal Record */
+#calc-popup .calc-action-goal-record
+{
+	float: right;
+	text-align: center;
+	clear: right;
+	margin: 10px 0;
+}
+
+#calc-popup .calc-action-goal-record .goal-record-row div
+{
+	border-bottom: 1px solid #C8C8C8;
+	border-right: 1px solid #C8C8C8;
+	line-height: 22px;
+	color: #6E6E6E;
+	width: 35px;
+}
+
+#calc-popup .calc-action-goal-record .goal-record-header
+{
+	width: 137px;
+	background: url("images/calc-header-bg-action.png") repeat-x;
+	height: 23px;
+	color: #FFF;
+	line-height: 23px;
+	font-weight: bold;
+	clear: both;
+}
+
+#calc-popup .calc-action-goal-record .goal-record-content
+{
+	width: 154px;
+	height: 106px;
+	overflow: auto;
+}
+
+#calc-popup .calc-action-goal-record .goal-record-row div
+{
+	width: 67px;
+	text-align: center;
+	float: left;
+}
+
+#calc-popup .calc-action-goal-record .goal-record-score
+{
+	border-right: 1px solid #BDBDBD;
+	border-left: 1px solid #C8C8C8;
+}
+
+/* Not ready match*/
+
+#calc-popup .attention
+{
+	background: url("images/attention.png") no-repeat top left;
+	color: #FF8933;
+	padding: 8px 0 0 40px;
+	font-size: 12px;
+	height: 32px;
+}
+#calc-popup input[type="text"]
+{
+	height: 12px;
+	border: 1px solid #888888;
+	text-align: center;
+	font-size: 11px;
+}
+

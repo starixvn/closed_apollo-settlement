@@ -1,0 +1,44 @@
+﻿@using ViewResources = Fanex.NAP.Settlement.DTO.ViewResources
+@using Fanex.NAP.Core.Configuration
+@using Fanex.NAP.Core.Service.Impl
+@{
+    var menuItemService = new MenuItemService();
+    var session = new CurrentSession();
+    var backUrl = Url.Content("~/UserLogin/Login");
+
+    if (session != null && session.Menu != null && session.Menu.Count > 0)
+    {
+        session.Menu = (IList<MenuItem>)menuItemService.GetByUserAndSiteIncludeGroup(
+                session.UserId,
+                NapSettings.Settings.SiteId,
+                NapSettings.Settings.Environment,
+                true);
+
+        var firstMenu = session.Menu.OrderBy(m => m.DisplayOrder).FirstOrDefault();
+
+        if (firstMenu != null)
+        {
+            var childMenu = session.Menu.FirstOrDefault(i => i.Parent != null && i.Parent.Id == firstMenu.Id);
+            backUrl = childMenu != null ? this.Url.Content("~/" + childMenu.Url) : this.Url.Content("~/" + firstMenu.Url);
+        }
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Nap.Settlement-None Permission</title>
+    <link href="~/areas/userlogin/themes/none-permission.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <div class="note rounded">
+        <div>
+            @Html.Raw(ViewResources.NoPermission)
+        </div>
+        <div>
+            <a target="_top" href="@(backUrl)">@ViewResources.BackToSettlement</a>
+        </div>
+    </div>
+</body>
+</html>

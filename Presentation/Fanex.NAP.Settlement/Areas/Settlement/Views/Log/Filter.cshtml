@@ -1,0 +1,49 @@
+﻿@{
+    Layout = null;
+}
+@model SettlementLogViewModel
+@using (Html.BeginForm("Index", "Log", FormMethod.Post, new { @id = "SettlementLogForm" }))
+{
+    <div class="line">
+    </div>
+    <div class="container_26">
+        <div class="row">
+            <div class="grid_3 label">
+                <label for="MatchCode">
+                    @ViewResources.MatchCode
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                <div>
+                    @Html.TextBox("MatchCode", Model.Param.MatchCode, new { @class = "inputtext", style = "width: 120px;", @maxlength = 50 })
+                </div>
+            </div>
+            <div class="grid_2 label">
+                <label for="FromDate">
+                    @ViewResources.From:
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                @Html.TextBox("FromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 80px;", @readonly = "readonly" })
+            </div>
+            <div class="grid_2 label">
+                <label for="ToDate">
+                    @ViewResources.To:
+                </label>
+            </div>
+            <div class="grid_4 alpha field">
+                @Html.TextBox("ToDate", Model.Param.ToDate.ToString("yyyy-MM-dd"), new { @class = "inputtext", style = "width: 80px", @readonly = "readonly" })
+            </div>
+            <div class="grid_1 alpha">
+                <a href="javascript:;" class="button" id="SubmitButton">@ViewResources.Submit</a>
+            </div>
+        </div>
+    </div>
+    <div class="line">
+    </div>
+    <div class="line">
+    </div>
+    // Hiden fields catch FromDate, ToDate when refresh page
+    @Html.Hidden("OriginalFromDate", Model.Param.FromDate.ToString("yyyy-MM-dd"))
+    @Html.Hidden("OriginalToDate", Model.Param.ToDate.ToString("yyyy-MM-dd"))
+}
