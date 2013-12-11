@@ -17,6 +17,7 @@
 
     var permissionCalc = false;
     var permissionRefund = false;
+    var permissionCloseMatch = false;
     if (permission.SportsBook.CanCalculate)
     {
         if (disabledAutoSettle)
@@ -38,6 +39,18 @@
         else
         {
             permissionRefund = match.DisabledAutoSettle;
+        }
+    }
+
+    if (permission.SportsBook.CanCloseMatch)
+    {
+        if (disabledAutoSettle)
+        {
+            permissionCloseMatch = true;
+        }
+        else
+        {
+            permissionCloseMatch = match.DisabledAutoSettle;
         }
     }
 
@@ -63,7 +76,19 @@
     </td>
     @RenderSection("HomeScore")
     <td rowspan="2" class='event-status event-status-@match.MatchId @Utility.BackgroundColorEventStatus(eventStatus, match.IsPending)'>
-        @eventStatus
+        <span class="running">@eventStatus
+           @if (eventStatus.Equals(EventStatus.Running, StringComparison.OrdinalIgnoreCase))
+           {
+            if (permissionCloseMatch)
+            {
+                <i id="close-@match.MatchId" class='on close-match'></i>
+            }
+            else
+            {
+                <i id="close-@match.MatchId" class='off close-match'/>
+            }
+           }
+        </span>
         <br />
         <span style="color: Red">@actionFailed</span>
     </td>
@@ -106,7 +131,7 @@
             background = match.IsMultiCaled ? Background.Calculated : Background.Refund;
         }
         <td rowspan="2" class="calc-mp @background">
-            @if (match.IsKeyScore && permission.SportsBook.CanCalculateMp)
+            @if (match.IsKeyScore && permission.SportsBook.CanCalculateMixParlay)
             {
                 if (string.IsNullOrEmpty(autoSettle))
                 {

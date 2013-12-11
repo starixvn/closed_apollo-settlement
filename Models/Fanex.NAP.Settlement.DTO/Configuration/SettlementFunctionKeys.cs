@@ -7,7 +7,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 11/20/2013 1:00:02 PM
+// Lasted generated date: 12/9/2013 10:11:43 AM
 // </history>
 namespace Fanex.NAP.Settlement.DTO.Configuration
 {
@@ -41,6 +41,8 @@ namespace Fanex.NAP.Settlement.DTO.Configuration
         public const string SportsbookCalculate = "SportsbookCalculate";
 
         public const string SportsbookCalculateMixParlay = "SportsbookCalculateMixParlay";
+
+        public const string SportsbookCloseMatch = "SportsbookCloseMatch";
 
         public const string SportsbookMarkPendingMatch = "SportsbookMarkPendingMatch";
 

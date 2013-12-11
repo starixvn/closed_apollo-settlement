@@ -122,7 +122,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                         CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate),
                         CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
                         CanRefund = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookRefund),
-                        CanCalculateMp = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculateMixParlay)
+                        CanCalculateMixParlay = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculateMixParlay),
+                        CanCloseMatch = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCloseMatch)
                     }
                 }
             };
@@ -147,12 +148,12 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             model = this.SetFilterBy(model);
             IList<MatchLog> matchLog;
             var listCalculate = this._calculateService.SearchMatch(model, out matchLog);
+            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
             foreach (Match match in listCalculate)
             {
                 match.GroupSport = sportViewSetting.GroupSport;
             }
 
-            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
             var data = new CalculateViewModel
                 {
                     ActionList = matchLog,
@@ -174,7 +175,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                             CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate),
                             CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
                             CanRefund = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookRefund),
-                            CanCalculateMp = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculateMixParlay)
+                            CanCalculateMixParlay = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculateMixParlay),
+                            CanCloseMatch = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCloseMatch)
                         }
                     }
                 };
@@ -182,7 +184,6 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             var adminService = new AutoSettlementService();
             var disabledAutoSettle = !adminService.GetStatusAutoSettlement();
             ViewBag.DisabledAutoSettle = disabledAutoSettle;
-
             if (model.IsReLoad)
             {
                 return this.View("~/Areas/Settlement/Views/Sportsbook/RefreshContent.cshtml", data);
@@ -359,6 +360,23 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             });
 
             return this.View(showAllLeagues ? "~/Views/UserControl/LeaguesList.cshtml" : "~/Views/UserControl/LeaguesListNotShowAll.cshtml", leagues);
+        }
+
+        /// <summary>
+        /// Close match is running.
+        /// </summary>
+        /// <param name="model">Parameter for update.</param>
+        /// <returns>Return result value.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookCloseMatch, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult CloseMatch(CloseMatchMetaModel model)
+        {
+            model.Creator = CurrentSession.UserId;
+            model.IP = Request.ServerVariables["REMOTE_ADDR"];
+
+            var result = _calculateService.CloseMatch(model);
+
+            return this.Json(result, JsonRequestBehavior.AllowGet);
         }
 
         /// <summary>

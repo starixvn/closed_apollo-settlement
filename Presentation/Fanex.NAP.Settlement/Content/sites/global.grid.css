@@ -575,6 +575,57 @@ div .head-table
     border: 1px solid #aaa;
 }
 
+.table-calculation .running
+{
+    margin: auto;
+    text-align: center;
+    position: relative;
+    padding-right: 22px;
+}
+.table-calculation .event-status i
+{
+    background: url(images/close-match.png) no-repeat;
+    position: absolute;
+}
+
+.table-calculation .event-status i.off
+{
+    background-position: -87px -7px;
+    width: 14px;
+    height: 13px;
+    top: 4px;
+    right: 2px;
+}
+
+.table-calculation .event-status i.on
+{
+    background-position: -98px -7px;
+    width: 14px;
+    height: 13px;
+    top: 4px;
+    right: 2px;
+    cursor: pointer;
+}
+
+.table-calculation .event-status i.close
+{
+    width: 86px;
+    height: 17px;
+    top: -3px;
+    right: 0px;
+    cursor: pointer;
+}
+.table-calculation i.icon-close
+{
+    background: url(images/close-match.png) no-repeat;
+    position: absolute;
+    background-position: 0px -16px;
+    width: 86px;
+    height: 40px;
+    top: 16px;
+    right: 0;
+    cursor: pointer;
+}
 .empty-data
 {
     height: 20px;

@@ -360,6 +360,43 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
 
         #endregion Match Log Action
 
+        #region Close Match
+
+        /// <summary>
+        /// Close match is running.
+        /// </summary>
+        /// <param name="value">Parameter for update.</param>
+        /// <returns>Return result value.</returns>
+        public IResult CloseMatch(CloseMatchMetaModel value)
+        {
+            var uspName = "Admin_Settlement_CloseMatch";
+
+            var p = new Hashtable();
+            p.Add("adminid", value.Creator);
+            p.Add("matchid", value.MatchId);
+            p.Add("ip", value.IP);
+            p.Add("errcode", 0);
+            p.Add("errmsg", string.Empty);
+
+            try
+            {
+                using (var db = new ObjectDb(uspName))
+                {
+                    // Assign Params and ExecuteQuery
+                    db.AssignParamValues(p);
+                    db.ExecuteNonQuery();
+                    return this.GetResult(db);
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, new DataAccessException(sqlException.Message, uspName));
+                throw new DataAccessException(sqlException.Message, uspName);
+            }
+        }
+
+        #endregion Close Match
+
         #region Execute Calculate match
 
         /// <summary>

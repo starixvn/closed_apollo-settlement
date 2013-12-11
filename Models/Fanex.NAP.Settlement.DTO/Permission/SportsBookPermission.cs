@@ -24,6 +24,8 @@ namespace Fanex.NAP.Settlement.DTO.Permission
 
         public bool CanRefund { get; set; }
 
-        public bool CanCalculateMp { get; set; }
+        public bool CanCalculateMixParlay { get; set; }
+
+        public bool CanCloseMatch { get; set; }
     }
 }

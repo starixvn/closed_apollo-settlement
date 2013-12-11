@@ -216,5 +216,19 @@ namespace Fanex.NAP.Settlement.Services.Implement
         }
 
         #endregion Excute Calculate or Refund match
+
+        #region Close Match
+
+        /// <summary>
+        /// Close match is running.
+        /// </summary>
+        /// <param name="value">Parameter for update.</param>
+        /// <returns>Return result value.</returns>
+        public IResult CloseMatch(CloseMatchMetaModel value)
+        {
+            return this._calculateDataAccess.CloseMatch(value);
+        }
+
+        #endregion Close Match
     }
 }

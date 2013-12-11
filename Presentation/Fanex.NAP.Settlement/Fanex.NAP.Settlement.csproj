@@ -293,6 +293,7 @@
     <Content Include="Content\sites\grid26.css" />
     <Content Include="Content\sites\global.css" />
     <Content Include="Content\sites\calc.css" />
+    <Content Include="Content\sites\images\close-match.png" />
     <Content Include="Content\sites\refund.css" />
     <Content Include="Content\sites\rule.css" />
     <Content Include="Content\extension\jquery-ui.ext.css" />

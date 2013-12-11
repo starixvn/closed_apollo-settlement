@@ -36,6 +36,10 @@
     <Setting Key="Acc_Set_LeagueSel" SpName="Acc_Set_LeagueSel" DbName="SVRPRO.ProdDB.aplweb" />
   </Function>
 
+  <Function Name="Close match">
+    <Setting Key="Admin_Settlement_CloseMatch" SpName="Admin_Settlement_CloseMatch" DbName="SVRTXN.TransDB.aplweb" />
+  </Function>
+
   <Function Name="Result page">
     <Setting Key="Acc_Set_MatchGetResult" SpName="Acc_Set_MatchGetResult" DbName="SVRPRO.ProdDB.aplweb" />
   </Function>

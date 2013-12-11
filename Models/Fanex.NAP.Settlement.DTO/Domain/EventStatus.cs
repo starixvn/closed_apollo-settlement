@@ -15,5 +15,6 @@ namespace Fanex.NAP.Settlement.DTO.Domain
     public class EventStatus
     {
         public const string Completed = "completed";
+        public const string Running = "running";
     }
 }

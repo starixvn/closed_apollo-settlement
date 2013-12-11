@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CloseMatchMetaModel.cs" />
     <Compile Include="DoSingleTicketMetaModel.cs" />
     <Compile Include="NumberGameMetaModel.cs">
       <SubType>Code</SubType>

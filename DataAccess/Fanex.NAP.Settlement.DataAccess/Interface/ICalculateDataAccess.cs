@@ -116,5 +116,11 @@ namespace Fanex.NAP.Settlement.DataAccess.Interface
         IResult Calculate(Hashtable inputParameters, string type);
 
         #endregion Excute Calculate or Refund match
+
+        #region Close Match
+
+        IResult CloseMatch(CloseMatchMetaModel value);
+
+        #endregion Close Match
     }
 }

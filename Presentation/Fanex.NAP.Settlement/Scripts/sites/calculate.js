@@ -6,10 +6,11 @@ var Calculate = (function ($) {
     return {
         initialize: function () {
             Site.unBlockUI();
+            Calculate.TimerId;
             Calculate.FromDate = $("#FromDate");
             Calculate.ToDate = $("#ToDate");
             Calculate.SportTypeId = $("#SportTypeId");
-            Calculate.LeagueId =  $("#LeagueId");
+            Calculate.LeagueId = $("#LeagueId");
             Calculate.StatusId = $("#StatusId");
             Calculate.initDate(Calculate.FromDate, true);
             Calculate.initDate(Calculate.ToDate, true);
@@ -58,6 +59,12 @@ var Calculate = (function ($) {
 
             // Event click to Auto Settlement
             $('#content-cotainer').on('click', '.act-auto-settle', Calculate.switchAutoSettleSingle);
+
+            // Event click to show icon close match
+            $('#content-cotainer').on('click', 'i.close-match', Calculate.showIconCloseMatch);
+
+            // Event click to close match
+            $('#content-cotainer').on('click', 'i.icon-close', Calculate.closeMatch);
         },
         initDate: function (id, isChange) {
             Calculate.refreshDate(id);
@@ -98,12 +105,10 @@ var Calculate = (function ($) {
         },
         refreshDate: function (id) {
             var date;
-            if(id == Calculate.FromDate)
-            {
+            if (id == Calculate.FromDate) {
                 date = $("#OriginalFromDate").val();
             }
-            else if(id == Calculate.ToDate)
-            {
+            else if (id == Calculate.ToDate) {
                 date = $("#OriginalToDate").val();
             }
             id.val(date);
@@ -111,7 +116,7 @@ var Calculate = (function ($) {
         // Disable status
         disableStatus: function () {
             if ($("#UnCalculate").is(':checked') || $("#UncalculateMultiple").is(':checked')) {
-               Calculate.StatusId.combobox('disable');
+                Calculate.StatusId.combobox('disable');
             } else {
                 Calculate.StatusId.combobox('enable');
             }
@@ -138,8 +143,7 @@ var Calculate = (function ($) {
                 toDate = fromDate;
             }
 
-            if($("#IsOutright").length)
-            {
+            if ($("#IsOutright").length) {
                 isOutright = true;
             }
 
@@ -373,8 +377,8 @@ var Calculate = (function ($) {
 
             var unsettle = $("input[name=CheckBoxCalc-" + matchId + "][type='checkbox']:disabled").length;
 
-            var isCalcLink = $('#calc-' + matchId).hasClass('code-link act-calculate') ;
-            if(!isCalcLink)
+            var isCalcLink = $('#calc-' + matchId).hasClass('code-link act-calculate');
+            if (!isCalcLink)
                 return;
 
             if (unsettle > 0) {
@@ -392,7 +396,7 @@ var Calculate = (function ($) {
             var title = 'Settlement Log';
             var url = Site.getAbsoluteUrl('Settlement/Log/Popup?matchCode=' + matchCode + '&FromDate=' + Calculate.FromDate.val() + '&ToDate=' + Calculate.ToDate.val());
             //DialogBox.openPopup(url, title, false, 450, false);
-             DialogBox.openDialogFrame(url, title,{ width: 1011, height: 450, modal: false }, true);
+            DialogBox.openDialogFrame(url, title, { width: 1011, height: 450, modal: false }, true);
         },
 
         // View Popup Calculation or reference action link
@@ -417,12 +421,12 @@ var Calculate = (function ($) {
                 logId = -1;
             }
 
-            var isCalcLink = $('#calc-' + matchId).hasClass('code-link act-calculate') ;
+            var isCalcLink = $('#calc-' + matchId).hasClass('code-link act-calculate');
 
             var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Calc?sportId=" + sportId + "&matchId=" + matchId
                                         + "&actionId=" + actionId + "&logId=" + logId);
-            if(isCalcLink){
-				DialogBox.openDialogFrame(url, title,{ width: 780, height: 380, modal: true });
+            if (isCalcLink) {
+                DialogBox.openDialogFrame(url, title, { width: 780, height: 380, modal: true });
                 //DialogBox.openPopup(url, title, true);
             }
         },
@@ -451,8 +455,8 @@ var Calculate = (function ($) {
             var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Refund?sportId=" + sportId + "&matchId=" + matchId + "&actionId=" + actionId + "&logId=" + logId);
 
             var isRefundLink = $('#refund-' + matchId).hasClass('act-refund code-link');
-            if(isRefundLink){
-				DialogBox.openDialogFrame(url, title,{ width: 780, height: 360, modal: true });
+            if (isRefundLink) {
+                DialogBox.openDialogFrame(url, title, { width: 780, height: 360, modal: true });
                 //DialogBox.openPopup(url, title, true);
             }
         },
@@ -465,7 +469,7 @@ var Calculate = (function ($) {
             var title = 'Reference Action Log';
             var url = Site.getAbsoluteUrl("Settlement/Log/ReferenceActions?matchId=" + matchId + "&sportId=" + sportId);
             //DialogBox.openPopup(url, title, true);
-            DialogBox.openDialogFrame(url, title,{ width: 720, height: 500, modal: false }, true);
+            DialogBox.openDialogFrame(url, title, { width: 720, height: 500, modal: false }, true);
         },
 
         // Save old filter paramaters
@@ -490,16 +494,17 @@ var Calculate = (function ($) {
             var autoSettleButton = $('.btn-auto-settle-all');
             var autoSettleSingleMatch = $('#auto-settle-' + matchId);
             var url = Site.getAbsoluteUrl("Settlement/AutoSettlement/UpdateStatusAll");
-            var calcLink = null, refundLink = null, checkBoxCalcMP = null;
-            if(matchId>0)
-            {
-                calcLink =  $('#calc-' + matchId);
+            var calcLink = null, refundLink = null, checkBoxCalcMP = null, closeMatchLink = null;
+            if (matchId > 0) {
+                calcLink = $('#calc-' + matchId);
                 refundLink = $('#refund-' + matchId);
                 checkBoxCalcMP = $('#CheckBoxCalc-' + matchId);
+                closeMatchLink = $('#close-' + matchId);
             }
 
             var canCalculate = $('#CanCalculate').val() == 'True';
             var canRefund = $('#CanRefund').val() == 'True';
+            var canCloseMatch = $('#CanCloseMatch').val() == 'True';
 
             var param = {
                 isTurnOn: isTurnOn, //0-off; 1-on
@@ -522,19 +527,23 @@ var Calculate = (function ($) {
                             }
                             else { //Single match
                                 autoSettleSingleMatch.removeClass('on');
-                                if(canCalculate){
+                                if (canCalculate) {
                                     calcLink.addClass('code-link act-calculate');
                                 }
-                                if(canRefund){
+                                if (canRefund) {
                                     refundLink.addClass('act-refund code-link');
                                 }
 
+                                if (canCloseMatch) {
+                                    closeMatchLink.removeClass('off');
+                                    closeMatchLink.addClass('on');
+                                }
+
                                 // Remove disable checkbox
-                                if(checkBoxCalcMP.hasClass('match-chk'))
-                                {
+                                if (checkBoxCalcMP.hasClass('match-chk')) {
                                     checkBoxCalcMP.removeAttr("disabled");
                                     Calculate.initCheckBoxMultipleCalculate();
-                                    $('#CheckBoxLeagueCalc-'+ leagueId).removeAttr("disabled");
+                                    $('#CheckBoxLeagueCalc-' + leagueId).removeAttr("disabled");
                                 }
                             }
                         }
@@ -544,13 +553,16 @@ var Calculate = (function ($) {
                             }
                             else { //Single match
                                 autoSettleSingleMatch.addClass('on');
-                                if(canCalculate){
+                                if (canCalculate) {
                                     calcLink.removeClass('code-link act-calculate');
                                 }
-                                if(canRefund){
+                                if (canRefund) {
                                     refundLink.removeClass('act-refund code-link');
                                 }
-
+                                if (canCloseMatch) {
+                                    closeMatchLink.removeClass('on');
+                                    closeMatchLink.addClass('off');
+                                }
                                 // Remove disable checkbox
                                 checkBoxCalcMP.attr('checked', false);
                                 checkBoxCalcMP.attr("disabled", true);
@@ -562,9 +574,9 @@ var Calculate = (function ($) {
                             Calculate.submitForm();
                         }
                     }
-                    else{
+                    else {
                         alert(data.ErrorMessage);
-                        if(data.ErrorCode == 150){
+                        if (data.ErrorCode == 150) {
                             autoSettleButton.removeClass('on');
                             Calculate.submitForm();
                         }
@@ -591,26 +603,26 @@ var Calculate = (function ($) {
             var title = 'Auto Settlement';
             var width = 600;
             if (isAutoSettleOn) {
-                confirm(Languages.AutoSettlementAll_ON_to_OFF,   function () {
+                confirm(Languages.AutoSettlementAll_ON_to_OFF, function () {
                     Calculate.processSwitchAutoSettle(0, 0, 0);
-                }, {width:width, title: title});
+                }, { width: width, title: title });
             }
             else {
-                confirm(Languages.AutoSettlementAll_OFF_to_ON,   function () {
+                confirm(Languages.AutoSettlementAll_OFF_to_ON, function () {
                     Calculate.processSwitchAutoSettle(1, 0, 0);
-                }, {width:width, title: title});
+                }, { width: width, title: title });
             }
         },
 
         switchAutoSettleSingle: function () {
             var tr = $(this).parents('tr');
             var matchId = tr.attr('data-match-id');
-            var leagueId =  tr.attr('class').split(' ')[0].replace("row-","");
+            var leagueId = tr.attr('class').split(' ')[0].replace("row-", "");
 
             var autoSettleButton = $('.btn-auto-settle-all');
             var isAutoSettleOn = autoSettleButton.hasClass('on');
             //Can switch ON/OFF for a match when and only when Global Switch is ON
-            if(!isAutoSettleOn){
+            if (!isAutoSettleOn) {
                 return;
             }
 
@@ -626,13 +638,82 @@ var Calculate = (function ($) {
             if (isAutoSettleOn) {
                 confirm(Languages.AutoSettlementSingle_ON_to_OFF, function () {
                     Calculate.processSwitchAutoSettle(0, matchId, leagueId);
-                }, {width:width, title: title});
+                }, { width: width, title: title });
             }
             else {
                 confirm(Languages.AutoSettlementSingle_OFF_to_ON, function () {
                     Calculate.processSwitchAutoSettle(1, matchId, leagueId);
-                }, {width:width, title: title});
+                }, { width: width, title: title });
             }
         },
+
+        showIconCloseMatch: function () {
+            if ($(this).hasClass('on')) {
+                if ($(".close-match").hasClass('close')) {
+                    $(".close").addClass('on');
+                    $(".close-match").removeClass('close');
+                    $(".close-match").children().remove();
+                }
+                $(this).removeClass('on')
+                $(this).addClass('close');
+                $(this).append("<i class='icon-close'></i>");
+
+                // Hide tab action close match
+                var currentId = $(this).attr('id');
+                $('.icon-close').hover(function () {
+                    clearInterval(Calculate.TimerId);
+                }, function () {
+                    Calculate.TimerId = setInterval(function () { Calculate.hideTabCloseMatch(currentId); }, 2000);
+                });
+                return;
+            }
+            if ($(this).hasClass('close')) {
+                $(this).addClass('on');
+                $(".close-match").removeClass('close');
+                $(this).children().remove();
+                return;
+            }
+        },
+        hideTabCloseMatch: function (id) {
+            $("#" + id).addClass('on');
+            $(".close-match").removeClass('close');
+            $(".close-match").children().remove();
+            clearInterval(Calculate.TimerId);
+        },
+        closeMatch: function () {
+            var tr = $(this).parents('tr');
+            var matchId = tr.attr('data-match-id');
+            $(this).remove();
+            var title = 'Close match';
+            var width = 430;
+            confirm(Languages.CloseMatch, function () {
+                var param = {
+                    matchId: matchId
+                };
+                var url = Site.getAbsoluteUrl("Settlement/Sportsbook/CloseMatch");
+                Site.blockUI();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: JSON.stringify(param),
+                    success: function (data) {
+                        if (data.ErrorCode != 0) {
+                            alert(data.ErrorMessage);
+                        }
+                        else {
+                            Calculate.submitForm();
+                        }
+                    },
+                    error: function () {
+                        alert(Languages.SystemError);
+                    },
+                    complete: function () {
+                        Site.unBlockUI();
+                    }
+                });
+            }, { width: width, title: title });
+        }
     };
 } (jQuery));
