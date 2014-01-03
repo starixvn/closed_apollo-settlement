@@ -3,6 +3,19 @@
     Layout = "Shared/_LayoutPopup.cshtml";
 }
 @model OutrightLogActionViewModel
+@{
+    var outrightList = Model.OutrightList;
+    var isFailed = outrightList.Where(m => m.FailedActionId > 0).Count() > 0;
+}
+@if (isFailed)
+{
+    <div id="messageBox" class="message-box" style="display: block; width: 50%">
+        <div id="messageInfo" class="msgerror">
+            @ViewResources.MsgUncalculateOutright
+        </div>
+    </div>
+
+}
 <div id="tab-title">
     <div class="left">
     </div>
@@ -39,12 +52,10 @@
                 <tbody>
                     @{
 
-                var outrightList = Model.OutrightList;
                 var index = 0;
                 var countDeadHeat = 0;
                 var orIds = string.Empty;
                 var teamIds = string.Empty;
-                var isFailed = false;
 
                 foreach (var item in outrightList)
                 {
@@ -59,9 +70,8 @@
                                 <div style="text-transform: capitalize;">
                                     @(!string.IsNullOrEmpty(item.Status) ? item.Status.ToLower() : string.Empty)
                                 </div>
-                                @if (item.FailedActionId > 0)
+                                @if (isFailed)
                                 {
-                                    isFailed = true;
                                     <div style="color: Red">@Utility.GetActionStatusById(item.FailedActionId)</div>
                                 }
                             </td>
@@ -85,7 +95,7 @@
                                     }
                                 }
                                 orIds += string.Format("{0},{1}|", item.OrId, statusId);
-                                if (Model.Permission.CanUncalculateOutright)
+                                if (Model.Permission.CanUncalculateOutright && !isFailed)
                                 {
                                     @Html.CheckBox("team-" + item.TeamId, new { @class = "select-team", @value = statusId })
                                 }
@@ -131,9 +141,6 @@
                             <td colspan="4">
                                 <div class="calc-all-disabled">
                                     @ViewResources.Uncalculate</div>
-                                <div class="error" style="padding: 7px 0 0 25px; text-align: left">
-                                    @ViewResources.MsgUncalculateOutright
-                                </div>
                             </td>
                         </tr>
                     }
