@@ -537,4 +537,7 @@
   <data name="SelectTeam" xml:space="preserve">
     <value>Select Team</value>
   </data>
+  <data name="MsgUncalculateOutright" xml:space="preserve">
+    <value>Uncalculate for this LEAGUE has been disabled due to Calculate failures.</value>
+  </data>
 </root>

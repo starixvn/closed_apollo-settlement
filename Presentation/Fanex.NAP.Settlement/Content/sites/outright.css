@@ -6,10 +6,11 @@
     -ms-overflow-y: auto;
     width: 770px;
     background: #fff;
+    margin-left: 1px;
 }
 .popup .table-calculation
 {
-    min-width: 768px;
+    min-width: 767px;
 }
 #outright .table-calculation .calculation-leagues .outright
 {

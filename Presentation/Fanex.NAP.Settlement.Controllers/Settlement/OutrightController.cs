@@ -95,7 +95,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// Get list Outright Settlement.
         /// </summary>
         /// <returns>Return result.</returns>
-        [NapAuth(FunctionKey = SettlementFunctionKeys.OutrightCalculate, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = SettlementFunctionKeys.OutrightSettlement, Policy = Constant.Policy.Read)]
         [HttpGet]
         public ActionResult Index()
         {
@@ -119,7 +119,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// </summary>
         /// <param name="metaModel">Outright parameter.</param>
         /// <returns>Return result.</returns>
-        [NapAuth(FunctionKey = SettlementFunctionKeys.OutrightCalculate, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = SettlementFunctionKeys.OutrightSettlement, Policy = Constant.Policy.Read)]
         [HttpPost]
         public ActionResult Index(OutrightMetaModel metaModel)
         {
@@ -249,6 +249,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// <param name="countDeadHeat">Old count dead heat.</param>
         /// <param name="teamIds">All team Ids.</param>
         /// <returns>Return result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.OutrightUncalculate, Policy = Constant.Policy.Host)]
+        [HttpPost]
         public ActionResult UnCalculate(string outrightIds, string listSelectedTeam, int countDeadHeat, string teamIds)
         {
             var isError = false;
@@ -309,6 +311,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// <param name="outrightIdsFail">List outright id fail.</param>
         /// <param name="teamIds">List team id.</param>
         /// <returns>Return result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.OutrightCalculate, Policy = Constant.Policy.Host)]
         [HttpPost]
         public ActionResult Calculate(string outrightIds, string oldOrIds, string outrightIdsFail, string teamIds)
         {

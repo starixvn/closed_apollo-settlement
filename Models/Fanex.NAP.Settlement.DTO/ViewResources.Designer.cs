@@ -700,6 +700,15 @@ namespace Fanex.NAP.Settlement.DTO {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Uncalculate for this LEAGUE has been disabled due to Calculate failures..
+        /// </summary>
+        public static string MsgUncalculateOutright {
+            get {
+                return ResourceManager.GetString("MsgUncalculateOutright", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N/A.
         /// </summary>
         public static string NA {

@@ -7,7 +7,7 @@
 // </summary>
 //
 // <history>
-// Lasted generated date: 12/9/2013 10:11:43 AM
+// Lasted generated date: 12/27/2013 3:09:11 PM
 // </history>
 namespace Fanex.NAP.Settlement.DTO.Configuration
 {
@@ -33,6 +33,8 @@ namespace Fanex.NAP.Settlement.DTO.Configuration
         public const string ManageUser = "ManageUser";
 
         public const string OutrightCalculate = "OutrightCalculate";
+
+        public const string OutrightSettlement = "OutrightSettlement";
 
         public const string OutrightUncalculate = "OutrightUncalculate";
 

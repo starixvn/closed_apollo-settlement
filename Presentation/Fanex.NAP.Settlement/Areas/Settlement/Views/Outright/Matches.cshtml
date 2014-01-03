@@ -17,7 +17,7 @@
 <div>
     @using (Html.BeginForm())
     {
-        <table id="outright" class="table-calculation">
+        <table class="table-calculation">
             <thead>
                 <tr>
                     <th>@ViewResources.Team
@@ -78,7 +78,9 @@
                                 }
                                 else
                                 {
-                                    @ViewResources.Running
+                                    <div style="text-transform: capitalize;">
+                                        @(!string.IsNullOrEmpty(item.Status) ? item.Status.ToLower() : ViewResources.Running)
+                                    </div>
                                 }
                                 @if (item.FailedActionId > 0)
                                 {

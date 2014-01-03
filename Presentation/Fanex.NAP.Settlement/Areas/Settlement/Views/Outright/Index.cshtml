@@ -76,11 +76,14 @@
                             </div>
                         </td>
                         <td colspan="2">
-                            @if (Model.Permission.CanCalculateOutright)
+                            @if (Model.Permission.CanCalculateOutright || Model.Permission.CanUncalculateOutright)
                             {
                                 <div class="float-right">
-                                    <div class="@classCal float-left" id="calc-@leagueId">
-                                        @ViewResources.Calculate</div>
+                                    @if (Model.Permission.CanCalculateOutright)
+                                    {
+                                        <div class="@classCal float-left" id="calc-@leagueId">
+                                            @ViewResources.Calculate</div>
+                                    }
                                     @if (Model.Permission.CanUncalculateOutright)
                                     {
                                         <div class="@classUnCal float-left" id="uncalc-@leagueId">

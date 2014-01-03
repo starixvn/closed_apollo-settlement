@@ -17,7 +17,7 @@
 <div>
     @using (Html.BeginForm())
     {
-        <table id="outright" class="table-calculation">
+        <table class="table-calculation">
             <thead>
                 <tr>
                     <th>@ViewResources.Team
@@ -44,6 +44,8 @@
                 var countDeadHeat = 0;
                 var orIds = string.Empty;
                 var teamIds = string.Empty;
+                var isFailed = false;
+
                 foreach (var item in outrightList)
                 {
                     index++;
@@ -57,59 +59,85 @@
                                 <div style="text-transform: capitalize;">
                                     @(!string.IsNullOrEmpty(item.Status) ? item.Status.ToLower() : string.Empty)
                                 </div>
+                                @if (item.FailedActionId > 0)
+                                {
+                                    isFailed = true;
+                                    <div style="color: Red">@Utility.GetActionStatusById(item.FailedActionId)</div>
+                                }
                             </td>
                             <td align="center">
                                 @{
-                    var statusId = 1;
-                    if (!string.IsNullOrEmpty(item.Status))
-                    {
-                        switch (item.Status.ToLower())
-                        {
-                            case "won":
-                                countDeadHeat++;
-                                statusId = OutrightStatus.Won;
-                                break;
-                            case "lose":
-                                statusId = OutrightStatus.Lose;
-                                break;
-                            case "refund":
-                                statusId = OutrightStatus.Refund;
-                                break;
-                        }
-                    }
-                    orIds += string.Format("{0},{1}|", item.OrId, statusId);
+                                var statusId = 1;
+                                if (!string.IsNullOrEmpty(item.Status))
+                                {
+                                    switch (item.Status.ToLower())
+                                    {
+                                        case "won":
+                                            countDeadHeat++;
+                                            statusId = OutrightStatus.Won;
+                                            break;
+                                        case "lose":
+                                            statusId = OutrightStatus.Lose;
+                                            break;
+                                        case "refund":
+                                            statusId = OutrightStatus.Refund;
+                                            break;
+                                    }
+                                }
+                                orIds += string.Format("{0},{1}|", item.OrId, statusId);
+                                if (Model.Permission.CanUncalculateOutright)
+                                {
                                     @Html.CheckBox("team-" + item.TeamId, new { @class = "select-team", @value = statusId })
+                                }
+                                else
+                                {
+                                    @Html.CheckBox("team-" + item.TeamId, new { @class = "select-team", @value = statusId, @disabled = "disabled" })
+                                }
+
                                 }
                             </td>
                             <td align="left">
                                 @{
-                    var listAction = Model.LogActionList.Where(m => m.OrId == item.OrId).ToList();
-                    var i = 0;
-                    var count = listAction.Count;
-                    if (count > 0)
-                    {
-                        foreach (var action in listAction)
-                        {
+                                var listAction = Model.LogActionList.Where(m => m.OrId == item.OrId).ToList();
+                                var i = 0;
+                                var count = listAction.Count;
+                                if (count > 0)
+                                {
+                                    foreach (var action in listAction)
+                                    {
                                     <div class="calc-notifier disable">
                                         @Utility.UppercaseFirst(action.Status)
                                     </div>
-                            if (i < (count - 1))
-                            {
+                                        if (i < (count - 1))
+                                        {
                                     @Html.Raw("&nbsp;»");
-                            }
-                            i++;
-                        }
+                                        }
+                                        i++;
+                                    }
                                     <div class="act-view-log" style="text-decoration: underline; margin-left: 4px;
                             margin-top: 5px; color: #0273FF; cursor: pointer" data-orid="@item.OrId"  data-team-id="@item.TeamId">
                                         @ViewResources.ViewLog</div>
-                    }
+                                }
                                 }
                             </td>
                         </tr>
 
                 }
+
                     }
-                    @if (Model.Permission.CanUncalculateOutright)
+                    @if (isFailed)
+                    {
+                        <tr>
+                            <td colspan="4">
+                                <div class="calc-all-disabled">
+                                    @ViewResources.Uncalculate</div>
+                                <div class="error" style="padding: 7px 0 0 25px; text-align: left">
+                                    @ViewResources.MsgUncalculateOutright
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                    else if (Model.Permission.CanUncalculateOutright)
                     {
                         <tr>
                             <td colspan="4">
