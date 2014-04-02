@@ -102,7 +102,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                         SportsBook = new SportsBookPermission
                         {
                             CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
-                            CanCalculate = PermissionService.HasReadPermission(SettlementFunctionKeys.SportsbookCalculate)
+                            CanCalculate = PermissionService.HasPermission(SettlementFunctionKeys.SportsbookCalculate)
                         }
                     }
                 };

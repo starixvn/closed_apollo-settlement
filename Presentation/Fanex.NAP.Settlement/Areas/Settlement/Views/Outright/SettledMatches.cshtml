@@ -70,7 +70,7 @@
                                 <div style="text-transform: capitalize;">
                                     @(!string.IsNullOrEmpty(item.Status) ? item.Status.ToLower() : string.Empty)
                                 </div>
-                                @if (isFailed)
+                                @if (item.FailedActionId > 0)
                                 {
                                     <div style="color: Red">@Utility.GetActionStatusById(item.FailedActionId)</div>
                                 }
