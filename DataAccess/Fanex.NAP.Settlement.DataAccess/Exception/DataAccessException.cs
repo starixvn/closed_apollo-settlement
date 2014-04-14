@@ -70,5 +70,10 @@ namespace Fanex.NAP.Settlement.DataAccess.Exception
                            : string.Format("Exception when call usp {0}. Params: {1}. Exception: {2}", this._uspName, this._uspParams, base.Message);
             }
         }
+
+        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+        }
     }
 }
