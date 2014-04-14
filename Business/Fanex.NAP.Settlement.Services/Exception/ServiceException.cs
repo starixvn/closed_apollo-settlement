@@ -49,10 +49,5 @@ namespace Fanex.NAP.Settlement.Services.Exception
                 return string.Format("Exception when call Service: {0}. Exception Message: {1}", this._serviceName, base.Message);
             }
         }
-
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-        }
     }
 }
