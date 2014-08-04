@@ -145,7 +145,7 @@ namespace Fanex.NAP.Settlement.DTO
                     {
                         if (this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) > -1)
                         {
-                            var homeAwayGoal = this.BetStatus.Substring(this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) + 3);
+                            var homeAwayGoal = this.BetStatus.Substring(this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) + 3).Replace(";", "");
                             var strhwgoals = homeAwayGoal.Split('-');
                             int homegoal = Convert.ToInt32(strhwgoals[0]);
                             int awayhome = Convert.ToInt32(strhwgoals[1]);
