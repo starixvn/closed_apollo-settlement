@@ -49,7 +49,7 @@ namespace Fanex.NAP.Settlement.Controllers.TicketController
         [HttpPost]
         public ActionResult Calculate(DoSingleTicketMetaModel model)
         {
-            var result = this.UpdateTicketStatus(model);
+            var result = this.CalculateUpdate(model);
 
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -64,8 +64,20 @@ namespace Fanex.NAP.Settlement.Controllers.TicketController
         [HttpPost]
         public ActionResult Refund(DoSingleTicketMetaModel model)
         {
-            var result = this.UpdateTicketStatus(model);
-
+            var result = new Result();
+            try
+            {
+                result = this.RefundCommand(model) as Result;
+                if (result.IsSuccessful)
+                {
+                    var adminService = new AutoSettlementService();
+                    result = adminService.ClearFailActionAutoSettlement(this.CurrentSession.UserId, model.MatchId, string.Empty) as Result;
+                }
+            }
+            catch (Exception ex)
+            {
+                LogService.Error(ex.Message, ex);
+            }
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }
 
@@ -91,41 +103,33 @@ namespace Fanex.NAP.Settlement.Controllers.TicketController
         }
 
         /// <summary>
-        /// Get QueryString.
+        /// Calculate update.
         /// </summary>
         /// <param name="model">Model single ticket.</param>
         /// <returns>Return result.</returns>
-        private IResult UpdateTicketStatus(DoSingleTicketMetaModel model)
+        private IResult CalculateUpdate(DoSingleTicketMetaModel model)
         {
-            IResult result = new Result();
+            var result = new Result();
             try
             {
                 var type = model.ActionType.ToLowerInvariant();
                 switch (type)
                 {
-                    case CalculationType.RefundAllLg:
-                    case CalculationType.RefundAllFgng:
-                    case CalculationType.RefundHalfTime:
-                    case CalculationType.RefundFullTime:
-                    case CalculationType.RefundAll:
-                        result = this.RefundCommand(model);
-                        break;
-
                     case CalculationType.CalculateHalfTime:
                     case CalculationType.CalculateFullTime:
                     case CalculationType.CalculateAll:
-                        result = this.CalculateCommand(model);
+                        result = this.CalculateCommand(model) as Result;
                         break;
 
                     case CalculationType.CalculateFgng:
-                        result = this.CalculateFglg(model);
+                        result = this.CalculateFglg(model) as Result;
                         break;
                 }
 
                 if (result.IsSuccessful)
                 {
                     var adminService = new AutoSettlementService();
-                    result = adminService.ClearFailActionAutoSettlement(this.CurrentSession.UserId, model.MatchId, string.Empty);
+                    result = adminService.ClearFailActionAutoSettlement(this.CurrentSession.UserId, model.MatchId, string.Empty) as Result;
                 }
             }
             catch (Exception ex)

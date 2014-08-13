@@ -1,8 +1,15 @@
-﻿var CalcPopup = (function ($) {
+﻿/*global DoSingleTicket, Site*/
+var CalcPopup = (function ($) {
+    "use strict";
     var totalFinalHomeScore = 0, totalFinalAwayScore = 0;
     var totalFinalHomeSet = 0, totalFinalAwaySet = 0;
     var totalHalfTimeHomeScore = 0, totalHalfTimeAwayScore = 0;
-
+    var firstGoal = "first-goal";
+    var lastGoal = "last-goal";
+    var firstLastGoal = "first-last-goal";
+    var halfTimeFirstGoal = 'ht-first-goal';
+    var halfTimeLastGoal = 'ht-last-goal';
+    var halfTimeFirstLastGoal = 'ht-first-last-goal';
     return {
         isInputScoreDirectly: false,
         // Soccer
@@ -26,10 +33,18 @@
         },
 
         goalRecordOnKeydown: function (event) {
-            // A:65, 97 | h:72, 104 | back:8| move left:37| move right:39| delete:46
+            // A:65, 97 | h:72, 104 | back:8| move left:37| move right:39| delete:46 | semi-colon: 186
             var charCode = (event.which) ? event.which : event.keyCode;
-            if ((charCode != 86) && (charCode == 65 || charCode == 72 || charCode == 104 || charCode == 8 || charCode == 35 || charCode == 36 || charCode == 37 || charCode == 39 || charCode == 46 || charCode == 9))
+            var evt = event ? event : window.event;
+            var obj = evt.currentTarget ? evt.currentTarget : evt.srcElement;
+            var contentTextBox = $("#" + obj.id).val();
+
+            if ((charCode !== 86) && (charCode === 65 || charCode === 72 || charCode === 104 || charCode === 8 ||
+                 charCode === 35 || charCode === 36 || charCode === 37 || charCode === 39 || charCode === 46 ||
+                 ((charCode === 186 || charCode === 59) && contentTextBox.indexOf(';') < 0) || charCode === 9)) {
                 return true;
+            }
+
             return false;
         },
 
@@ -37,78 +52,218 @@
             var evt = event ? event : window.event;
             var obj = evt.currentTarget ? evt.currentTarget : evt.srcElement;
             var contentTextBox = $("#" + obj.id).val();
+            var homeIcon = $('#home-icon');
+            var awayIcon = $('#away-icon');
+            var halfTimeHomeIcon = $('#ht-home-icon');
+            var halfTimeAwayIcon = $('#ht-away-icon');
 
-            var firstGoal = "first-goal";
-            var lastGoal = "last-goal";
-            var firstLastGoal = "first-last-goal";
-            $(".match-away").removeClass(firstGoal).removeClass(lastGoal).removeClass(firstLastGoal);
-            $(".match-home").removeClass(firstGoal).removeClass(lastGoal).removeClass(firstLastGoal);
+            var finalHomeScore = $('#TextBoxFinalHomeScore').val();
+            var finalAwayScore = $('#TextBoxFinalAwayScore').val();
+            var htHomeScore = $('#TextBoxHtHomeScore').val();
+            var htAwayScore = $('#TextBoxHtAwayScore').val();
+
+            homeIcon.removeClass();
+            awayIcon.removeClass();
+            halfTimeHomeIcon.removeClass();
+            halfTimeAwayIcon.removeClass();
 
             contentTextBox = contentTextBox.toLowerCase();
-            // Change Icon first goal and last goal
-            // If value is empty then remove icon
-            if (contentTextBox != "") {
-                // Check first goal
-                if ($('#TextBoxFinalHomeScore').val() == '' && $('#TextBoxFinalAwayScore').val() == '') {
-                    //The system does NOT show the L icon because the Last Goal cannot be determined yet at this time.
-                    if (contentTextBox.substring(0, 1) === "h") {
-                        $(".match-home").addClass(firstGoal);
-                    }
-                    else if (contentTextBox.substring(0, 1) === "a") {
-                        $(".match-away").addClass(firstGoal);
-                    }
-                }
-                else if (contentTextBox.substring(0, 1) === "h" && contentTextBox.substring(contentTextBox.length - 1, contentTextBox.length) === "h") {
-                    $(".match-home").addClass(firstLastGoal);
-                } else if (contentTextBox.substring(0, 1) === "a" && contentTextBox.substring(contentTextBox.length - 1, contentTextBox.length) === "a") {
-                    $(".match-away").addClass(firstLastGoal);
-                } else if (contentTextBox.substring(0, 1) === "a" && contentTextBox.substring(contentTextBox.length - 1, contentTextBox.length) === "h") {
-                    $(".match-away").addClass(firstGoal);
-                    $(".match-home").addClass(lastGoal);
-                } else if (contentTextBox.substring(0, 1) === "h" && contentTextBox.substring(contentTextBox.length - 1, contentTextBox.length) === "a") {
-                    $(".match-home").addClass(firstGoal);
-                    $(".match-away").addClass(lastGoal);
+            if (contentTextBox !== "" && contentTextBox !== ";") {
+                if (contentTextBox.indexOf(';') > -1) {
+                    CalcPopup.displayIconWithSemicolon(contentTextBox, homeIcon, awayIcon, halfTimeHomeIcon, halfTimeAwayIcon,
+                                                       htHomeScore, htAwayScore, finalHomeScore, finalAwayScore);
+                } else {
+                    CalcPopup.displayIconWithOutSemicolon(contentTextBox, homeIcon, awayIcon, finalHomeScore, finalAwayScore);
                 }
             }
 
-            // Display goal record data on Grid
             this.displayGoalRecord(contentTextBox);
         },
 
-        // check content Goal Record on textbox, after that show data on grid
-        displayGoalRecord: function (value) {
-            // If value is empty then remove grid
-            if (value === "") {
-                $(".calc-action-goal-record").html("");
+        displayIconWithSemicolon: function (contentTextBox, homeIcon, awayIcon, halfTimeHomeIcon, halfTimeAwayIcon,
+                                            htHomeScore, htAwayScore, finalHomeScore, finalAwayScore) {
+            var haftTimeGoalRecord = contentTextBox.slice(0, contentTextBox.indexOf(';'));
+            var goalRecord = contentTextBox.replace(';', '');
+            var isExistHTFGLG = $('#IsExistHtFgLg').val().toLowerCase() === 'true' ? true : false;
+            var isExistFgLg = $('#IsExistFgLg').val().toLowerCase() === 'true' ? true : false;
+
+            if (haftTimeGoalRecord.length > 0 && isExistHTFGLG && htHomeScore.length > 0 && htAwayScore.length > 0) {
+                CalcPopup.displayIconWithSemicolonForHalfTime(haftTimeGoalRecord, halfTimeHomeIcon, halfTimeAwayIcon);
             }
-            else {
-                var homeScore,
-                awayScore,
-                row,
-                name;
 
-                homeScore = 0;
-                awayScore = 0;
+            if (isExistFgLg) {
+                CalcPopup.displayIconWithSemicolonForFullTime(goalRecord, homeIcon, awayIcon, finalHomeScore, finalAwayScore);
+            }
+        },
 
-                if (typeof ($(".goal-record-content").val()) == 'undefined') {
-                    var header = "<div class='goal-record-header'>Goal Record</div>";
-                    header += " <div class='goal-record-content'></div>";
-                    $(".calc-action-goal-record").append(header);
+        displayIconWithSemicolonForHalfTime: function (haftTimeGoalRecord, halfTimeHomeIcon, halfTimeAwayIcon) {
+            if (haftTimeGoalRecord.length === 1) {
+                if (haftTimeGoalRecord.substring(0, 1) === "h") {
+                    halfTimeHomeIcon.addClass(halfTimeFirstLastGoal);
+                } else if (haftTimeGoalRecord.substring(0, 1) === "a") {
+                    halfTimeAwayIcon.addClass(halfTimeFirstLastGoal);
                 }
-                $(".goal-record-content").html("");
+            } else {
+                var contentLength = haftTimeGoalRecord.length;
 
-                for (var goal = 0; goal < value.length; goal++) {
-                    homeScore += 'h' == value[goal] ? 1 : 0;
-                    awayScore += 'a' == value[goal] ? 1 : 0;
-                    name = 'h' == value[goal] ? "Home" : "Away";
+                if (haftTimeGoalRecord.substring(0, 1) === "h" && haftTimeGoalRecord.substring(contentLength - 1, contentLength) === "h") {
+                    halfTimeHomeIcon.addClass(halfTimeFirstLastGoal);
+                } else if (haftTimeGoalRecord.substring(0, 1) === "a" && haftTimeGoalRecord.substring(contentLength - 1, contentLength) === "a") {
+                    halfTimeAwayIcon.addClass(halfTimeFirstLastGoal);
+                } else if (haftTimeGoalRecord.substring(0, 1) === "a" && haftTimeGoalRecord.substring(contentLength - 1, contentLength) === "h") {
+                    halfTimeHomeIcon.addClass(halfTimeLastGoal);
+                    halfTimeAwayIcon.addClass(halfTimeFirstGoal);
+                } else if (haftTimeGoalRecord.substring(0, 1) === "h" && haftTimeGoalRecord.substring(contentLength - 1, contentLength) === "a") {
+                    halfTimeHomeIcon.addClass(halfTimeFirstGoal);
+                    halfTimeAwayIcon.addClass(halfTimeLastGoal);
+                }
+            }
+        },
 
-                    row = "<div class='goal-record-row'><div class='goal-record-score'> {0} - {1} </div>" + "		<div>{2}</div>" + "</div>";
+        displayIconWithSemicolonForFullTime: function (goalRecord, homeIcon, awayIcon, finalHomeScore, finalAwayScore) {
+            if (goalRecord.length === 1) {
+                if (goalRecord.substring(0, 1) === "h" && finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                    homeIcon.addClass(firstLastGoal);
+                } else if (goalRecord.substring(0, 1) === "a" && finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                    awayIcon.addClass(firstLastGoal);
+                } else if (goalRecord.substring(0, 1) === "h") {
+                    homeIcon.addClass(firstGoal);
+                } else if (goalRecord.substring(0, 1) === "a") {
+                    awayIcon.addClass(firstGoal);
+                }
+            } else {
+                var contentLength = goalRecord.length;
 
+                if (goalRecord.substring(0, 1) === "h" && goalRecord.substring(contentLength - 1, contentLength) === "h" &&
+                         finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                    homeIcon.addClass(firstLastGoal);
+                } else if (goalRecord.substring(0, 1) === "a" && goalRecord.substring(contentLength - 1, contentLength) === "a" &&
+                               finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                    awayIcon.addClass(firstLastGoal);
+                } else if (goalRecord.substring(0, 1) === "a" && goalRecord.substring(contentLength - 1, contentLength) === "h" &&
+                               finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                    homeIcon.addClass(lastGoal);
+                    awayIcon.addClass(firstGoal);
+                } else if (goalRecord.substring(0, 1) === "h" && goalRecord.substring(contentLength - 1, contentLength) === "a" &&
+                               finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                    homeIcon.addClass(firstGoal);
+                    awayIcon.addClass(lastGoal);
+                } else if (goalRecord.substring(0, 1) === "h") {
+                    homeIcon.addClass(firstGoal);
+                } else if (goalRecord.substring(0, 1) === "a") {
+                    awayIcon.addClass(firstGoal);
+                }
+            }
+        },
+
+        displayIconWithOutSemicolon: function (contentTextBox, homeIcon, awayIcon, finalHomeScore, finalAwayScore) {
+            var isExistFgLg = $('#IsExistFgLg').val().toLowerCase() === 'true' ? true : false;
+
+            if (isExistFgLg) {
+                if (contentTextBox.length === 1) {
+                    CalcPopup.displayIconWithOutSemicolonInOneChar(contentTextBox, homeIcon, awayIcon);
+                }
+                else {
+                    CalcPopup.displayIconWithOutSemicolonInManyChar(contentTextBox, homeIcon, awayIcon, finalHomeScore, finalAwayScore);
+                }
+            }
+        },
+
+        displayIconWithOutSemicolonInOneChar: function (contentTextBox, homeIcon, awayIcon) {
+            if (contentTextBox.substring(0, 1) === "h") {
+                homeIcon.addClass(firstGoal);
+            } else if (contentTextBox.substring(0, 1) === "a") {
+                awayIcon.addClass(firstGoal);
+            }
+        },
+
+        displayIconWithOutSemicolonInManyChar: function (contentTextBox, homeIcon, awayIcon, finalHomeScore, finalAwayScore) {
+            var contentLength = contentTextBox.length;
+
+            if (contentTextBox.substring(0, 1) === "h" && contentTextBox.substring(contentLength - 1, contentLength) === "h" &&
+                         finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                homeIcon.addClass(firstLastGoal);
+            } else if (contentTextBox.substring(0, 1) === "a" && contentTextBox.substring(contentLength - 1, contentLength) === "a" &&
+                               finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                awayIcon.addClass(firstLastGoal);
+            } else if (contentTextBox.substring(0, 1) === "a" && contentTextBox.substring(contentLength - 1, contentLength) === "h" &&
+                               finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                homeIcon.addClass(lastGoal);
+                awayIcon.addClass(firstGoal);
+            } else if (contentTextBox.substring(0, 1) === "h" && contentTextBox.substring(contentLength - 1, contentLength) === "a" &&
+                               finalHomeScore.length > 0 && finalAwayScore.length > 0) {
+                homeIcon.addClass(firstGoal);
+                awayIcon.addClass(lastGoal);
+            } else if (contentTextBox.substring(0, 1) === "h") {
+                homeIcon.addClass(firstGoal);
+            } else if (contentTextBox.substring(0, 1) === "a") {
+                awayIcon.addClass(firstGoal);
+            }
+        },
+
+        addGoalRecordRow: function (goalRecord) {
+            var homeScore = 0, awayScore = 0, row, name, stopAddingHalfTimeRecord = false;
+            var isExistHtFglg = $('#IsExistHtFgLg').val().toLowerCase() === 'true' ? true : false;
+
+            for (var goal = 0; goal < goalRecord.length; goal++) {
+                if (goalRecord[goal] === ';') {
+                    stopAddingHalfTimeRecord = true;
+                } else {
+                    homeScore += 'h' === goalRecord[goal] ? 1 : 0;
+                    awayScore += 'a' === goalRecord[goal] ? 1 : 0;
+                    name = 'h' === goalRecord[goal] ? "Home" : "Away";
+
+                    row = "<div class='goal-row'><div class='goal-score'> {0} - {1} </div>" + "		<div>{2}</div>" + "</div>";
                     row = row.replace("{0}", homeScore);
                     row = row.replace("{1}", awayScore);
                     row = row.replace("{2}", name);
-                    $(".goal-record-content").append(row);
+
+                    $(".goal-record .content").append(row);
+
+                    if (!stopAddingHalfTimeRecord && isExistHtFglg && goalRecord.indexOf(';') > -1) {
+                        $(".ht-goal-record .content").append(row);
+                    }
                 }
+            }
+        },
+
+        displayGoalRecord: function (value) {
+            if (value === "" || value === ';') {
+                $(".goal-record").html("");
+                $(".ht-goal-record").html("");
+            } else {
+                var isExistHtFglg = $('#IsExistHtFgLg').val().toLowerCase() === 'true' ? true : false;
+                var hasHalfTimeRecord = false;
+
+                if (value.indexOf(';') < 0 && isExistHtFglg) {
+                    hasHalfTimeRecord = true;
+                } else if (value.slice(0, value.indexOf(';')).length > 0 && isExistHtFglg) {
+                    hasHalfTimeRecord = true;
+                } else {
+                    hasHalfTimeRecord = false;
+                }
+
+                if (typeof ($(".goal-record .content").val()) === 'undefined') {
+                    var header = "<div class='header'>FT Goal Record</div>";
+                    header += " <div class='content'></div>";
+                    $(".goal-record").append(header);
+                }
+
+                if (typeof ($(".ht-goal-record .content").val()) === 'undefined' && value.indexOf(';') > -1) {
+                    var htHeader = "<div class='header'>HT Goal Record</div>";
+                    htHeader += " <div class='content'></div>";
+                    $(".ht-goal-record").append(htHeader);
+                }
+
+                if (hasHalfTimeRecord && value.indexOf(';') > -1) {
+                    $(".ht-goal-record .content").html("");
+                } else {
+                    $(".ht-goal-record").html("");
+                }
+
+                $(".goal-record .content").html("");
+
+                CalcPopup.addGoalRecordRow(value);
             }
         },
 
@@ -157,11 +312,12 @@
             var numberTextBox = 4;
             this.setTotalScore(numberTextBox);
 
-            totalFinalHomeScore += ($("#TextBoxHomeOT").val() == '') ? 0 : parseInt($("#TextBoxHomeOT").val(), 10);
-            totalFinalAwayScore += ($("#TextBoxAwayOT").val() == '') ? 0 : parseInt($("#TextBoxAwayOT").val(), 10);
+            totalFinalHomeScore += ($("#TextBoxHomeOT").val() === '') ? 0 : parseInt($("#TextBoxHomeOT").val(), 10);
+            totalFinalAwayScore += ($("#TextBoxAwayOT").val() === '') ? 0 : parseInt($("#TextBoxAwayOT").val(), 10);
 
             $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeScore);
             $("#TextBoxFinalAwayScore").attr("value", totalFinalAwayScore);
+
             // Hide message when input data
             $("#errMsg").hide();
         },
@@ -269,11 +425,12 @@
             $("#TextBoxHtHomeScore").attr("value", totalHalfTimeHomeScore);
             $("#TextBoxHtAwayScore").attr("value", totalHalfTimeAwayScore);
 
-            totalFinalHomeScore += ($("#TextBoxHomeOT").val() == '') ? 0 : parseInt($("#TextBoxHomeOT").val(), 10);
-            totalFinalAwayScore += ($("#TextBoxAwayOT").val() == '') ? 0 : parseInt($("#TextBoxAwayOT").val(), 10);
+            totalFinalHomeScore += ($("#TextBoxHomeOT").val() === '') ? 0 : parseInt($("#TextBoxHomeOT").val(), 10);
+            totalFinalAwayScore += ($("#TextBoxAwayOT").val() === '') ? 0 : parseInt($("#TextBoxAwayOT").val(), 10);
 
             $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeScore);
             $("#TextBoxFinalAwayScore").attr("value", totalFinalAwayScore);
+
             // Hide message when input data
             $("#errMsg").hide();
         },
@@ -327,11 +484,12 @@
             $("#TextBoxHtHomeScore").attr("value", totalHalfTimeHomeScore);
             $("#TextBoxHtAwayScore").attr("value", totalHalfTimeAwayScore);
 
-            totalFinalHomeScore += ($("#TextBoxHomeEI").val() == '') ? 0 : parseInt($("#TextBoxHomeEI").val(), 10);
-            totalFinalAwayScore += ($("#TextBoxAwayEI").val() == '') ? 0 : parseInt($("#TextBoxAwayEI").val(), 10);
+            totalFinalHomeScore += ($("#TextBoxHomeEI").val() === '') ? 0 : parseInt($("#TextBoxHomeEI").val(), 10);
+            totalFinalAwayScore += ($("#TextBoxAwayEI").val() === '') ? 0 : parseInt($("#TextBoxAwayEI").val(), 10);
 
             $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeScore);
             $("#TextBoxFinalAwayScore").attr("value", totalFinalAwayScore);
+
             // Hide message when input data
             $("#errMsg").hide();
         },
@@ -345,30 +503,22 @@
             for (var i = 1; i < numberTextBox; i++) {
                 var homeScore = $("#TextBoxHome" + i + "Q").val();
                 var awayScore = $("#TextBoxAway" + i + "Q").val();
-                if (homeScore == '')
-                    homeScore = '0';
-                if (awayScore == '')
-                    awayScore = '0';
+                homeScore = (homeScore === '') ? '0' : homeScore;
+                awayScore = (awayScore === '') ? '0' : awayScore;
 
                 homeScore = (/[^0-9]/.test(homeScore)) ? 0 : parseInt(homeScore, 10);
                 awayScore = (/[^0-9]/.test(awayScore)) ? 0 : parseInt(awayScore, 10);
 
-                if (homeScore > awayScore) {
-                    totalFinalHomeSet++;
-                }
-                else if (homeScore < awayScore) {
-                    totalFinalAwaySet++;
-                }
+                totalFinalHomeSet = (homeScore > awayScore) ? (totalFinalHomeSet += 1) : totalFinalHomeSet;
+                totalFinalAwaySet = (homeScore < awayScore) ? (totalFinalAwaySet += 1) : totalFinalAwaySet;
 
                 totalFinalHomeScore += homeScore;
                 totalFinalAwayScore += awayScore;
 
                 // Use on Basketball, Baseball sports.(Basketball i=2, Baseball i=5)
-                if ((typeof (step) !== 'undefined')) {
-                    if (i == step) {
-                        totalHalfTimeHomeScore = totalFinalHomeScore;
-                        totalHalfTimeAwayScore = totalFinalAwayScore;
-                    }
+                if ((typeof (step) !== 'undefined') && (i === step)) {
+                    totalHalfTimeHomeScore = totalFinalHomeScore;
+                    totalHalfTimeAwayScore = totalFinalAwayScore;
                 }
             }
         },
@@ -392,6 +542,7 @@
         // Utility: Add event keyup and keypress
         eventOnTextBox: function (id, functionName) {
             $("#" + id).keyup(function () {
+                /*jslint evil: true */
                 eval(functionName);
             });
             $("#" + id).keypress(function () {
@@ -433,13 +584,14 @@
                 DoSingleTicket.doCalculate(Type.CalculateFullTime);
             });
 
-            $('.act-calc-fgng').click(function () {
-                DoSingleTicket.doCalculate(Type.CalculateFgNg);
-            });
-
             // Event click on button CalculateFGNG
             $('.act-calc-all').click(function () {
                 DoSingleTicket.doCalculate(Type.CalculateAll);
+            });
+
+            // Event click on Calculate Fisrt Goal No Goal
+            $('.act-calc-fgng').click(function () {
+                DoSingleTicket.doCalculate(Type.CalculateFgNg);
             });
 
             // Event click on button UnCalculate

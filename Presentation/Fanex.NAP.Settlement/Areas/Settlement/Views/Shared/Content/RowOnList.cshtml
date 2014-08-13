@@ -70,24 +70,26 @@
         @match.KickOffTime.ToString("hh:mm:ss tt")
     </td>
     <td class="home-away">
-        <div class="match-home @match.BetStatusAccess.HomeGoal">
-            @match.HomeName @(Convert.ToBoolean(match.IsNeutral) ? " (N)" : string.Empty)
+        <div class="match-home">
+            @match.HomeName
         </div>
+        <span class="@match.BetStatusAccess.HomeGoal"></span><span class="@match.BetStatusAccess.HalfTimeHomeGoal">
+        </span>
     </td>
     @RenderSection("HomeScore")
     <td rowspan="2" class='event-status event-status-@match.MatchId @Utility.BackgroundColorEventStatus(eventStatus, match.IsPending)'>
         <span class="running">@eventStatus
-           @if (eventStatus.Equals(EventStatus.Running, StringComparison.OrdinalIgnoreCase))
-           {
-            if (permissionCloseMatch)
+            @if (eventStatus.Equals(EventStatus.Running, StringComparison.OrdinalIgnoreCase))
             {
+                if (permissionCloseMatch)
+                {
                 <i id="close-@match.MatchId" class='on close-match'></i>
+                }
+                else
+                {
+                <i id="close-@match.MatchId" class='off close-match' />
+                }
             }
-            else
-            {
-                <i id="close-@match.MatchId" class='off close-match'/>
-            }
-           }
         </span>
         <br />
         <span style="color: Red">@actionFailed</span>
@@ -159,9 +161,11 @@
 </tr>
 <tr class="row-@match.LeagueId @oddOrEven @backroundColor">
     <td>
-        <div class="match-away @match.BetStatusAccess.AwayGoal">
+        <div class="match-away">
             @match.AwayName
         </div>
+        <span class="@match.BetStatusAccess.AwayGoal"></span><span class="@match.BetStatusAccess.HalfTimeAwayGoal">
+        </span>
     </td>
     @RenderSection("AwayScore")
 </tr>

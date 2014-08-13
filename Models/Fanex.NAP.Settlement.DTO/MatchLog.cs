@@ -67,7 +67,7 @@ namespace Fanex.NAP.Settlement.DTO
                 {
                     if (!Convert.IsDBNull(this.BetStatus) && !string.IsNullOrWhiteSpace(this.BetStatus) && this.ActionId < 11)
                     {
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus);
+                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus, false, false, GoalRecord, false);
                     }
                     else
                     {
@@ -200,9 +200,11 @@ namespace Fanex.NAP.Settlement.DTO
                 case ConfirmedAction.CalHT:
                     result = string.Join("-", this.HtHomeScore, this.HtAwayScore);
                     break;
+
                 case ConfirmedAction.CalFT:
                     result = string.Join("-", this.FinalHomeScore, this.FinalAwayScore);
                     break;
+
                 case ConfirmedAction.CalAll:
                     var home = string.Join("-", this.HtHomeScore, this.HtAwayScore);
                     var away = string.Join("-", this.FinalHomeScore, this.FinalAwayScore);

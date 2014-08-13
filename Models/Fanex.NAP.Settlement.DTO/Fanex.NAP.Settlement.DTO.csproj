@@ -66,6 +66,7 @@
     <Compile Include="Domain\ConfirmedAction.cs" />
     <Compile Include="Domain\EventStatus.cs" />
     <Compile Include="Domain\OutrightStatus.cs" />
+    <Compile Include="GoalIcon.cs" />
     <Compile Include="MatchLog.cs" />
     <Compile Include="DBResult\Result.cs" />
     <Compile Include="Domain\BetType.cs" />

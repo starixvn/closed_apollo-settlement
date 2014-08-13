@@ -16,16 +16,11 @@
         }
         @if (isShowRefundHt)
         {
-            <div class="line-height">
-                <div class="refund-button act-refund-ht">@ViewResources.RefundHT</div>
-            </div>
+            <div class="refund-button act-refund-ht">@ViewResources.RefundHT</div>
+
         }
-        <div class="line-height">
-            <div class="refund-button act-refund-ft">@ViewResources.RefundFT</div>
-        </div>
-        <div class="line-height">
-            <div class="refund-button act-refund-all">@ViewResources.RefundAll</div>
-        </div>
+        <div class="refund-button act-refund-ft">@ViewResources.RefundFT</div>
+        <div class="refund-button act-refund-all">@ViewResources.RefundAll</div>
         <div class="clear">
         </div>
         <!-- Refund Parlay -->
@@ -33,14 +28,14 @@
             @{
                 var isShowParlayHt = Model.CurrentMatch.SportType == SportType.Soccer || Model.CurrentMatch.SportType == SportType.BasketBall;
                 var isShowParlayFt = false;
-                if (Model.CurrentMatch.SportType == SportType.FootBall 
+                if (Model.CurrentMatch.SportType == SportType.FootBall
                     || Model.CurrentMatch.SportType == SportType.BaseBall
-                    || Model.CurrentMatch.SportType == SportType.Soccer 
-                    || Model.CurrentMatch.SportType == SportType.BasketBall 
+                    || Model.CurrentMatch.SportType == SportType.Soccer
+                    || Model.CurrentMatch.SportType == SportType.BasketBall
                     || Model.CurrentMatch.SportType == SportType.Rugby)
                 {
-                    if (Model.CurrentMatch.SportType == SportType.FootBall 
-                        || Model.CurrentMatch.SportType == SportType.BaseBall 
+                    if (Model.CurrentMatch.SportType == SportType.FootBall
+                        || Model.CurrentMatch.SportType == SportType.BaseBall
                         || Model.CurrentMatch.SportType == SportType.Rugby)
                     {
                         isShowParlayFt = true;
@@ -49,46 +44,62 @@
                     {
                         isShowParlayFt = false;
                     }
-                    else {
+                    else
+                    {
                         isShowParlayFt = true;
                     }
                 }
-                
 
                 if (isShowParlayHt)
                 {
-                <div class="line-height">
-                    <div class="refund-button act-refund-parlay-ht">@ViewResources.RefundMultiHT</div>
-                </div>
+                <div class="refund-button act-refund-parlay-ht">@ViewResources.RefundMultiHT</div>
                 }
                 if (isShowParlayFt)
                 {
-                <div class="line-height">
-                    <div class="refund-button act-refund-parlay-ft">@ViewResources.RefundMultiFT</div>
-                </div>
+                <div class="refund-button act-refund-parlay-ft">@ViewResources.RefundMultiFT</div>
                 }
-                <div class="line-height">
-                    <div class="refund-button act-refund-parlay-all">@ViewResources.RefundMultiAll</div>
-                </div>
+                <div class="refund-button act-refund-parlay-all">@ViewResources.RefundMultiAll</div>
             }
         </div>
         <div class="clear">
         </div>
         <!-- Refund FGLG -->
-        <div>
-            @if (Model.CurrentMatch.IsExistFgLg)
+        @if (Model.CurrentMatch.SportType == SportType.Soccer)
+        {
+            if (Model.CurrentMatch.IsExistHTFGLG)
             {
-                <div class="line-height">
-                    <div class="refund-button act-refund-all-fglg">@ViewResources.RefundAllFGLG</div>
-                </div>
+            <div class="refund-button act-refund-ht-fglg">@ViewResources.RefundHTFGLG</div>
             }
-            @if (Model.CurrentMatch.IsExistLG)
+
+            if (Model.CurrentMatch.IsExistFGLG)
             {
-                <div class="line-height">
-                    <div class="refund-button act-refund-all-lg">@ViewResources.RefundAllLastGoal</div>
-                </div>
+            <div class="refund-button act-refund-ft-fglg">@ViewResources.RefundFTFGLG</div>
             }
-        </div>
+
+            if (Model.CurrentMatch.IsExistHTFGLG || Model.CurrentMatch.IsExistFGLG)
+            {
+            <div class="refund-button act-refund-all-fglg">@ViewResources.RefundAllFGLG</div>
+            }
+            <div class="clear">
+            </div>
+
+            if (Model.CurrentMatch.IsExistHTLG)
+            {
+            <div class="refund-button act-refund-ht-lg">@ViewResources.RefundHTLastGoal</div>
+            }
+
+            if (Model.CurrentMatch.IsExistLG)
+            {
+            <div class="refund-button act-refund-ft-lg">@ViewResources.RefundFTLastGoal</div>
+            }
+
+            if (Model.CurrentMatch.IsExistHTLG || Model.CurrentMatch.IsExistLG)
+            {
+            <div class="refund-button act-refund-all-lg">@ViewResources.RefundAllLastGoal</div>
+            }
+            <div class="clear">
+            </div>
+        }
     </div>
     <div class="clear">
     </div>

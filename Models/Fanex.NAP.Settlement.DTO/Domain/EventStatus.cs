@@ -16,5 +16,6 @@ namespace Fanex.NAP.Settlement.DTO.Domain
     {
         public const string Completed = "completed";
         public const string Running = "running";
+        public const string RefundHT = "refund ht";
     }
 }

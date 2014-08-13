@@ -47,7 +47,7 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_homeName) ? CacheRef.GetTeamName(HomeId) : _homeName;
+                return string.IsNullOrWhiteSpace(_homeName) ? CacheRef.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty) : _homeName;
             }
         }
 
@@ -82,6 +82,8 @@ namespace Fanex.NAP.Settlement.DTO
         public string FtStatus { get; set; }
 
         public string FgLgStatus { get; set; }
+
+        public string HtFgLgStatus { get; set; }
 
         public DateTime KickOffTime { get; set; }
 
@@ -127,6 +129,10 @@ namespace Fanex.NAP.Settlement.DTO
 
         public bool DisabledAutoSettle { get; set; }
 
+        public bool IsExistHTFGLG { get; set; }
+
+        public bool IsExistFGLG { get; set; }
+
         #endregion Match Status
 
         #region Extra Property
@@ -135,44 +141,25 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                if (this._betStatusAccess == null)
+                if (_betStatusAccess == null)
                 {
-                    this._betStatusAccess = new BetStatusAccess();
-
-                    if (!Convert.IsDBNull(this.BetStatus)
-                        && !string.IsNullOrEmpty(this.BetStatus)
-                        && this.SportType == 1)
+                    if (!Convert.IsDBNull(BetStatus) && !string.IsNullOrEmpty(BetStatus))
                     {
-                        if (this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) > -1)
-                        {
-                            var homeAwayGoal = this.BetStatus.Substring(this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) + 3).Replace(";", "");
-                            var strhwgoals = homeAwayGoal.Split('-');
-                            int homegoal = Convert.ToInt32(strhwgoals[0]);
-                            int awayhome = Convert.ToInt32(strhwgoals[1]);
-                            int total = homegoal + awayhome;
-                            if (total > 0)
-                            {
-                                this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus);
-                            }
-                        }
+                        _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, false);
                     }
-                    else if (string.IsNullOrEmpty(this.BetStatus) && !string.IsNullOrEmpty(GoalRecord) && this.SportType == 1)
+                    else if (!string.IsNullOrWhiteSpace(GoalRecord))
                     {
-                        bool isFullTime = false;
-                        if (this.FinalAwayScore != null && this.FinalHomeScore != null)
-                        {
-                            isFullTime = true;
-                        }
+                        var isFinalScore = FinalAwayScore != null && FinalHomeScore != null;
 
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus, GoalRecord, isFullTime);
+                        _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, isFinalScore);
                     }
-                    else if (!Convert.IsDBNull(this.BetStatus) && !string.IsNullOrEmpty(this.BetStatus))
+                    else
                     {
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus);
+                        _betStatusAccess = new BetStatusAccess();
                     }
                 }
 
-                return this._betStatusAccess;
+                return _betStatusAccess;
             }
         }
 

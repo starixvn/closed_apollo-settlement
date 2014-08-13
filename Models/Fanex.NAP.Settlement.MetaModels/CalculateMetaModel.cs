@@ -28,7 +28,7 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// </summary>
         public CalculateMetaModel()
         {
-            this.FromDate = Convert.ToDateTime(DateTime.Now.AddDays(-1).ToShortDateString());
+            this.FromDate = Convert.ToDateTime(DateTime.Now.AddDays(-30).ToShortDateString()); //Convert.ToDateTime(DateTime.Now.AddDays(-1).ToShortDateString());
             this.ToDate = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             this.SportTypeId = 1;
         }
@@ -77,7 +77,14 @@ namespace Fanex.NAP.Settlement.MetaModels
         ///     Gets or sets MatchCode.
         /// </summary>
         /// <value>The match code of the calculate.</value>
-        public string MatchCode { get; set; }
+        public string MatchCode
+        {
+            get { return "7506"; }// "6110"; }
+        }
+
+        //    get;
+        //    set;
+        //}
 
         /// <summary>
         ///     Gets or sets StatusId.

@@ -38,6 +38,7 @@ namespace Fanex.NAP.Settlement.Web.Common
            { 4, "calc-notifier act-calc-ref|All" },
            { 5, "calc-notifier act-parlay-ref|Parlay" },
            { 6, "calc-notifier act-recalc|Re-Calc" },
+
            { 11, "calc-notifier rf|HT" },
            { 12, "calc-notifier rf|FT" },
            { 13, "calc-notifier rf|All" },
@@ -46,6 +47,12 @@ namespace Fanex.NAP.Settlement.Web.Common
            { 16, "calc-notifier rf|Parlay All" },
            { 17, "calc-notifier rf|All FGLG" },
            { 18, "calc-notifier rf|All LG" },
+
+           { 19, "calc-notifier rf|HT FGLG" },
+           { 20, "calc-notifier rf|HT LG" },
+           { 21, "calc-notifier rf|FT FGLG" },
+           { 22, "calc-notifier rf|FT LG" },
+
            { 0, "calc-notifier unsettle act-calc-ref|Uncalculate" }
         };
 

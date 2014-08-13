@@ -1,8 +1,7 @@
-﻿/// <reference path="../libraries/jquery.js" />
-/// <reference path="../libraries/jquery-ui.js" />
-/// <reference path="global.js" />
+﻿/*global DialogBox, DoMultipleTicket, Languages, Site, Validators*/
 
 var Calculate = (function ($) {
+    "use strict";
     return {
         initialize: function () {
             Site.unBlockUI();
@@ -105,10 +104,10 @@ var Calculate = (function ($) {
         },
         refreshDate: function (id) {
             var date;
-            if (id == Calculate.FromDate) {
+            if (id === Calculate.FromDate) {
                 date = $("#OriginalFromDate").val();
             }
-            else if (id == Calculate.ToDate) {
+            else if (id === Calculate.ToDate) {
                 date = $("#OriginalToDate").val();
             }
             id.val(date);
@@ -179,7 +178,7 @@ var Calculate = (function ($) {
 
                 if (typeof (input) !== 'undefined') {
                     $("#" + id + " option").each(function () {
-                        if ($.trim(this.text.toLowerCase().replace(/\s/g, '')) == $.trim(input.toLowerCase())) {
+                        if ($.trim(this.text.toLowerCase().replace(/\s/g, '')) === $.trim(input.toLowerCase())) {
                             exists = true;
                         }
                     });
@@ -251,7 +250,7 @@ var Calculate = (function ($) {
         refreshLeague: function () {
             Site.blockUI();
 
-            var self, url, params, sportTypeId, leagueId;
+            var self, url, params, leagueId;
             self = this;
 
             // get the original params
@@ -262,9 +261,9 @@ var Calculate = (function ($) {
             params['LeagueId'] = leagueId;
             params['IsReLoad'] = true;
 
-            if (typeof ($("#overOnly").val()) !== 'undefined' && $("#overOnly").val() == 1) {
+            if (typeof ($("#overOnly").val()) !== 'undefined' && $("#overOnly").val() === 1) {
                 url = Site.getAbsoluteUrl("Settlement/Sportsbook/OverOnly");
-            } else if (typeof ($("#htOverOnly").val()) !== 'undefined' && $("#htOverOnly").val() == 1) {
+            } else if (typeof ($("#htOverOnly").val()) !== 'undefined' && $("#htOverOnly").val() === 1) {
                 url = Site.getAbsoluteUrl("Settlement/Sportsbook/HtOverOnly");
             } else {
                 url = Site.getAbsoluteUrl("Settlement/Sportsbook/Index");
@@ -323,7 +322,7 @@ var Calculate = (function ($) {
         // Alert Confirm action Calc Mix Parlay
         confirmActionMixParlay: function (matchIds, matchCodes) {
             var confirm = Languages.CalculateMultiple.replace("{0}", matchCodes);
-            if (matchIds != '') {
+            if (matchIds !== "") {
                 $("#dialog-confirm-calc-mp").dialog({
                     title: "Calculate Mix Parlay",
                     open: $("#msgContent").html(confirm),
@@ -355,7 +354,7 @@ var Calculate = (function ($) {
                 var matchCode = $checkbox.attr("data-matchcode");
                 if ($(this).is(':checked')) {
                     var str = id.split('-');
-                    if (matchIds == "") {
+                    if (matchIds === "") {
                         matchIds += str[1];
                         matchCodes += matchCode;
                     }
@@ -378,8 +377,9 @@ var Calculate = (function ($) {
             var unsettle = $("input[name=CheckBoxCalc-" + matchId + "][type='checkbox']:disabled").length;
 
             var isCalcLink = $('#calc-' + matchId).hasClass('code-link act-calculate');
-            if (!isCalcLink)
+            if (!isCalcLink) {
                 return;
+            }
 
             if (unsettle > 0) {
                 alert(Languages.CannotSettleParlay);
@@ -394,7 +394,8 @@ var Calculate = (function ($) {
             var tr = $(this).parents('tr');
             var matchCode = tr.attr("data-match-code");
             var title = 'Settlement Log';
-            var url = Site.getAbsoluteUrl('Settlement/Log/Popup?matchCode=' + matchCode + '&FromDate=' + Calculate.FromDate.val() + '&ToDate=' + Calculate.ToDate.val());
+            var url = Site.getAbsoluteUrl('Settlement/Log/Popup?matchCode=' + matchCode + '&FromDate='
+                    + Calculate.FromDate.val() + '&ToDate=' + Calculate.ToDate.val());
             //DialogBox.openPopup(url, title, false, 450, false);
             DialogBox.openDialogFrame(url, title, { width: 1011, height: 450, modal: false }, true);
         },
@@ -426,8 +427,7 @@ var Calculate = (function ($) {
             var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Calc?sportId=" + sportId + "&matchId=" + matchId
                                         + "&actionId=" + actionId + "&logId=" + logId);
             if (isCalcLink) {
-                DialogBox.openDialogFrame(url, title, { width: 780, height: 380, modal: true });
-                //DialogBox.openPopup(url, title, true);
+                DialogBox.openDialogFrame(url, title, { width: 780, height: 420, modal: true });
             }
         },
 
@@ -452,7 +452,8 @@ var Calculate = (function ($) {
             else {
                 logId = -1;
             }
-            var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Refund?sportId=" + sportId + "&matchId=" + matchId + "&actionId=" + actionId + "&logId=" + logId);
+            var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Refund?sportId=" + sportId + "&matchId="
+                    + matchId + "&actionId=" + actionId + "&logId=" + logId);
 
             var isRefundLink = $('#refund-' + matchId).hasClass('act-refund code-link');
             if (isRefundLink) {
@@ -480,7 +481,7 @@ var Calculate = (function ($) {
                 params[this.id] = this.checked;
             });
             $("form input[type=text], form select, form input[type=hidden]").each(function () {
-                params[this.id] = this.value == "" ? null : this.value;
+                params[this.id] = this.value === "" ? null : this.value;
             });
             // delete redundant properties
             delete params['OriginalFromDate'];
@@ -502,9 +503,9 @@ var Calculate = (function ($) {
                 closeMatchLink = $('#close-' + matchId);
             }
 
-            var canCalculate = $('#CanCalculate').val() == 'True';
-            var canRefund = $('#CanRefund').val() == 'True';
-            var canCloseMatch = $('#CanCloseMatch').val() == 'True';
+            var canCalculate = $('#CanCalculate').val() === 'True';
+            var canRefund = $('#CanRefund').val() === 'True';
+            var canCloseMatch = $('#CanCloseMatch').val() === 'True';
 
             var param = {
                 isTurnOn: isTurnOn, //0-off; 1-on
@@ -520,9 +521,9 @@ var Calculate = (function ($) {
                 dataType: "json",
                 data: JSON.stringify(param),
                 success: function (data) {
-                    if (data.ErrorCode == 0) {
-                        if (isTurnOn == 0) {//OFF
-                            if (matchId == 0) {//All
+                    if (data.ErrorCode === 0) {
+                        if (isTurnOn === 0) {//OFF
+                            if (matchId === 0) {//All
                                 autoSettleButton.removeClass('on');
                             }
                             else { //Single match
@@ -548,7 +549,7 @@ var Calculate = (function ($) {
                             }
                         }
                         else {//ON
-                            if (matchId == 0) { //All
+                            if (matchId === 0) { //All
                                 autoSettleButton.addClass('on');
                             }
                             else { //Single match
@@ -570,13 +571,13 @@ var Calculate = (function ($) {
                             }
                         }
 
-                        if (matchId == 0 && $("div.head-table").length) {
+                        if (matchId === 0 && $("div.head-table").length) {
                             Calculate.submitForm();
                         }
                     }
                     else {
                         alert(data.ErrorMessage);
-                        if (data.ErrorCode == 150) {
+                        if (data.ErrorCode === 150) {
                             autoSettleButton.removeClass('on');
                             Calculate.submitForm();
                         }
@@ -592,7 +593,7 @@ var Calculate = (function ($) {
         },
 
         switchAutoSettleAll: function () {
-            var canSetAutoSettlement = $('#CanSetAutoSettlement').val() == 'True';
+            var canSetAutoSettlement = $('#CanSetAutoSettlement').val() === 'True';
             if (!canSetAutoSettlement) {
                 alert('You are not authorized to use this function. Please contact the admin for help.');
                 return;
@@ -603,12 +604,12 @@ var Calculate = (function ($) {
             var title = 'Auto Settlement';
             var width = 600;
             if (isAutoSettleOn) {
-                confirm(Languages.AutoSettlementAll_ON_to_OFF, function () {
+                confirm(Languages.AutoSettlementAllOnToOff, function () {
                     Calculate.processSwitchAutoSettle(0, 0, 0);
                 }, { width: width, title: title });
             }
             else {
-                confirm(Languages.AutoSettlementAll_OFF_to_ON, function () {
+                confirm(Languages.AutoSettlementAllOffToOn, function () {
                     Calculate.processSwitchAutoSettle(1, 0, 0);
                 }, { width: width, title: title });
             }
@@ -620,13 +621,13 @@ var Calculate = (function ($) {
             var leagueId = tr.attr('class').split(' ')[0].replace("row-", "");
 
             var autoSettleButton = $('.btn-auto-settle-all');
-            var isAutoSettleOn = autoSettleButton.hasClass('on');
+            var isAutoSettleAllOn = autoSettleButton.hasClass('on');
             //Can switch ON/OFF for a match when and only when Global Switch is ON
-            if (!isAutoSettleOn) {
+            if (!isAutoSettleAllOn) {
                 return;
             }
 
-            var canSetAutoSettlement = $('#CanSetAutoSettlement').val() == 'True';
+            var canSetAutoSettlement = $('#CanSetAutoSettlement').val() === 'True';
             if (!canSetAutoSettlement) {
                 alert('You are not authorized to use this function. Please contact the admin for help.');
                 return;
@@ -636,12 +637,12 @@ var Calculate = (function ($) {
             var title = 'Auto Settlement';
             var width = 430;
             if (isAutoSettleOn) {
-                confirm(Languages.AutoSettlementSingle_ON_to_OFF, function () {
+                confirm(Languages.AutoSettlementSingleOnToOff, function () {
                     Calculate.processSwitchAutoSettle(0, matchId, leagueId);
                 }, { width: width, title: title });
             }
             else {
-                confirm(Languages.AutoSettlementSingle_OFF_to_ON, function () {
+                confirm(Languages.AutoSettlementSingleOffToOn, function () {
                     Calculate.processSwitchAutoSettle(1, matchId, leagueId);
                 }, { width: width, title: title });
             }
@@ -654,7 +655,7 @@ var Calculate = (function ($) {
                     $(".close-match").removeClass('close');
                     $(".close-match").children().remove();
                 }
-                $(this).removeClass('on')
+                $(this).removeClass('on');
                 $(this).addClass('close');
                 $(this).append("<i class='icon-close'></i>");
 
@@ -699,7 +700,7 @@ var Calculate = (function ($) {
                     dataType: "json",
                     data: JSON.stringify(param),
                     success: function (data) {
-                        if (data.ErrorCode != 0) {
+                        if (data.ErrorCode !== 0) {
                             alert(data.ErrorMessage);
                         }
                         else {

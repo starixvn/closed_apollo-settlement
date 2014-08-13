@@ -62,6 +62,8 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// <value>The last goal and first goal of the single ticket.</value>
         public bool IsExistFgLg { get; set; }
 
+        public bool IsExistHtFgLg { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the item is ScoreDirect.
         /// </summary>
@@ -271,5 +273,7 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// </summary>
         /// <value>The log id of the single ticket.</value>
         public long LogId { get; set; }
+
+        public string BetStatus { get; set; }
     }
 }

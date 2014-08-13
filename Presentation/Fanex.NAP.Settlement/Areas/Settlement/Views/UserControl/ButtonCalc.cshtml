@@ -34,14 +34,56 @@
             </div>
         </div>
         <!--FGLG-->
-                if (Model.CurrentMatch.IsExistFgLg)
+                if (Model.CurrentMatch.IsExistFGLG && Model.CurrentMatch.IsExistHTFGLG)
                 {
         <div class="calc-action-row">
             <div class="calc-action-header">
-                @ViewResources.FGLG
+                @ViewResources.HTFGLG
             </div>
-            <div class="calc-action-status @(Model.CurrentMatch.FgLgStatus == "Calculated" ? "bg-calculated" : "")">
+            <div class="calc-action-status @(Model.CurrentMatch.HtFgLgStatus.Equals("Calculated") ? "bg-calculated" : "")">
+                @Model.CurrentMatch.HtFgLgStatus
+            </div>
+        </div>
+        <div class="calc-action-row">
+            <div class="calc-action-header">
+                @ViewResources.FTFGLG
+            </div>
+            <div class="calc-action-status @(Model.CurrentMatch.FgLgStatus.Equals("Calculated") ? "bg-calculated" : "")">
                 @Model.CurrentMatch.FgLgStatus
+            </div>
+            <div class="calc-action-button">
+                @if (Model.Permission.SportsBook.CanCalculate)
+                {
+                    <div class="act-calc-fgng all-fgng">@ViewResources.CalculateFGNG</div>
+                }
+            </div>
+        </div>
+                }
+                else if (Model.CurrentMatch.IsExistFGLG)
+                {
+        <div class="calc-action-row">
+            <div class="calc-action-header">
+                @ViewResources.FTFGLG
+            </div>
+            <div class="calc-action-status @(Model.CurrentMatch.FgLgStatus.Equals("Calculated") ? "bg-calculated" : "")">
+                @Model.CurrentMatch.FgLgStatus
+            </div>
+            <div class="calc-action-button">
+                @if (Model.Permission.SportsBook.CanCalculate)
+                {
+                    <div class="act-calc-fgng">@ViewResources.CalculateFGNG</div>
+                }
+            </div>
+        </div>
+                }
+                else if (Model.CurrentMatch.IsExistHTFGLG)
+                {
+        <div class="calc-action-row">
+            <div class="calc-action-header">
+                @ViewResources.HTFGLG
+            </div>
+            <div class="calc-action-status @(Model.CurrentMatch.HtFgLgStatus.Equals("Calculated") ? "bg-calculated" : "")">
+                @Model.CurrentMatch.HtFgLgStatus
             </div>
             <div class="calc-action-button">
                 @if (Model.Permission.SportsBook.CanCalculate)
@@ -71,10 +113,20 @@
     </div>
 </div>
 <!--GoalRecord-->
-<div class="calc-action-goal-record">
-    @if (!string.IsNullOrEmpty(Model.CurrentMatch.GoalRecord))
+<div class="ht-goal-record">
+    @if (!string.IsNullOrEmpty(Model.CurrentMatch.GoalRecord) && Model.CurrentMatch.SportType == SportType.Soccer &&
+        Model.CurrentMatch.IsExistHTFGLG && Model.CurrentMatch.GoalRecord.IndexOf(";") > -1 && !Model.CurrentMatch.GoalRecord.Equals(";"))
     {
-        Html.RenderPartial("~/Areas/Settlement/Views/UserControl/GoalRecord.cshtml");
+        var halfTimeFirstLastGoal = Model.CurrentMatch.GoalRecord.Split(';')[0];
+        Html.RenderPartial("~/Areas/Settlement/Views/UserControl/GoalRecord.cshtml", Tuple.Create(true, halfTimeFirstLastGoal));
+
+    }
+</div>
+<div class="goal-record">
+    @if (!string.IsNullOrEmpty(Model.CurrentMatch.GoalRecord) && Model.CurrentMatch.SportType == SportType.Soccer && !Model.CurrentMatch.GoalRecord.Equals(";"))
+    {
+        var lastGoal = Model.CurrentMatch.GoalRecord.Replace(";", string.Empty);
+        Html.RenderPartial("~/Areas/Settlement/Views/UserControl/GoalRecord.cshtml", Tuple.Create(false, lastGoal));
     }
 </div>
 <div class="clear">

@@ -20,8 +20,6 @@ namespace Fanex.NAP.Settlement.DTO
     {
         #region Calculation Information
 
-        public bool IsExistFgLg { get; set; }
-
         public bool IsExistLG { get; set; }
 
         public bool IsHtOnly { get; set; }
@@ -35,6 +33,12 @@ namespace Fanex.NAP.Settlement.DTO
         public int ConfirmFt { get; set; }
 
         public int ConfirmHt { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether.
+        /// </summary>
+        /// <value>Is exist half time last goal.</value>
+        public bool IsExistHTLG { get; set; }
 
         #endregion Calculation Information
     }

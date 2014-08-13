@@ -540,4 +540,28 @@
   <data name="MsgUncalculateOutright" xml:space="preserve">
     <value>Uncalculate for this LEAGUE has been disabled due to Calculate failures.</value>
   </data>
+  <data name="FTGoalRecord" xml:space="preserve">
+    <value>FT Goal Record</value>
+  </data>
+  <data name="HTGoalRecord" xml:space="preserve">
+    <value>HT Goal Record</value>
+  </data>
+  <data name="FTFGLG" xml:space="preserve">
+    <value>FT FGLG</value>
+  </data>
+  <data name="HTFGLG" xml:space="preserve">
+    <value>HT FGLG</value>
+  </data>
+  <data name="RefundFTFGLG" xml:space="preserve">
+    <value>Refund FT FGLG</value>
+  </data>
+  <data name="RefundFTLastGoal" xml:space="preserve">
+    <value>Refund FT Last Goal</value>
+  </data>
+  <data name="RefundHTFGLG" xml:space="preserve">
+    <value>Refund HT FGLG</value>
+  </data>
+  <data name="RefundHTLastGoal" xml:space="preserve">
+    <value>Refund HT Last Goal</value>
+  </data>
 </root>

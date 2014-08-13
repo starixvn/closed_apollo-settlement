@@ -1,4 +1,7 @@
-﻿var Site = (function ($) {
+﻿/*global Languages*/
+/*jshint strict:false */
+/*jshint unused:false*/
+var Site = (function ($) {
     return {
         unBlockUI: function () {
             $('div.block-body').hide();
@@ -30,6 +33,7 @@
             $(".content-scroll").css('max-height', winH - header);
         },
         replaceAll: function (str, regexp, newstr) {
+            /*jslint evil: true */
             return str.replace(eval('/' + regexp + '/g'), newstr);
         },
 
@@ -40,8 +44,9 @@
                 return true;
             }
             for (var i = 0; i < len; i++) {
-                if ($('#' + arrItem[i]).val())
+                if ($('#' + arrItem[i]).val()) {
                     return true;
+                }
             }
             return false;
         },
@@ -49,20 +54,20 @@
         // Allow only numbers in TextBox
         onKeypress: function (event) {
             var charCode = (event.which) ? event.which : event.keyCode;
-            if (charCode > 31 && (charCode < 48 || charCode > 57))
+            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
                 return false;
+            }
 
             return true;
         },
         // Register function on enter keypress for all textbox
         onEnter: function (fn) {
-
             if (typeof fn === typeof (Function)) {
                 // bind event submit form to input with type tetxtbox
                 $("input[type=text]").on("keyup", function (evt) {
                     var keyCode = evt ? (evt.which ? evt.which : evt.keyCode) : event.keyCode;
-                    // if user press enter 
-                    if (keyCode == 13) {
+                    // if user press enter
+                    if (keyCode === 13) {
                         fn.apply();
                     }
                 });

@@ -1,17 +1,25 @@
-﻿@model CalcViewModel
-<div class="goal-record-header"> @ViewResources.GoalRecord </div>
+﻿@model Tuple<Boolean, String>
 @{
+    var isHalfTimeFirstLastGoal = Model.Item1;
+    var goalRecord = Model.Item2;
     var homeScore = 0;
     var awayScore = 0;
 }
-<div class="goal-record-content">
-    @foreach (var goal in Model.CurrentMatch.GoalRecord)
+<div class="header">
+    @(isHalfTimeFirstLastGoal ? ViewResources.HTGoalRecord : ViewResources.FTGoalRecord)
+</div>
+<div class="content">
+    @foreach (var goal in goalRecord)
     {
         homeScore += 'h' == char.ToLower(goal) ? 1 : 0;
         awayScore += 'a' == char.ToLower(goal) ? 1 : 0;
-        <div class="goal-record-row">
-            <div class="goal-record-score"> @homeScore - @awayScore </div>
-            <div> @('h' == char.ToLower(goal) ? ViewResources.Home : ViewResources.Away) </div>
+        <div class="goal-row">
+            <div class="goal-score">
+                @homeScore - @awayScore
+            </div>
+            <div>
+                @(Equals('h', char.ToLower(goal)) ? ViewResources.Home : ViewResources.Away)
+            </div>
         </div>
     }
 </div>

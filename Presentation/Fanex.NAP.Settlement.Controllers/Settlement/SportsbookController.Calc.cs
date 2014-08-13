@@ -32,6 +32,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
     /// </summary>
     public partial class SportsbookController
     {
+        private const string UnReadyContentUrl = "~/Areas/Settlement/Views/UserControl/UnreadyMatch.cshtml";
+
         /// <summary>
         ///     Sport list show full button.
         /// </summary>
@@ -65,6 +67,11 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         {
             var match = this._calculateService.GetMatchDetail(matchId, false);
 
+            if (!IsMatchReadyForCalc(match) && !match.EventStatus.Equals(EventStatus.Completed, StringComparison.OrdinalIgnoreCase))
+            {
+                return View(UnReadyContentUrl, (object)ViewResources.NotReadyMatchError);
+            }
+
             if (logId > 0)
             {
                 // Set new value action from IBC
@@ -78,39 +85,39 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                 match.GoalRecord = matchLog.GoalRecord;
             }
 
-            var eventStatus = Utility.MapEventStatusString(match.EventStatus, match.IsPending, match.IsHtCal, match.IsCalculated);
-            if (this.IsMatchReadyForCalc(match) || eventStatus.Equals(EventStatus.Completed, StringComparison.OrdinalIgnoreCase))
+            // Full buttons: Soccer, Basketball, Football, Rugby, Netball, Baseball
+            var showFullButton = FullButtonSportList.Contains(match.SportType);
+
+            // Default is Soccer
+            var sportViewSetting = SportViewSettingFactory.Create(sportId);
+            var permission = SetCalcPopupPermission();
+
+            var data = new CalcViewModel
             {
-                // Full buttons: Soccer, Basketball, Football, Rugby, Netball, Baseball
-                var showFullButton = FullButtonSportList.Contains(match.SportType);
+                PageType = PageType.Calc,
+                HeaderEvent = ViewResources.Team,
+                LeagueId = match.LeagueId,
+                CurrentMatch = match,
+                ShowFullButton = showFullButton,
+                GroupSport = sportViewSetting.GroupSport,
+                Template = sportViewSetting.Template,
+                DirectlyTemplate = sportViewSetting.DirectlyTemplate,
+                Permission = permission
+            };
 
-                // Default is Soccer
-                var sportViewSetting = SportViewSettingFactory.Create(sportId);
+            return this.View(data);
+        }
 
-                var data = new CalcViewModel
+        private SettlementPermission SetCalcPopupPermission()
+        {
+            return new SettlementPermission
+            {
+                SportsBook = new SportsBookPermission
                 {
-                    PageType = PageType.Calc,
-                    HeaderEvent = ViewResources.Team,
-                    LeagueId = match.LeagueId,
-                    CurrentMatch = match,
-                    ShowFullButton = showFullButton,
-                    GroupSport = sportViewSetting.GroupSport,
-                    Template = sportViewSetting.Template,
-                    DirectlyTemplate = sportViewSetting.DirectlyTemplate,
-                    Permission = new SettlementPermission
-                    {
-                        SportsBook = new SportsBookPermission
-                        {
-                            CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
-                            CanCalculate = PermissionService.HasPermission(SettlementFunctionKeys.SportsbookCalculate)
-                        }
-                    }
-                };
-
-                return this.View(data);
-            }
-
-            return this.View("~/Areas/Settlement/Views/UserControl/UnreadyMatch.cshtml", (object)ViewResources.NotReadyMatchError);
+                    CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
+                    CanCalculate = PermissionService.HasPermission(SettlementFunctionKeys.SportsbookCalculate)
+                }
+            };
         }
 
         /// <summary>
