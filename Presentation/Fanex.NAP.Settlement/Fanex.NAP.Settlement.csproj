@@ -491,6 +491,21 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="packages.config" />
+    <Content Include="Web.Local.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Local.ConnectionStrings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Local.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Local.Debug.config">
+      <DependentUpon>Web.Local.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Local.Release.config">
+      <DependentUpon>Web.Local.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
