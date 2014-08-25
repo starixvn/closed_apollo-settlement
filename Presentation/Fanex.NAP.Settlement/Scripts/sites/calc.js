@@ -15,7 +15,7 @@ var CalcPopup = (function ($) {
         // Soccer
         soccerAddEventOnTextBox: function () {
             // Set Focus for textbox
-            //   $("#TextBoxHtHomeScore").focus();
+            //   $("#HtHomeScore").focus();
 
             $("#GoalRecord").keydown(function () {
                 return CalcPopup.goalRecordOnKeydown(arguments[0]);
@@ -26,7 +26,7 @@ var CalcPopup = (function ($) {
             });
 
             // Only input numbers in TextBox
-            $("#TextBoxHtHomeScore, #TextBoxFinalHomeScore, #TextBoxHtAwayScore, #TextBoxFinalAwayScore").keypress(function () {
+            $("#HtHomeScore, #FinalHomeScore, #HtAwayScore, #FinalAwayScore").keypress(function () {
                 $("#errMsg").hide();
                 return Site.onKeypress(arguments[0]);
             });
@@ -57,10 +57,10 @@ var CalcPopup = (function ($) {
             var halfTimeHomeIcon = $('#ht-home-icon');
             var halfTimeAwayIcon = $('#ht-away-icon');
 
-            var finalHomeScore = $('#TextBoxFinalHomeScore').val();
-            var finalAwayScore = $('#TextBoxFinalAwayScore').val();
-            var htHomeScore = $('#TextBoxHtHomeScore').val();
-            var htAwayScore = $('#TextBoxHtAwayScore').val();
+            var finalHomeScore = $('#FinalHomeScore').val();
+            var finalAwayScore = $('#FinalAwayScore').val();
+            var htHomeScore = $('#HtHomeScore').val();
+            var htAwayScore = $('#HtAwayScore').val();
 
             homeIcon.removeClass();
             awayIcon.removeClass();
@@ -280,16 +280,16 @@ var CalcPopup = (function ($) {
 
             this.disableAndReLoadTextBox('TextBoxHomeOT', val, val ? '' : $('#TextBoxHomeOT' + '_hidden').val());
             this.disableAndReLoadTextBox('TextBoxAwayOT', val, val ? '' : $('#TextBoxAwayOT' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalHomeScore', !val, $('#TextBoxFinalHomeScore' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalAwayScore', !val, $('#TextBoxFinalAwayScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('FinalHomeScore', !val, $('#FinalHomeScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('FinalAwayScore', !val, $('#FinalAwayScore' + '_hidden').val());
 
             // Set Focus for textbox
             if (!val) {
-                //   $("#TextBoxHome1Q").focus();
+                //   $("#Home1Q").focus();
                 CalcPopup.isInputScoreDirectly = false;
             }
             else {
-                //  $("#TextBoxFinalHomeScore").focus();
+                //  $("#FinalHomeScore").focus();
                 CalcPopup.isInputScoreDirectly = true;
             }
         },
@@ -305,7 +305,7 @@ var CalcPopup = (function ($) {
                 this.eventOnTextBox("TextBoxAwayOT", "CalcPopup.onKeyupIceHockey()");
             }
             // Set Focus for textbox
-            // $("#TextBoxHome1Q").focus();
+            // $("#Home1Q").focus();
         },
 
         onKeyupIceHockey: function () {
@@ -315,8 +315,8 @@ var CalcPopup = (function ($) {
             totalFinalHomeScore += ($("#TextBoxHomeOT").val() === '') ? 0 : parseInt($("#TextBoxHomeOT").val(), 10);
             totalFinalAwayScore += ($("#TextBoxAwayOT").val() === '') ? 0 : parseInt($("#TextBoxAwayOT").val(), 10);
 
-            $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeScore);
-            $("#TextBoxFinalAwayScore").attr("value", totalFinalAwayScore);
+            $("#FinalHomeScore").attr("value", totalFinalHomeScore);
+            $("#FinalAwayScore").attr("value", totalFinalAwayScore);
 
             // Hide message when input data
             $("#errMsg").hide();
@@ -324,7 +324,7 @@ var CalcPopup = (function ($) {
 
         // Set focus in textbox for Billiard sport
         billiardOnTextBox: function () {
-            // $("#TextBoxFinalHomeScore").focus();
+            // $("#FinalHomeScore").focus();
         },
 
         // Tennis
@@ -338,19 +338,19 @@ var CalcPopup = (function ($) {
                 this.disableAndReLoadTextBox(awayId, val, awayValue);
             }
 
-            this.disableAndReLoadTextBox('TextBoxHomeTotalGames', true, val ? '' : $('#TextBoxHomeTotalGames' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxAwayTotalGames', true, val ? '' : $('#TextBoxAwayTotalGames' + '_hidden').val());
+            this.disableAndReLoadTextBox('HomeTotalGames', true, val ? '' : $('#HomeTotalGames' + '_hidden').val());
+            this.disableAndReLoadTextBox('AwayTotalGames', true, val ? '' : $('#AwayTotalGames' + '_hidden').val());
 
-            this.disableAndReLoadTextBox('TextBoxFinalHomeScore', !val, $('#TextBoxFinalHomeScore' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalAwayScore', !val, $('#TextBoxFinalAwayScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('FinalHomeScore', !val, $('#FinalHomeScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('FinalAwayScore', !val, $('#FinalAwayScore' + '_hidden').val());
 
             // Set Focus for textbox
             if (!val) {
-                //  $("#TextBoxHome1Q").focus();
+                //  $("#Home1Q").focus();
                 CalcPopup.isInputScoreDirectly = false;
             }
             else {
-                // $("#TextBoxFinalHomeScore").focus();
+                // $("#FinalHomeScore").focus();
                 CalcPopup.isInputScoreDirectly = true;
             }
         },
@@ -363,18 +363,18 @@ var CalcPopup = (function ($) {
                 }
             }
             // Set Focus for textbox
-            //  $("#TextBoxHome1Q").focus();
+            //  $("#Home1Q").focus();
         },
 
         onKeyupTennis: function () {
             var numberTextBox = 6;
             this.setTotalScore(numberTextBox);
 
-            $("#TextBoxHomeTotalGames").attr("value", totalFinalHomeScore);
-            $("#TextBoxAwayTotalGames").attr("value", totalFinalAwayScore);
+            $("#HomeTotalGames").attr("value", totalFinalHomeScore);
+            $("#AwayTotalGames").attr("value", totalFinalAwayScore);
 
-            $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeSet);
-            $("#TextBoxFinalAwayScore").attr("value", totalFinalAwaySet);
+            $("#FinalHomeScore").attr("value", totalFinalHomeSet);
+            $("#FinalAwayScore").attr("value", totalFinalAwaySet);
             // Hide message when input data
             $("#errMsg").hide();
         },
@@ -392,17 +392,17 @@ var CalcPopup = (function ($) {
 
             this.disableAndReLoadTextBox('TextBoxHomeOT', val, val ? '' : $('#TextBoxHomeOT_hidden').val());
             this.disableAndReLoadTextBox('TextBoxAwayOT', val, val ? '' : $('#TextBoxAwayOT_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxHtHomeScore', !val, $('#TextBoxHtHomeScore_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxHtAwayScore', !val, $('#TextBoxHtAwayScore_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalHomeScore', !val, $('#TextBoxFinalHomeScore_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalAwayScore', !val, $('#TextBoxFinalAwayScore_hidden').val());
+            this.disableAndReLoadTextBox('HtHomeScore', !val, $('#HtHomeScore_hidden').val());
+            this.disableAndReLoadTextBox('HtAwayScore', !val, $('#HtAwayScore_hidden').val());
+            this.disableAndReLoadTextBox('FinalHomeScore', !val, $('#FinalHomeScore_hidden').val());
+            this.disableAndReLoadTextBox('FinalAwayScore', !val, $('#TextBoxFinalAwayScore_hidden').val());
 
             if (!val) {
-                //   $("#TextBoxHome1Q").focus();
+                //   $("#Home1Q").focus();
                 CalcPopup.isInputScoreDirectly = false;
             }
             else {
-                //  $("#TextBoxHtHomeScore").focus();
+                //  $("#HtHomeScore").focus();
                 CalcPopup.isInputScoreDirectly = true;
             }
         },
@@ -422,14 +422,14 @@ var CalcPopup = (function ($) {
             var numberTextBox = 5;
             this.setTotalScore(numberTextBox, 2);
 
-            $("#TextBoxHtHomeScore").attr("value", totalHalfTimeHomeScore);
-            $("#TextBoxHtAwayScore").attr("value", totalHalfTimeAwayScore);
+            $("#HtHomeScore").attr("value", totalHalfTimeHomeScore);
+            $("#HtAwayScore").attr("value", totalHalfTimeAwayScore);
 
             totalFinalHomeScore += ($("#TextBoxHomeOT").val() === '') ? 0 : parseInt($("#TextBoxHomeOT").val(), 10);
             totalFinalAwayScore += ($("#TextBoxAwayOT").val() === '') ? 0 : parseInt($("#TextBoxAwayOT").val(), 10);
 
-            $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeScore);
-            $("#TextBoxFinalAwayScore").attr("value", totalFinalAwayScore);
+            $("#FinalHomeScore").attr("value", totalFinalHomeScore);
+            $("#FinalAwayScore").attr("value", totalFinalAwayScore);
 
             // Hide message when input data
             $("#errMsg").hide();
@@ -448,18 +448,18 @@ var CalcPopup = (function ($) {
 
             this.disableAndReLoadTextBox('TextBoxHomeEI', val, val ? '' : $('#TextBoxHomeEI' + '_hidden').val());
             this.disableAndReLoadTextBox('TextBoxAwayEI', val, val ? '' : $('#TextBoxAwayEI' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxHtHomeScore', !val, $('#TextBoxHtHomeScore' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxHtAwayScore', !val, $('#TextBoxHtAwayScore' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalHomeScore', !val, $('#TextBoxFinalHomeScore' + '_hidden').val());
-            this.disableAndReLoadTextBox('TextBoxFinalAwayScore', !val, $('#TextBoxFinalAwayScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('HtHomeScore', !val, $('#HtHomeScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('HtAwayScore', !val, $('#HtAwayScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('FinalHomeScore', !val, $('#FinalHomeScore' + '_hidden').val());
+            this.disableAndReLoadTextBox('FinalAwayScore', !val, $('#FinalAwayScore' + '_hidden').val());
 
             // Set Focus for textbox
             if (!val) {
-                // $("#TextBoxHome1Q").focus();
+                // $("#Home1Q").focus();
                 CalcPopup.isInputScoreDirectly = false;
             }
             else {
-                //  $("#TextBoxHtHomeScore").focus();
+                //  $("#HtHomeScore").focus();
                 CalcPopup.isInputScoreDirectly = true;
             }
         },
@@ -474,21 +474,21 @@ var CalcPopup = (function ($) {
                 this.eventOnTextBox("TextBoxAwayEI", "CalcPopup.onKeyupBaseball()");
             }
             // Set Focus for textbox
-            //$("#TextBoxHome1Q").focus();
+            //$("#Home1Q").focus();
         },
 
         onKeyupBaseball: function () {
             var numberTextBox = 10;
             this.setTotalScore(numberTextBox, 5);
 
-            $("#TextBoxHtHomeScore").attr("value", totalHalfTimeHomeScore);
-            $("#TextBoxHtAwayScore").attr("value", totalHalfTimeAwayScore);
+            $("#HtHomeScore").attr("value", totalHalfTimeHomeScore);
+            $("#HtAwayScore").attr("value", totalHalfTimeAwayScore);
 
             totalFinalHomeScore += ($("#TextBoxHomeEI").val() === '') ? 0 : parseInt($("#TextBoxHomeEI").val(), 10);
             totalFinalAwayScore += ($("#TextBoxAwayEI").val() === '') ? 0 : parseInt($("#TextBoxAwayEI").val(), 10);
 
-            $("#TextBoxFinalHomeScore").attr("value", totalFinalHomeScore);
-            $("#TextBoxFinalAwayScore").attr("value", totalFinalAwayScore);
+            $("#FinalHomeScore").attr("value", totalFinalHomeScore);
+            $("#FinalAwayScore").attr("value", totalFinalAwayScore);
 
             // Hide message when input data
             $("#errMsg").hide();

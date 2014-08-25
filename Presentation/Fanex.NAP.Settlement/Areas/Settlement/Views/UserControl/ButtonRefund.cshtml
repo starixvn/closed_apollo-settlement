@@ -1,13 +1,11 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@model RefundViewModel
+﻿@model RefundViewModel
 <div class="display-button">
     <!-- Refund -->
     <div class="line-height-refund">
         @{
             var isShowRefundHt = ((string.IsNullOrEmpty(Model.CurrentMatch.BetStatus)
-                                   || !Model.CurrentMatch.BetStatus.Contains("Refund HT"))
-                                  && (Model.CurrentMatch.SportType == SportType.Soccer
-                                  || Model.CurrentMatch.SportType == SportType.BasketBall))
+                                   || !Model.CurrentMatch.BetStatus.ToLower().Contains(EventStatus.RefundHT))
+                                  && (Model.CurrentMatch.SportType == SportType.Soccer || Model.CurrentMatch.SportType == SportType.BasketBall))
                                  || Model.CurrentMatch.SportType == SportType.FootBall
                                  || Model.CurrentMatch.SportType == SportType.BaseBall
                                  || Model.CurrentMatch.SportType == SportType.NetBall
@@ -27,34 +25,12 @@
         <div>
             @{
                 var isShowParlayHt = Model.CurrentMatch.SportType == SportType.Soccer || Model.CurrentMatch.SportType == SportType.BasketBall;
-                var isShowParlayFt = false;
-                if (Model.CurrentMatch.SportType == SportType.FootBall
-                    || Model.CurrentMatch.SportType == SportType.BaseBall
-                    || Model.CurrentMatch.SportType == SportType.Soccer
-                    || Model.CurrentMatch.SportType == SportType.BasketBall
-                    || Model.CurrentMatch.SportType == SportType.Rugby)
-                {
-                    if (Model.CurrentMatch.SportType == SportType.FootBall
-                        || Model.CurrentMatch.SportType == SportType.BaseBall
-                        || Model.CurrentMatch.SportType == SportType.Rugby)
-                    {
-                        isShowParlayFt = true;
-                    }
-                    else if (!string.IsNullOrEmpty(Model.CurrentMatch.BetStatus) && Model.CurrentMatch.BetStatus.Contains("Refund HT"))
-                    {
-                        isShowParlayFt = false;
-                    }
-                    else
-                    {
-                        isShowParlayFt = true;
-                    }
-                }
 
                 if (isShowParlayHt)
                 {
                 <div class="refund-button act-refund-parlay-ht">@ViewResources.RefundMultiHT</div>
                 }
-                if (isShowParlayFt)
+                if (isShowRefundHt)
                 {
                 <div class="refund-button act-refund-parlay-ft">@ViewResources.RefundMultiFT</div>
                 }

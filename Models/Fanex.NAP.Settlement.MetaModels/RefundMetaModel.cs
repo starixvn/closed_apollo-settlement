@@ -28,6 +28,6 @@ namespace Fanex.NAP.Settlement.MetaModels
         ///     Gets or sets sportId.
         /// </summary>
         /// <value>The sport id of refund.</value>
-        public int SportTypeId { get; set; }
+        public byte SportTypeId { get; set; }
     }
 }

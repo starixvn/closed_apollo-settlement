@@ -424,7 +424,7 @@ var Calculate = (function ($) {
 
             var isCalcLink = $('#calc-' + matchId).hasClass('code-link act-calculate');
 
-            var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Calc?sportId=" + sportId + "&matchId=" + matchId
+            var url = Site.getAbsoluteUrl("Settlement/Sportsbook/PopupCalculate?sportId=" + sportId + "&matchId=" + matchId
                                         + "&actionId=" + actionId + "&logId=" + logId);
             if (isCalcLink) {
                 DialogBox.openDialogFrame(url, title, { width: 780, height: 420, modal: true });
@@ -452,7 +452,7 @@ var Calculate = (function ($) {
             else {
                 logId = -1;
             }
-            var url = Site.getAbsoluteUrl("Settlement/Sportsbook/Refund?sportId=" + sportId + "&matchId="
+            var url = Site.getAbsoluteUrl("Settlement/Sportsbook/PopupRefund?sportId=" + sportId + "&matchId="
                     + matchId + "&actionId=" + actionId + "&logId=" + logId);
 
             var isRefundLink = $('#refund-' + matchId).hasClass('act-refund code-link');

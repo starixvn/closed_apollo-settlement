@@ -18,6 +18,7 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.Logging;
+    using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Criteria.User;
     using Fanex.NAP.Core.Model;
@@ -27,8 +28,6 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
     using Fanex.NAP.Core.Web;
     using Fanex.NAP.Core.Web.Auth;
     using Fanex.NAP.Core.Web.Session;
-    using Fanex.NAP.Settlement.Web.Configuration;
-    using Fanex.NAP.Settlement.Web.Services;
 
     /// <summary>
     /// LoginController class, contains all action of login, logout.
@@ -43,7 +42,7 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
         private readonly IMenuItemService _menuItemService;
         private readonly ICurrentSession _currentSession;
         private readonly IFunctionService _functionService;
-        private IMaintainanceService _maintenanceService;
+        private IMaintenanceService _maintenanceService;
 
         #endregion members
 
@@ -61,7 +60,7 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
             IMenuItemService menuItemService,
             ICurrentSession currentSession,
             IFunctionService functionService,
-            IMaintainanceService maintenanceService)
+            IMaintenanceService maintenanceService)
         {
             _userService = userService ?? new UserService();
             _groupService = groupService ?? new GroupService();
@@ -69,7 +68,7 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
             _menuItemService = menuItemService ?? new MenuItemService();
             _currentSession = currentSession ?? new CurrentSession();
             _functionService = functionService ?? new FunctionService();
-            _maintenanceService = maintenanceService ?? new MaintainanceService();
+            _maintenanceService = maintenanceService ?? new MaintenanceService();
         }
 
         #endregion ctors
@@ -127,6 +126,9 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
                             // Gets all sites of logging-in user
                             var siteLevelList = _siteService.GetSiteLevelByUser(user.Id, Environment);
 
+                            // gets all sites of logging-in user
+                            var siteLevels = siteLevelList as SiteLevel[] ?? siteLevelList.ToArray();
+
                             if ((group == null || group.IsActive) && siteLevelList.Any(x => x.IsActive))
                             {
                                 // Check-in user
@@ -136,26 +138,58 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
                                 // Saves user session
                                 SaveUserSession(user, username, criteria.OnUserId);
 
-                                var currentFunction = _functionService.GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment);
-                                AppSession.CurrentUser = user;
-                                AppSession.RoleAccess = PermissionService.GetRoleAccess(currentFunction);
-
-                                // Redirects user
+                                // if the user login directly, not through NAP Hub
                                 if (this.IsSiteLogin)
                                 {
-                                    if (UserIsActiveOnThisSite(siteLevelList))
+                                    var userIsActiveOnThisSite = false;
+
+                                    foreach (var siteLevel in siteLevels)
                                     {
-                                        return Redirect(FormsAuthentication.DefaultUrl);
+                                        if (siteLevel.Site.Id == this.SiteId && siteLevel.IsActive)
+                                        {
+                                            userIsActiveOnThisSite = true;
+                                        }
+                                    }
+
+                                    if (userIsActiveOnThisSite)
+                                    {
+                                        var userPermissions = _functionService.GetByUserAndSiteIncludeGroup(_currentSession.UserId, NapSettings.Settings.SiteId, NapSettings.Settings.Environment);
+                                        if (userPermissions == null ||
+                                            (!userPermissions.Any()))
+                                        {
+                                            DoSignOut();
+                                            ViewBag.Message = Core.Resources.ViewResources.NotPrivilege;
+                                        }
+                                        else
+                                        {
+                                            if (_currentSession.Level == (int)Constant.Level.SiteAdmin)
+                                            {
+                                                return Redirect(FormsAuthentication.DefaultUrl);
+                                            }
+
+                                            var firstMenu = this._currentSession.MenuItemList
+                                                                .OrderBy(i => i.DisplayOrder).FirstOrDefault();
+                                            if (firstMenu != null)
+                                            {
+                                                /* checking if this menu has child menu*/
+                                                var firstChildMenu =
+                                                    this._currentSession.MenuItemList.FirstOrDefault(i => i.Parent != null && i.Parent.Id == firstMenu.Id);
+                                                return firstChildMenu != null
+                                                           ? (ActionResult)Redirect(this.Url.Content("~/" + firstChildMenu.Url))
+                                                           : this.RedirectToAction("Index", firstMenu.Url, new { area = string.Empty });
+                                            }
+                                            else
+                                            {
+                                                DoSignOut();
+                                                ViewBag.Message = Core.Resources.ViewResources.NotPrivilege;
+                                            }
+                                        }
                                     }
                                     else
                                     {
                                         DoSignOut();
-                                        ViewBag.Message = ViewResources.Your_account_was_suspended;
+                                        ViewBag.Message = NAP.Core.Web.ViewResources.Your_account_was_suspended;
                                     }
-                                }
-                                else
-                                {
-                                    return RedirectToRouteResult(siteLevelList);
                                 }
                             }
                             else
@@ -243,7 +277,7 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
 
         private void CreateUserMenu(User user)
         {
-            _currentSession.Menu = (IList<MenuItem>)_menuItemService.GetByUserAndSiteIncludeGroup(
+            _currentSession.MenuItemList = (IList<MenuItem>)_menuItemService.GetByUserAndSiteIncludeGroup(
                                                                                     user.Id,
                                                                                     SiteId,
                                                                                     Environment,

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.NAP.Settlement.DTO.Domain
+namespace Fanex.NAP.Settlement.Core.Constants
 {
     /// <summary>
     ///     TODO: Update summary.
@@ -27,11 +27,6 @@ namespace Fanex.NAP.Settlement.DTO.Domain
         /// Refund first no goal.
         /// </summary>
         public const string RefundAllFgng = "refundfirstnogoal";
-
-        /// <summary>
-        /// Refund All.
-        /// </summary>
-        public const string RefundAllLg = "refundalllastgoal";
 
         /// <summary>
         /// Action Refund.
@@ -87,10 +82,11 @@ namespace Fanex.NAP.Settlement.DTO.Domain
         /// </summary>
         public const string CalculateParlay = "calculateparlay";
 
-        /// <summary>
-        /// Calculate NumberGame.
-        /// </summary>
-        public const string CalculateNumberGame = "calculatenumbergame";
+        public const string RefundHTFirstGoalLastGoal = "refundhalftimefirstgoallastgoal";
+        public const string RefundHTLastGoal = "refundhalftimelastgoal";
+        public const string RefundFTFirstGoalLastGoal = "refundfulltimefirstgoallastgoal";
+        public const string RefundFTLastGoal = "refundfulltimelastgoal";
+        public const string RefundAllLastGoal = "refundalllastgoal";
 
         #endregion Calculate ticket
     }

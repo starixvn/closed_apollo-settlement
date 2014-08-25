@@ -6,14 +6,11 @@
 
 namespace Fanex.NAP.Settlement.DataAccess.Implement
 {
-    using System;
     using System.Collections.Generic;
-    using System.Data;
     using System.Linq;
     using Fanex.Data;
     using Fanex.NAP.Settlement.DataAccess.Interface;
     using Fanex.NAP.Settlement.DTO;
-    using Fanex.NAP.Settlement.DTO.Domain;
     using Fanex.NAP.Settlement.MetaModels;
 
     /// <summary>

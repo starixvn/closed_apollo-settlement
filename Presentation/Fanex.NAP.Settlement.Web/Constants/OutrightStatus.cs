@@ -6,7 +6,7 @@
 // <history>
 //   <change who="Kaden.Trinh" date="2013.07.18">Created</change>
 // </history>
-namespace Fanex.NAP.Settlement.DTO.Domain
+namespace Fanex.NAP.Settlement.Core.Constants
 {
     /// <summary>
     ///    Outright for match.

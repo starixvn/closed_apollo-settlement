@@ -19,5 +19,8 @@ var Type =
     RefundAllFgLg: "refundfirstnogoal",
     RefundAllLg: "refundalllastgoal",
 
-    ReCalculateNumberGame: "ReCalculateNumberGame"
+    RefundHTFGLG: "refundhalftimefirstgoallastgoal",
+    RefundHTLastGoal: "refundhalftimelastgoal",
+    RefundFTFGLG: "refundfulltimefirstgoallastgoal",
+    RefundFTLastGoal: "refundfulltimelastgoal"
 };

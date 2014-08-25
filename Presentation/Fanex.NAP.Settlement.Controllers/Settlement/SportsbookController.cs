@@ -16,21 +16,24 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
     #region
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Web.Session;
+    using Fanex.NAP.Settlement.Controllers.Helper;
+    using Fanex.NAP.Settlement.Core.Configuration;
+    using Fanex.NAP.Settlement.Core.Constants;
+    using Fanex.NAP.Settlement.Core.Resources;
     using Fanex.NAP.Settlement.DTO;
     using Fanex.NAP.Settlement.DTO.Configuration;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.DTO.DBResult;
     using Fanex.NAP.Settlement.DTO.Permission;
     using Fanex.NAP.Settlement.MetaModels;
     using Fanex.NAP.Settlement.Services.Implement;
     using Fanex.NAP.Settlement.Services.Interface;
     using Fanex.NAP.Settlement.ViewModels;
-    using Fanex.NAP.Settlement.Web.Configuration;
-    using Fanex.NAP.Settlement.Web.Services;
 
     #endregion
 
@@ -39,9 +42,29 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
     /// </summary>
     [NapSuperAuth]
     [NapAuth(FunctionKey = SettlementFunctionKeys.PrepareSportsbookSettlement)]
-    public partial class SportsbookController : BaseController
+    public class SportsbookController : BaseController
     {
         #region Fields
+
+        private const string UnReadyContentUrl = "~/Areas/Settlement/Views/UserControl/UnreadyMatch.cshtml";
+
+        /// <summary>
+        ///     Sport list show full button.
+        /// </summary>
+        private static readonly IList<int> FullButtonSportList = new List<int>
+        {
+            SportType.Soccer,
+            SportType.BaseBall,
+            SportType.FootBall,
+            SportType.Rugby,
+            SportType.NetBall,
+            SportType.BasketBall
+        };
+
+        private static readonly IList<int> TennisGroupSportId = new List<int>
+        {
+            5, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 99
+        };
 
         /// <summary>
         /// Calculate Service.
@@ -58,6 +81,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// </summary>
         private readonly ILeagueService _leagueService;
 
+        private readonly ICurrentSession _currentSession;
+
         #endregion Fields
 
         #region Constructor
@@ -66,7 +91,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// Initializes a new instance of the <see cref="SportsbookController" /> class.
         /// </summary>
         public SportsbookController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
@@ -76,11 +101,13 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// <param name="calculateService">Calculate service.</param>
         /// <param name="sportService">Sport service.</param>
         /// <param name="leagueService">League service.</param>
-        public SportsbookController(ICalculateService calculateService, ISportService sportService, ILeagueService leagueService)
+        /// <param name="currentSession">Current session service.</param>
+        public SportsbookController(ICalculateService calculateService, ISportService sportService, ILeagueService leagueService, ICurrentSession currentSession)
         {
             this._calculateService = calculateService ?? new CalculateService();
             this._sportService = sportService ?? new SportService();
             this._leagueService = leagueService ?? new LeagueService();
+            this._currentSession = currentSession ?? new CurrentSession();
         }
 
         #endregion Constructor
@@ -104,7 +131,6 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             model.LeaguesList = leagueList;
             var sportViewSetting = SportViewSettingFactory.Create(model.SportTypeId);
             model = this.SetFilterBy(model);
-            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
             var data = new CalculateViewModel
             {
                 LeaguesList = model.LeaguesList,
@@ -115,15 +141,15 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                 MainMatchList = new List<Match>(),
                 Permission = new SettlementPermission
                 {
-                    CanViewSettlementLog = PermissionService.HasReadPermission(SettlementFunctionKeys.ViewLogSettlement),
-                    CanSetAutoSettlement = canSetAutoSettlement,
+                    CanViewSettlementLog = HasPermission(_currentSession.UserId, SettlementFunctionKeys.ViewLogSettlement, Constant.Policy.Read),
+                    CanSetAutoSettlement = HasPermission(_currentSession.UserId, SettlementFunctionKeys.AutoSettlement, Constant.Policy.Host),
                     SportsBook = new SportsBookPermission()
                     {
-                        CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate),
-                        CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
-                        CanRefund = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookRefund),
-                        CanCalculateMixParlay = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculateMixParlay),
-                        CanCloseMatch = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCloseMatch)
+                        CanCalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculate, Constant.Policy.Host),
+                        CanUncalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookUncalculate, Constant.Policy.Host),
+                        CanRefund = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookRefund, Constant.Policy.Host),
+                        CanCalculateMixParlay = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculateMixParlay, Constant.Policy.Host),
+                        CanCloseMatch = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCloseMatch, Constant.Policy.Host)
                     }
                 }
             };
@@ -148,7 +174,6 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             model = this.SetFilterBy(model);
             IList<MatchLog> matchLog;
             var listCalculate = this._calculateService.SearchMatch(model, out matchLog);
-            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
             foreach (Match match in listCalculate)
             {
                 match.GroupSport = sportViewSetting.GroupSport;
@@ -168,15 +193,15 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                     Colspan = sportViewSetting.Colspan,
                     Permission = new SettlementPermission
                     {
-                        CanViewSettlementLog = PermissionService.HasReadPermission(SettlementFunctionKeys.ViewLogSettlement),
-                        CanSetAutoSettlement = canSetAutoSettlement,
+                        CanViewSettlementLog = HasPermission(_currentSession.UserId, SettlementFunctionKeys.ViewLogSettlement, Constant.Policy.Read),
+                        CanSetAutoSettlement = HasPermission(_currentSession.UserId, SettlementFunctionKeys.AutoSettlement, Constant.Policy.Host),
                         SportsBook = new SportsBookPermission()
                         {
-                            CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate),
-                            CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
-                            CanRefund = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookRefund),
-                            CanCalculateMixParlay = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculateMixParlay),
-                            CanCloseMatch = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCloseMatch)
+                            CanCalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculate, Constant.Policy.Host),
+                            CanUncalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookUncalculate, Constant.Policy.Host),
+                            CanRefund = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookRefund, Constant.Policy.Host),
+                            CanCalculateMixParlay = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculateMixParlay, Constant.Policy.Host),
+                            CanCloseMatch = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCloseMatch, Constant.Policy.Host)
                         }
                     }
                 };
@@ -218,7 +243,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             IList<MatchLog> matchLog;
             var listCalculate = this._calculateService.SearchMatchOverOnly(model, out matchLog);
 
-            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
+            bool canSetAutoSettlement = HasPermission(_currentSession.UserId, SettlementFunctionKeys.AutoSettlement, Constant.Policy.Host);
 
             var data = new CalculateViewModel
             {
@@ -232,13 +257,13 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                 PageType = PageType.OverOnly,
                 Permission = new SettlementPermission
                 {
-                    CanViewSettlementLog = PermissionService.HasReadPermission(SettlementFunctionKeys.ViewLogSettlement),
+                    CanViewSettlementLog = HasPermission(_currentSession.UserId, SettlementFunctionKeys.ViewLogSettlement, Constant.Policy.Read),
                     CanSetAutoSettlement = canSetAutoSettlement,
                     SportsBook = new SportsBookPermission
                     {
-                        CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate),
-                        CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
-                        CanRefund = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookRefund),
+                        CanCalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculate, Constant.Policy.Host),
+                        CanUncalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookUncalculate, Constant.Policy.Host),
+                        CanRefund = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookRefund, Constant.Policy.Host),
                     }
                 }
             };
@@ -285,8 +310,6 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             IList<MatchLog> matchLog;
             var listCalculate = this._calculateService.SearchMatchHtOverOnly(model, out matchLog);
 
-            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
-
             var data = new CalculateViewModel
             {
                 ActionList = matchLog,
@@ -299,13 +322,13 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                 PageType = PageType.OverOnly,
                 Permission = new SettlementPermission
                 {
-                    CanViewSettlementLog = PermissionService.HasReadPermission(SettlementFunctionKeys.ViewLogSettlement),
-                    CanSetAutoSettlement = canSetAutoSettlement,
+                    CanViewSettlementLog = HasPermission(_currentSession.UserId, SettlementFunctionKeys.ViewLogSettlement, Constant.Policy.Read),
+                    CanSetAutoSettlement = HasPermission(_currentSession.UserId, SettlementFunctionKeys.AutoSettlement, Constant.Policy.Host),
                     SportsBook = new SportsBookPermission
                     {
-                        CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate),
-                        CanUncalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookUncalculate),
-                        CanRefund = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookRefund),
+                        CanCalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculate, Constant.Policy.Host),
+                        CanUncalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookUncalculate, Constant.Policy.Host),
+                        CanRefund = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookRefund, Constant.Policy.Host),
                     }
                 }
             };
@@ -371,12 +394,327 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         [HttpPost]
         public ActionResult CloseMatch(CloseMatchMetaModel model)
         {
-            model.Creator = CurrentSession.UserId;
-            model.IP = Request.ServerVariables["REMOTE_ADDR"];
-
+            model.AdminId = _currentSession.UserId;
             var result = _calculateService.CloseMatch(model);
 
             return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        ///     Controller calculation popup page when click on reference action.
+        /// </summary>
+        /// <param name="sportId">Sport type.</param>
+        /// <param name="matchId">Match id parameter.</param>
+        /// <param name="actionId">Action Id from IBC.</param>
+        /// <param name="logId">Log Id parameter.</param>
+        /// <returns>Return Action result.</returns>
+        [HttpGet]
+        [OutputCache(Duration = 0, VaryByParam = "none")]
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookSettlement)]
+        public ActionResult PopupCalculate(byte sportId, int matchId, int actionId, int logId)
+        {
+            // Default is Soccer
+            var sportViewSetting = SportViewSettingFactory.Create(sportId);
+            var match = this._calculateService.GetMatchDetail(matchId, false);
+
+            if (!IsMatchReadyForCalc(match) && !match.EventStatus.Equals(EventStatus.Completed, StringComparison.OrdinalIgnoreCase))
+            {
+                return View(UnReadyContentUrl, (object)ViewResources.NotReadyMatchError);
+            }
+
+            if (logId > 0)
+            {
+                // Set new value action from IBC
+                var matchLog = this._calculateService.GetMatchLogDetail(logId);
+                matchLog.IsExistHTFGLG = match.IsExistHTFGLG;
+                matchLog.IsExistFGLG = match.IsExistFGLG;
+                matchLog.GroupSport = sportViewSetting.GroupSport;
+                match.HtHomeScore = matchLog.HtHomeScore;
+                match.HtAwayScore = matchLog.HtAwayScore;
+                match.FinalHomeScore = matchLog.FinalHomeScore;
+                match.FinalAwayScore = matchLog.FinalAwayScore;
+                match.GoalRecord = matchLog.GoalRecord;
+                match.BetStatusAccess = matchLog.BetStatusAccess;
+            }
+
+            // Full buttons: Soccer, Basketball, Football, Rugby, Netball, Baseball
+            var showFullButton = FullButtonSportList.Contains(match.SportType);
+
+            var permission = SetCalcPopupPermission();
+
+            var data = new CalcViewModel
+            {
+                PageType = PageType.Calc,
+                HeaderEvent = ViewResources.Team,
+                LeagueId = match.LeagueId,
+                CurrentMatch = match,
+                ShowFullButton = showFullButton,
+                GroupSport = sportViewSetting.GroupSport,
+                Template = sportViewSetting.Template,
+                DirectlyTemplate = sportViewSetting.DirectlyTemplate,
+                Permission = permission
+            };
+
+            return this.View(data);
+        }
+
+        /// <summary>
+        /// Controller refund popup page.
+        /// </summary>
+        /// <param name="sportId">Sport id value.</param>
+        /// <param name="matchId">Match id value.</param>
+        /// <param name="actionId">Action id value.</param>
+        /// <param name="logId">Log id value.</param>
+        /// <returns>View result.</returns>
+        [HttpGet]
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookRefund, Policy = Constant.Policy.Read)]
+        public ActionResult PopupRefund(byte sportId, int matchId, int actionId, int logId)
+        {
+            var model = new RefundMetaModel
+           {
+               MatchId = matchId,
+               SportTypeId = sportId
+           };
+
+            // Default is Soccer
+            var sportViewSetting = SportViewSettingFactory.Create(model.SportTypeId);
+
+            var match = this._calculateService.GetMatchDetail(matchId, true);
+
+            if (actionId > 0 && logId > 0)
+            {
+                // Set new value action from IBC
+                var matchLog = this._calculateService.GetMatchLogDetail(logId);
+                matchLog.GroupSport = sportViewSetting.GroupSport;
+                matchLog.IsExistHTFGLG = match.IsExistHTFGLG;
+                matchLog.IsExistFGLG = match.IsExistFGLG;
+                match.HtHomeScore = matchLog.HtHomeScore;
+                match.HtAwayScore = matchLog.HtAwayScore;
+                match.FinalHomeScore = matchLog.FinalHomeScore;
+                match.FinalAwayScore = matchLog.FinalAwayScore;
+                match.GoalRecord = matchLog.GoalRecord;
+                match.BetStatusAccess = matchLog.BetStatusAccess;
+            }
+
+            var data = new RefundViewModel
+            {
+                PageType = PageType.Refund,
+                HeaderEvent = ViewResources.Team,
+                LeagueId = match.LeagueId,
+                CurrentMatch = match,
+                Template = sportViewSetting.Template,
+                DirectlyTemplate = sportViewSetting.DirectlyTemplate,
+                GroupSport = sportViewSetting.GroupSport,
+            };
+
+            return this.View(data);
+        }
+
+        /// <summary>
+        /// We need split two functions Calculate and Un-Calculate so that we can check permission on action.
+        /// </summary>
+        /// <param name="model">Model single ticket.</param>
+        /// <returns>View result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookCalculate, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult Calculate(DoSingleTicketMetaModel model)
+        {
+            var result = CalculateSingle(model);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Un Calculate.
+        /// </summary>
+        /// <param name="model">Model single ticket.</param>
+        /// <returns>View result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookUncalculate, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult UnCalculate(DoSingleTicketMetaModel model)
+        {
+            var result = CalculateSingle(model);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Refund
+        /// This function also include RefundHalfTime, RefundFullTime and RefundAll.
+        /// </summary>
+        /// <param name="criteria">The value.</param>
+        /// <returns>Return result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookRefund, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult Refund(DoSingleTicketMetaModel criteria)
+        {
+            var result = new Result();
+            criteria.AdminId = _currentSession.UserId;
+            result = _calculateService.Refund(criteria) as Result;
+            if (result.IsSuccessful)
+            {
+                var adminService = new AutoSettlementService();
+                result = adminService.ClearFailActionAutoSettlement(_currentSession.UserId, criteria.MatchId, string.Empty) as Result;
+            }
+
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #region Calculate Mix Parlay
+
+        /// <summary>
+        /// Calculate Mix Parlay.
+        /// </summary>
+        /// <param name="criteria">Model Multiple.</param>
+        /// <returns>Return result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookCalculateMixParlay, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult CalculateMixParlay(DoMultipleTicketMetaModel criteria)
+        {
+            criteria.ActionType = CalculationType.CalculateParlay;
+            var result = CalculateParlay(criteria);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion Calculate Mix Parlay
+
+        #region Refund Parlay
+
+        /// <summary>
+        ///     Refund Parlay.
+        /// </summary>
+        /// <param name="criteria">Meta Model.</param>
+        /// <returns>View result.</returns>
+        [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookRefund, Policy = Constant.Policy.Host)]
+        [HttpPost]
+        public ActionResult RefundParlay(DoMultipleTicketMetaModel criteria)
+        {
+            var result = CalculateParlay(criteria);
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// Refund Parlay.
+        /// </summary>
+        /// <param name="criteria">The value.</param>
+        /// <returns>Return result.</returns>
+        [NonAction]
+        private Result CalculateParlay(DoMultipleTicketMetaModel criteria)
+        {
+            var result = new Result();
+            criteria.AdminId = _currentSession.UserId;
+            result = _calculateService.CalculateMultiple(criteria) as Result;
+
+            if (result.IsSuccessful)
+            {
+                var adminService = new AutoSettlementService();
+                result = adminService.ClearFailActionAutoSettlement(_currentSession.UserId, 0, criteria.MatchIds) as Result;
+            }
+
+            return result;
+        }
+
+        #endregion
+
+        #region Helper
+
+        /// <summary>
+        /// Calculate command with detail value.
+        /// </summary>
+        /// <param name="criteria">Single ticket Model.</param>
+        /// <returns>Return result.</returns>
+        private IResult CalculateUpdate(DoSingleTicketMetaModel criteria)
+        {
+            var isHalfTimeCalculate = false;
+            string action = null;
+            switch (criteria.ActionType.ToLower())
+            {
+                case CalculationType.CalculateHalfTime:
+                    isHalfTimeCalculate = true;
+                    action = CalculateAction.CalculateHalfTime;
+                    break;
+
+                case CalculationType.CalculateFullTime:
+                    action = CalculateAction.CalculateFullTime;
+                    criteria.FinalHomeScore = criteria.FinalHomeScore ?? 0;
+                    criteria.FinalAwayScore = criteria.FinalAwayScore ?? 0;
+                    break;
+
+                case CalculationType.CalculateAll:
+                    action = CalculateAction.CalculateAll;
+                    criteria.FinalHomeScore = criteria.FinalHomeScore ?? 0;
+                    criteria.FinalAwayScore = criteria.FinalAwayScore ?? 0;
+                    break;
+
+                case CalculationType.Uncalculate:
+                    criteria.IsScoreDirect = false;
+                    action = CalculateAction.Uncalculate;
+                    break;
+
+                case CalculationType.CalculateFgng:
+                    action = (!string.IsNullOrWhiteSpace(criteria.GoalRecord) && criteria.GoalRecord.IndexOf(";", StringComparison.Ordinal) > -1)
+                              ? CalculateAction.CalculateFullTime
+                              : CalculateAction.CalculateHalfTime;
+                    break;
+            }
+
+            criteria.AdminId = _currentSession.UserId;
+            CalculationHelper.CalculateScoreAndBetStatus(criteria, isHalfTimeCalculate);
+            return _calculateService.Calculate(criteria, action, isHalfTimeCalculate);
+        }
+
+        private SettlementPermission SetCalcPopupPermission()
+        {
+            return new SettlementPermission
+            {
+                SportsBook = new SportsBookPermission
+                {
+                    CanUncalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookUncalculate, Constant.Policy.Host),
+                    CanCalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculate, Constant.Policy.Read)
+                }
+            };
+        }
+
+        /// <summary>
+        ///     Check if match is ready for calculation.
+        ///     This function is used to replace [NAP_Set_MatchCheckForBill].
+        /// </summary>
+        /// <param name="match">Match detail.</param>
+        /// <returns>true or false.</returns>
+        private bool IsMatchReadyForCalc(MatchDetail match)
+        {
+            var soccerHtMinute = 45;
+            var basketBallMinute = 30;
+            var hockeyMinute = 60;
+            var tennisMinute = 30;
+            var sportType = match.SportType;
+
+            if (match.ConfirmFt > 0 || match.ConfirmHt > 0)
+            {
+                return true;
+            }
+
+            // Bill soccer HT
+            if (sportType == SportType.Soccer || sportType == SportType.VirtualSport)
+            {
+                return match.PlayTime > soccerHtMinute;
+            }
+
+            // Bill Basket, Football HT
+            if (sportType == SportType.BasketBall || sportType == SportType.FootBall || sportType == SportType.Rugby || sportType == SportType.NetBall)
+            {
+                return match.PlayTime > basketBallMinute;
+            }
+
+            if (sportType == SportType.IceHockey || sportType == SportType.VolleyBall || sportType == SportType.BaseBall)
+            {
+                return match.PlayTime >= hockeyMinute;
+            }
+
+            if (TennisGroupSportId.Contains(sportType))
+            {
+                return match.PlayTime > tennisMinute;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -405,5 +743,26 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
 
             return model;
         }
+
+        /// <summary>
+        /// Calculate single.
+        /// </summary>
+        /// <param name="model">Model value.</param>
+        /// <returns>Return result.</returns>
+        [NonAction]
+        private Result CalculateSingle(DoSingleTicketMetaModel model)
+        {
+            model.AdminId = _currentSession.UserId;
+            var result = this.CalculateUpdate(model) as Result;
+            if (result.IsSuccessful)
+            {
+                var adminService = new AutoSettlementService();
+                result = adminService.ClearFailActionAutoSettlement(_currentSession.UserId, model.MatchId, string.Empty) as Result;
+            }
+
+            return result;
+        }
+
+        #endregion
     }
 }

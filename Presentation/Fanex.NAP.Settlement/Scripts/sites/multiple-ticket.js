@@ -30,7 +30,7 @@ var DoMultipleTicket = (function ($) {
             $.ajax({
                 type: 'POST',
                 async: true,
-                url: Site.getAbsoluteUrl("DoMultipleTicket/RefundParlay"),
+                url: Site.getAbsoluteUrl("Sportsbook/RefundParlay"),
                 data: $("#frm-calculate").serialize(),
                 success: function (result) {
                     DoMultipleTicket.refundResult(result);
@@ -65,7 +65,7 @@ var DoMultipleTicket = (function ($) {
             $.ajax({
                 type: 'POST',
                 async: true,
-                url: Site.getAbsoluteUrl("DoMultipleTicket/CalculateMixParlay"),
+                url: Site.getAbsoluteUrl("Sportsbook/CalculateMixParlay"),
                 data: params,
                 success: function (result) {
                     if (!result.IsSuccessful) {

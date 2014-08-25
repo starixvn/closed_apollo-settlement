@@ -10,7 +10,7 @@
 // <history>
 //  <change who="Kaden" date="2013.07.16">Created and Implement</change>
 // </history>
-namespace Fanex.NAP.Settlement.DTO.Domain
+namespace Fanex.NAP.Settlement.Core.Constants
 {
     /// <summary>
     /// Confirmed Action.

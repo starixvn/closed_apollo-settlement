@@ -14,11 +14,9 @@
 
 namespace Fanex.NAP.Settlement.DataAccess.Interface
 {
-    using System.Collections;
     using System.Collections.Generic;
     using Fanex.NAP.Settlement.DTO;
     using Fanex.NAP.Settlement.DTO.DBResult;
-    using Fanex.NAP.Settlement.DTO.Domain;
     using Fanex.NAP.Settlement.MetaModels;
 
     /// <summary>
@@ -107,13 +105,11 @@ namespace Fanex.NAP.Settlement.DataAccess.Interface
 
         #region Excute Calculate or Refund match
 
-        /// <summary>
-        /// Submit action calculate.
-        /// </summary>
-        /// <param name="inputParameters">The parameters.</param>
-        /// <param name="type">Action type.</param>
-        /// <returns>Return result.</returns>
-        IResult Calculate(Hashtable inputParameters, string type);
+        IResult Calculate(DoSingleTicketMetaModel criteria, string action, bool isHalfTimeCalculate);
+
+        IResult CalculateMultiple(DoMultipleTicketMetaModel criteria);
+
+        IResult Refund(DoSingleTicketMetaModel criteria);
 
         #endregion Excute Calculate or Refund match
 

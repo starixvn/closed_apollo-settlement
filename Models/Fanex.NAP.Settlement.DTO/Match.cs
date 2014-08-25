@@ -15,17 +15,19 @@ namespace Fanex.NAP.Settlement.DTO
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Common;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
     public partial class Match
     {
-        private readonly string _homeName = string.Empty;
-        private readonly string _awayName = string.Empty;
-        private readonly string _leagueName = string.Empty;
+        private string _homeName = string.Empty;
+        private string _awayName = string.Empty;
+        private string _leagueName = string.Empty;
         private BetStatusAccess _betStatusAccess;
+        private string _eventStatus = string.Empty;
 
         #region Match Propery
 
@@ -37,7 +39,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_leagueName) ? CacheRef.GetLeagueName(LeagueId) : _leagueName;
+                if (string.IsNullOrWhiteSpace(_leagueName))
+                {
+                    this._leagueName = CacheRef.GetLeagueName(LeagueId);
+                }
+
+                return this._leagueName;
             }
         }
 
@@ -47,7 +54,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_homeName) ? CacheRef.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty) : _homeName;
+                if (string.IsNullOrWhiteSpace(_homeName))
+                {
+                    this._homeName = CacheRef.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty);
+                }
+
+                return _homeName;
             }
         }
 
@@ -57,7 +69,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_awayName) ? CacheRef.GetTeamName(AwayId) : _awayName;
+                if (string.IsNullOrWhiteSpace(_awayName))
+                {
+                    this._awayName = CacheRef.GetTeamName(AwayId);
+                }
+
+                return _awayName;
             }
         }
 
@@ -70,8 +87,6 @@ namespace Fanex.NAP.Settlement.DTO
         public string MatchCode { get; set; }
 
         public string BetStatus { get; set; }
-
-        public string EventStatus { get; set; }
 
         public string GoalRecord { get; set; }
 
@@ -137,6 +152,44 @@ namespace Fanex.NAP.Settlement.DTO
 
         #region Extra Property
 
+        public string UndecidedColor
+        {
+            get
+            {
+                if (FailedActionId.HasValue)
+                {
+                    return Background.ActionFailed;
+                }
+                else
+                {
+                    return this.IsUndecided ? Background.Undecided : string.Empty;
+                }
+            }
+        }
+
+        public string CalcSBBackgroundColor
+        {
+            get
+            {
+                return Utility.BackgroundColorCalculate(IsHtCal, IsCalRefund, IsCalculated);
+            }
+        }
+
+        public string EventStatusColor
+        {
+            get
+            {
+                if (this.EventStatus.Equals(Core.Constants.EventStatus.PostPoned, StringComparison.OrdinalIgnoreCase))
+                {
+                    return Background.Postponed;
+                }
+                else
+                {
+                    return this.IsPending ? Background.Pending : string.Empty;
+                }
+            }
+        }
+
         public BetStatusAccess BetStatusAccess
         {
             get
@@ -160,6 +213,24 @@ namespace Fanex.NAP.Settlement.DTO
                 }
 
                 return _betStatusAccess;
+            }
+
+            set
+            {
+                _betStatusAccess = value;
+            }
+        }
+
+        public string EventStatus
+        {
+            get
+            {
+                return Utility.MapEventStatusString(_eventStatus, IsPending, IsHtCal, IsCalculated);
+            }
+
+            set
+            {
+                _eventStatus = value;
             }
         }
 

@@ -8,8 +8,8 @@
     <ProjectGuid>{11FF2D81-437F-415E-8E48-68E21AECE565}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Fanex.NAP.Settlement.Web</RootNamespace>
-    <AssemblyName>Fanex.NAP.Settlement.Web</AssemblyName>
+    <RootNamespace>Fanex.NAP.Settlement.Core</RootNamespace>
+    <AssemblyName>Fanex.NAP.Settlement.Core</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -95,23 +95,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Utility.cs" />
-    <Compile Include="Configuration\AppSession.cs" />
     <Compile Include="Configuration\SessionManager.cs" />
-    <Compile Include="Constants\SessionKey.cs" />
+    <Compile Include="Constants\CacheRef.cs" />
+    <Compile Include="Constants\CalculateAction.cs" />
+    <Compile Include="Constants\CalculationType.cs" />
+    <Compile Include="Constants\ConfirmedAction.cs" />
+    <Compile Include="Constants\EventStatus.cs" />
+    <Compile Include="Constants\MatchStatus.cs" />
+    <Compile Include="Constants\OutrightStatus.cs" />
+    <Compile Include="Constants\PageType.cs" />
+    <Compile Include="Constants\SportType.cs" />
     <Compile Include="HtmlExtension\HtmlControl.cs" />
     <Compile Include="HtmlExtension\UrlExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\SportViewSettingFactory.cs" />
     <Compile Include="Configuration\SportViewSetting.cs" />
-    <Compile Include="Services\PermissionService.cs" />
+    <Compile Include="Resources\ViewResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ViewResources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Models\Fanex.NAP.Settlement.DTO\Fanex.NAP.Settlement.DTO.csproj">
-      <Project>{7CEA4A9C-3ADD-4DA6-97EF-D5939F4C0DF3}</Project>
-      <Name>Fanex.NAP.Settlement.DTO</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Resources\ViewResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ViewResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

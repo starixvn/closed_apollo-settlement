@@ -16,29 +16,10 @@ namespace Fanex.NAP.Settlement.Services.Interface
     /// </summary>
     public interface IAutoSettlementService
     {
-        /// <summary>
-        /// Update StatusAutoSettlement.
-        /// </summary>
-        /// <param name="creator">Creator by.</param>
-        /// <param name="matchId">Match Id parameter.</param>
-        /// <param name="turnOn">Turn on parameter.</param>
-        /// <param name="ip">IP parameter.</param>
-        /// <returns>Return result.</returns>
-        IResult UpdateStatusAutoSettlement(int creator, int matchId, bool turnOn, string ip);
+        IResult UpdateStatusAutoSettlement(int adminId, int matchId, bool turnOn, string ip);
 
-        /// <summary>
-        /// Status AutoSettlement.
-        /// </summary>
-        /// <returns>Return boolean.</returns>
         bool GetStatusAutoSettlement();
 
-        /// <summary>
-        /// Clear fail action AutoSettlement.
-        /// </summary>
-        /// <param name="creator">Creator by.</param>
-        /// <param name="matchId">Match id parameter.</param>
-        /// <param name="matchIds">List match ids.</param>
-        /// <returns>Return result.</returns>
-        IResult ClearFailActionAutoSettlement(int creator, int matchId, string matchIds);
+        IResult ClearFailActionAutoSettlement(int adminid, int matchId, string matchIds);
     }
 }

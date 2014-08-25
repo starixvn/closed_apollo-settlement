@@ -11,7 +11,7 @@
 //  <change who="Kaden" date="2012.08.14">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.Configuration
+namespace Fanex.NAP.Settlement.Core.Configuration
 {
     /// <summary>
     ///     TODO: Update summary.

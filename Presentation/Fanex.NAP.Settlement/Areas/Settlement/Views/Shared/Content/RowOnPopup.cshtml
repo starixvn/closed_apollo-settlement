@@ -1,12 +1,11 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@using Fanex.NAP.Settlement.DTO.Permission;
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
 @model Tuple<Match, SettlementPermission, PageType, String>
 @{
     var match = Model.Item1;
     var permission = Model.Item2;
     var page = Model.Item3;
 }
-<tr class="row-@match.LeagueId  @Utility.BackgroundColor(match.IsUndecided, Background.Undecided)"
+<tr class="row-@match.LeagueId  @match.UndecidedColor"
     data-match-id="@match.MatchId" data-match-code="@match.MatchCode" data-sport-id="@match.SportType">
     <td class="code" rowspan="2">
         <div class='@(permission.CanViewSettlementLog ? "act-match-log code-link" : "no-link")'>@match.MatchCode</div>
@@ -25,7 +24,7 @@
     </td>
     @RenderSection("HomeScore")
 </tr>
-<tr class="row-@match.LeagueId @Utility.BackgroundColor(match.IsUndecided, Background.Undecided)">
+<tr class="row-@match.LeagueId @match.UndecidedColor">
     <td>
         <div class="match-away">
             @match.AwayName

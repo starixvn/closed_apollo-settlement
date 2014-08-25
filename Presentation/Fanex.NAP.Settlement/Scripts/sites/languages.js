@@ -24,7 +24,13 @@ var Languages =
     RefundParlayFullTime: "Are you sure you want to REFUND PARLAY FULL TIME this match?",
     RefundParlayHalfTime: "Are you sure you want to REFUND PARLAY HALFTIME this match?",
     RefundAllFGLG: "Are you sure you want to REFUND All FGLG this match",
+
     RefundAllLastGoal: "Are you sure you want to REFUND All Last Goal this match?",
+    RefundHTFGLG: "Are you sure you want to REFUND HALFTIME FGLG this match?",
+    RefundHTLG: "Are you sure you want to REFUND HALFTIME LG this match?",
+    RefundFTFGLG: "Are you sure you want to REFUND FULLTIME FGLG this match?",
+    RefundFTLG: "Are you sure you want to REFUND FULLTIME LG this match?",
+
     RefundNormalAll: "Are you sure you want to REFUND/CANCEL.\nThis function is only in use when the match cancel?",
     RefundNormalFullTime: "Are you sure you want to REFUND FULLTIME.\nThis function is only in use when the match cancel?",
     RefundNormalHalfTime: "Are you sure you want to REFUND HALFTIME.\nThis function is only in use when the match cancel?",

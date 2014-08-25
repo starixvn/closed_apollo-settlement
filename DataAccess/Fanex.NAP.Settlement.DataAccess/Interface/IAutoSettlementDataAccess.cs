@@ -15,29 +15,10 @@ namespace Fanex.NAP.Settlement.DataAccess.Interface
     /// </summary>
     public interface IAutoSettlementDataAccess
     {
-        /// <summary>
-        /// Update status AutoSettlement.
-        /// </summary>
-        /// <param name="creator">Creator by.</param>
-        /// <param name="matchId">Match Id parameter.</param>
-        /// <param name="turnOn">Turn on parameter.</param>
-        /// <param name="ip">Internet protocol.</param>
-        /// <returns>Return result.</returns>
-        IResult UpdateStatusAutoSettlement(int creator, int matchId, bool turnOn, string ip);
+        IResult UpdateStatusAutoSettlement(int adminId, int matchId, bool turnOn, string ip);
 
-        /// <summary>
-        /// Get status AutoSettlement.
-        /// </summary>
-        /// <returns>Return boolean.</returns>
         bool GetStatusAutoSettlement();
 
-        /// <summary>
-        /// Clear fail action AutoSettlement.
-        /// </summary>
-        /// <param name="creator">Creator by.</param>
-        /// <param name="matchId">Match id parameter.</param>
-        /// <param name="matchIds">List match ids.</param>
-        /// <returns>Return result.</returns>
-        IResult ClearFailActionAutoSettlement(int creator, int matchId, string matchIds);
+        IResult ClearFailActionAutoSettlement(int adminId, int matchId, string matchIds);
     }
 }

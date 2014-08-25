@@ -47,7 +47,7 @@ namespace Fanex.NAP.Settlement.DTO
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BetStatusHelper" /> class.
+        /// Initializes a new instance of the <see cref="BetStatusAccess" /> class.
         /// Get bet status data, after that analyze them for different group sports type on the template.
         /// </summary>
         /// <param name="groupSport">Group sports on the template.</param>
@@ -309,7 +309,7 @@ namespace Fanex.NAP.Settlement.DTO
                     var halfTimeBetStatus = betStatus.Substring(indexHalfTime, 7);
                     betStatus = betStatus.Replace(halfTimeBetStatus, string.Empty);
 
-                    if (isExistHtFglg && goalRecord.Contains(";"))
+                    if (isExistHtFglg && (!string.IsNullOrWhiteSpace(goalRecord) && goalRecord.Contains(";")))
                     {
                         var halfTimeScore = halfTimeBetStatus.Replace("1FL:", string.Empty);
 

@@ -391,9 +391,9 @@
       <Project>{F6AC9AC3-F739-4771-809F-2A6643DBD00F}</Project>
       <Name>Fanex.NAP.Settlement.Controllers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Web.csproj">
+    <ProjectReference Include="..\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Core.csproj">
       <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
-      <Name>Fanex.NAP.Settlement.Web</Name>
+      <Name>Fanex.NAP.Settlement.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -417,13 +417,13 @@
     <Content Include="Areas\Settlement\Views\Shared\Content\RowOnList.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\Header\Soccer.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\Header\RowOnList.cshtml" />
-    <Content Include="Areas\Settlement\Views\Sportsbook\Refund.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\PopupRefund.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\Layout\_LayoutRefund.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\Header\RowOnPopup.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\Content\RowOnPopup.cshtml" />
     <Content Include="Areas\Settlement\Views\UserControl\ButtonRefund.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\Layout\_LayoutCalc.cshtml" />
-    <Content Include="Areas\Settlement\Views\Sportsbook\Calc.cshtml" />
+    <Content Include="Areas\Settlement\Views\Sportsbook\PopupCalculate.cshtml" />
     <Content Include="Areas\Settlement\Views\UserControl\ButtonCalc.cshtml" />
     <Content Include="Areas\Settlement\Views\UserControl\GoalRecord.cshtml" />
     <Content Include="Areas\Settlement\Views\UserControl\UnreadyMatch.cshtml" />
@@ -453,8 +453,6 @@
     <Content Include="Areas\Settlement\Views\Sportsbook\HTOverOnly.cshtml" />
     <Content Include="Areas\Settlement\Views\Sportsbook\FilterHTOverOnly.cshtml" />
     <Content Include="Areas\UserControl\Web.config" />
-    <Content Include="Areas\Settlement\Views\Shared\Header\NumberGame.cshtml" />
-    <Content Include="Areas\Settlement\Views\Shared\Content\NumberGame.cshtml" />
     <Content Include="Areas\Settlement\Views\Log\ViewIpInfo.cshtml" />
     <Content Include="Areas\Settlement\Views\Log\ReferenceActions.cshtml" />
     <Content Include="Areas\Settlement\Views\Shared\LogAction\Content\Soccer.cshtml" />

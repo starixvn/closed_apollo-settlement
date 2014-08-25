@@ -1,297 +1,297 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <publishData>
-  <publishProfile publishUrl="D:\Deploy\Local" deleteExistingFiles="True" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="False" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+  <publishProfile publishUrl="K:\WEB209\RnD\Apollo_Settlement" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
     <file relUrl="App_Data/FanexSpName.xml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserLogin/Themes/img/bg.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/switch_2_1x.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/first-last-goal.png" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Areas/UserLogin/Views/Shared/_Layout.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Views/Web.config" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Antlr3.Runtime.dll" publishTime="10/02/2013 09:45:10" />
     <file relUrl="bin/System.Web.WebPages.dll" publishTime="07/10/2012 12:03:34" />
-    <file relUrl="Content/sites/images/goal-record-header.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/UserControl/GoalRecord.cshtml" publishTime="08/07/2014 15:04:25" />
+    <file relUrl="Areas/Settlement/Views/UserControl/GoalRecord.cshtml" publishTime="08/15/2014 08:59:29" />
     <file relUrl="Areas/UserControl/SportList.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/bullet-orange.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/refund-button.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Log/ViewIpInfo.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/ru-ru/BundleTransformer.Core.resources.dll" publishTime="10/02/2013 09:45:09" />
-    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Basketball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/extension/jquery-ui.autocomplete.ext.js" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/no_icon_disable.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/System.Web.Helpers.xml" publishTime="05/30/2012 01:00:26" />
-    <file relUrl="Scripts/_references.js" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Apollo.UMService.dll" publishTime="05/15/2014 09:47:48" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Volleyball.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/filter_bg.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/UserControl/ButtonRefund.cshtml" publishTime="08/18/2014 16:00:12" />
     <file relUrl="Content/sites/images/yes_icon_disable.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/UserControl/ButtonRefund.cshtml" publishTime="08/11/2014 16:34:43" />
-    <file relUrl="Content/sites/images/subnav_btn.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/switches.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/fail_icon.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Sportsbook/Calc.cshtml" publishTime="08/12/2014 16:43:35" />
+    <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="10/02/2013 09:45:10" />
     <file relUrl="Areas/UserControl/Web.config" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserLogin/Themes/img/username.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/extension/jquery-ui.autocomplete.ext.js" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/UserLogin/Views/Common/AccessDenied.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/calc-mp.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Microsoft.Practices.Unity.dll" publishTime="08/05/2013 10:32:07" />
-    <file relUrl="Areas/UserControl/Header.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Header/IceHockey.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/_references.js" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Header/IceHockey.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_100_fdf5ce_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_diagonals-thick_18_b81900_40x40.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/UserControl/Header.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Web.AppSettings.config" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="04/09/2013 16:01:42" />
+    <file relUrl="bin/System.Web.Razor.xml" publishTime="05/30/2012 01:00:26" />
     <file relUrl="bin/System.Net.Http.xml" publishTime="06/23/2012 01:00:28" />
     <file relUrl="Areas/Settlement/Views/Shared/DirectScore/IceHockey.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.ViewModels.pdb" publishTime="08/13/2014 10:58:49" />
+    <file relUrl="Areas/UserLogin/Themes/img/auth-bg.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/System.Web.Razor.dll" publishTime="08/17/2012 11:22:26" />
-    <file relUrl="bin/Fanex.NAP.Settlement.pdb" publishTime="08/13/2014 10:58:53" />
+    <file relUrl="bin/Fanex.NAP.Settlement.pdb" publishTime="08/22/2014 09:31:49" />
     <file relUrl="Areas/Settlement/Views/Log/Header.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/System.Web.Abstractions.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/System.Net.Http.Formatting.xml" publishTime="05/30/2012 01:00:26" />
     <file relUrl="bin/System.Net.Http.dll" publishTime="07/10/2012 21:52:12" />
-    <file relUrl="Scripts/sites/single-ticket.js" publishTime="08/13/2014 10:45:57" />
-    <file relUrl="bin/System.Web.Razor.xml" publishTime="05/30/2012 01:00:26" />
+    <file relUrl="Scripts/sites/single-ticket.js" publishTime="08/19/2014 15:20:18" />
+    <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="06/29/2012 01:00:12" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Soccer.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/Layout/_LayoutSettlement.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/System.Web.Http.xml" publishTime="06/09/2012 01:00:32" />
+    <file relUrl="Content/sites/images/subnav_btn.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/pointer.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/IceHockey.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/plugin/tipsy/tipsy.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/down.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/bgleague.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Scripts/plugin/tipsy/jquery.tipsy.js" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/Soccer.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/Soccer.cshtml" publishTime="08/18/2014 13:31:14" />
     <file relUrl="Areas/Settlement/Views/UserControl/ListAction.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.DataAccess.pdb" publishTime="08/13/2014 10:58:49" />
-    <file relUrl="bin/Fanex.Data.dll" publishTime="06/30/2014 12:08:27" />
-    <file relUrl="Scripts/sites/dialog-box.js" publishTime="08/13/2014 10:45:57" />
+    <file relUrl="bin/Fanex.NAP.Settlement.DataAccess.pdb" publishTime="08/22/2014 09:31:44" />
+    <file relUrl="bin/Fanex.Data.dll" publishTime="08/15/2014 08:59:28" />
     <file relUrl="Areas/Settlement/Views/Outright/Shared/_LayoutPopup.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_100_f6f6f6_1x400.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/Volleyball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/UserLogin/Themes/img/username.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/Volleyball.cshtml" publishTime="08/15/2014 13:00:52" />
     <file relUrl="bin/Glimpse.AspNet.dll" publishTime="10/02/2013 09:45:10" />
     <file relUrl="Areas/Settlement/Views/Shared/Layout/_LayoutCalc.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Fanex.NAP.Core.dll" publishTime="05/15/2014 09:47:48" />
     <file relUrl="Areas/Settlement/Views/Shared/DirectScore/Basketball.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Header/RowOnList.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/sub_mid.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/password.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.MetaModels.pdb" publishTime="08/13/2014 10:58:48" />
-    <file relUrl="Areas/Settlement/Views/UserControl/UnreadyMatch.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/Fanex.NAP.Settlement.MetaModels.pdb" publishTime="08/22/2014 09:31:44" />
+    <file relUrl="Content/sites/images/switch_2_1x.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Sportsbook/FilterOverOnly.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/System.Net.Http.Formatting.dll" publishTime="07/10/2012 21:51:54" />
     <file relUrl="Scripts/libraries/jquery-ui.js" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll" publishTime="08/05/2013 10:32:07" />
-    <file relUrl="bin/System.Web.WebPages.xml" publishTime="05/30/2012 01:00:26" />
-    <file relUrl="Content/libraries/jquery-ui/jquery-ui.css" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/sub_right_ico.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/popup-title-bg.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Outright/LogAction.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/welcome.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Basketball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Layout/NoInfo.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_ffffff_256x240.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserLogin/Themes/img/bg_header.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/sub_right_ico.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/button.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/close_bt.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserLogin/Scripts/ReCheckIn.js" publishTime="08/13/2014 10:51:16" />
-    <file relUrl="Areas/UserLogin/Themes/img/auth-bg.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/System.Web.Http.WebHost.xml" publishTime="05/30/2012 01:00:26" />
+    <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="07/10/2012 12:03:34" />
+    <file relUrl="bin/Newtonsoft.Json.dll" publishTime="04/09/2013 16:01:42" />
     <file relUrl="Areas/Settlement/Views/Shared/Header/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/log4net.dll" publishTime="10/16/2012 15:18:40" />
     <file relUrl="Content/sites/images/calculate-button.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Outright/Shared/_Layout.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Microsoft.Practices.ServiceLocation.dll" publishTime="08/05/2013 10:32:07" />
     <file relUrl="bin/RemotingRef.dll" publishTime="09/10/2012 15:11:32" />
-    <file relUrl="Content/sites/images/sub_mid.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/sites/languages.js" publishTime="08/19/2014 16:18:19" />
     <file relUrl="Areas/Settlement/Views/Log/Shared/_Layout.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/UserControl/UnreadyMatch.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/extension/jquery-ui.ext.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/login.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_gloss-wave_35_f6a828_500x100.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Scripts/extension/jquery.ext.js" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/global.grid.css" publishTime="08/07/2014 14:11:05" />
+    <file relUrl="Scripts/sites/dialog-box.js" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Global.asax" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="07/10/2012 12:03:34" />
-    <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="05/30/2012 01:00:26" />
+    <file relUrl="Scripts/sites/calc.js" publishTime="08/18/2014 13:31:14" />
     <file relUrl="Areas/Settlement/Views/Log/Filter.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/IBCFile.dll" publishTime="01/30/2012 13:30:38" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/IceHockey.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/RowOnPopup.cshtml" publishTime="08/11/2014 09:45:00" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/RowOnPopup.cshtml" publishTime="08/15/2014 08:59:29" />
     <file relUrl="Areas/Settlement/Views/Shared/Header/Basketball.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/System.Web.Mvc.xml" publishTime="05/30/2012 01:00:26" />
-    <file relUrl="Web.config" publishTime="08/13/2014 13:13:22" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/IceHockey.cshtml" publishTime="08/15/2014 13:03:21" />
+    <file relUrl="Web.config" publishTime="08/22/2014 09:31:50" />
     <file relUrl="Areas/Settlement/Views/Shared/DirectScore/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="10/02/2013 09:45:10" />
     <file relUrl="Content/sites/images/logout_icon.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/extension/images/confirm-title_bg.jpg" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/plugin/tipsy/tipsy.css" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/undo.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Volleyball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Log/Index.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/System.Web.Mvc.dll" publishTime="07/10/2012 21:51:54" />
     <file relUrl="App_Code/RazorHelper.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/first-last-goal.png" publishTime="08/04/2014 11:29:22" />
     <file relUrl="Areas/Settlement/Views/Web.config" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="packages.config" publishTime="08/04/2014 10:04:48" />
-    <file relUrl="bin/Fanex.NAP.Settlement.Web.dll" publishTime="08/13/2014 10:58:48" />
-    <file relUrl="Scripts/sites/languages.js" publishTime="08/13/2014 10:56:19" />
+    <file relUrl="packages.config" publishTime="08/15/2014 08:59:30" />
+    <file relUrl="bin/Fanex.NAP.Settlement.Web.dll" publishTime="08/22/2014 08:58:42" />
     <file relUrl="bin/System.Net.Http.WebRequest.dll" publishTime="07/10/2012 21:52:12" />
+    <file relUrl="Areas/Settlement/Views/Shared/Header/RowOnList.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/Header/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/extension/images/confirm-title_bg.jpg" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_75_dadada_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/grid26.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Soccer.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.Services.pdb" publishTime="08/13/2014 10:58:50" />
-    <file relUrl="Content/sites/images/button.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Outright/SettledMatches.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Sportsbook/OverOnly.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/log-action.css" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.Controllers.pdb" publishTime="08/13/2014 10:58:51" />
-    <file relUrl="Areas/Settlement/Views/Log/Index.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/Fanex.NAP.Settlement.Controllers.pdb" publishTime="08/22/2014 09:31:47" />
+    <file relUrl="Content/sites/images/loader.gif" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/Fanex.NAP.Settlement.Controllers.dll" publishTime="08/22/2014 09:31:47" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Scripts/libraries/jquery.blockUI.js" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserLogin/Views/Common/AccessDenied.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/fail_icon.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/Content/NumberGame.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_flat_0_aaaaaa_40x100.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/sites/calc.js" publishTime="08/13/2014 10:39:12" />
     <file relUrl="bin/System.Web.Optimization.dll" publishTime="10/02/2013 09:45:10" />
-    <file relUrl="Content/sites/rule.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/bg.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/sites/global.js" publishTime="08/13/2014 10:36:10" />
+    <file relUrl="Scripts/sites/global.js" publishTime="08/15/2014 08:59:30" />
     <file relUrl="bin/Glimpse.Mvc4.dll" publishTime="10/02/2013 09:45:10" />
-    <file relUrl="Scripts/libraries/jquery.js" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/UserLogin/Scripts/ReCheckIn.js" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Content/sites/images/calendar.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Views/Common/Style/Images/UnderMaintenance.gif" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Layout/NoInfo.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/top_bg.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Header/RowOnPopup.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/UserLogin/Views/UserSite/Site.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Basketball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/System.Web.Services.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="bin/Fanex.Caching.dll" publishTime="05/15/2014 09:47:48" />
     <file relUrl="bin/WebGrease.dll" publishTime="10/02/2013 09:45:10" />
-    <file relUrl="Areas/Settlement/Views/Sportsbook/Refund.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Views/Login/NonePermission.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/RowOnList.cshtml" publishTime="08/06/2014 11:25:57" />
-    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/RowOnList.cshtml" publishTime="08/15/2014 08:59:29" />
+    <file relUrl="Areas/UserLogin/Themes/img/bg.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Log/Popup.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Glimpse.Core.dll" publishTime="10/02/2013 09:45:10" />
-    <file relUrl="Areas/Settlement/Views/Outright/Matches.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/logo.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_highlight-soft_75_ffe45c_1x100.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/sites/type.js" publishTime="08/13/2014 10:39:59" />
+    <file relUrl="Areas/UserLogin/Themes/img/bg_header.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Sportsbook/FilterHTOverOnly.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_454545_256x240.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/NetUtility.dll" publishTime="06/04/2012 10:58:48" />
+    <file relUrl="bin/Fanex.NAP.Settlement.MetaModels.dll" publishTime="08/22/2014 09:31:44" />
     <file relUrl="Content/extension/jquery-block-ui.ext.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="favicon.ico" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/extension/images/error-red_bg.jpg" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/IBCCrypt.dll" publishTime="12/07/2012 15:42:38" />
     <file relUrl="Content/sites/images/success_icon.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Logging.dll" publishTime="08/05/2013 10:32:07" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-icons_228ef1_256x240.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/welcome-napadmin.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Log/Shared/_LayoutLogAction.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/Basketball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/Basketball.cshtml" publishTime="08/18/2014 13:31:14" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_ffd27a_256x240.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/tool-sprites.gif" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="06/29/2012 01:00:12" />
+    <file relUrl="Content/sites/images/bullet-orange.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Outright/Status.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/sub_left.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/attention.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Billiard.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/libraries/jquery-ui/jquery-ui.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/blank.jpg" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/DirectScore/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Billiard.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/BundleTransformer.Less.dll" publishTime="10/02/2013 09:45:09" />
     <file relUrl="Areas/Settlement/Views/Sportsbook/Filter.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/Baseball.cshtml" publishTime="08/18/2014 13:31:15" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_222222_256x240.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_diagonals-thick_20_666666_40x40.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Sportsbook/Index.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_flat_10_000000_40x100.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserControl/LeaguesList.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Baseball.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Sportsbook/PopupCalculate.cshtml" publishTime="08/15/2014 08:59:29" />
     <file relUrl="Content/sites/images/refresh_icon.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Outright/LogAction.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/global.grid.css" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_2e83ff_256x240.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.DTO.dll" publishTime="08/13/2014 10:58:47" />
+    <file relUrl="bin/Fanex.NAP.Settlement.DTO.dll" publishTime="08/22/2014 08:58:41" />
     <file relUrl="bin/BundleTransformer.Core.dll" publishTime="10/02/2013 09:45:09" />
     <file relUrl="bin/Fanex.NAP.Framework.dll" publishTime="05/15/2014 09:47:48" />
     <file relUrl="Web.ConnectionStrings.config" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/sub_rightup.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/notify_icon.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/loader.gif" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/plugin/validators/validators.js" publishTime="08/13/2014 10:58:05" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/Tennis.cshtml" publishTime="08/15/2014 13:00:52" />
+    <file relUrl="Scripts/sites/type.js" publishTime="08/18/2014 16:12:30" />
     <file relUrl="Areas/UserLogin/Views/Login/Index.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/System.Web.Http.WebHost.dll" publishTime="07/10/2012 21:51:54" />
     <file relUrl="Areas/Settlement/Views/Log/ReferenceActions.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-icons_ef8c08_256x240.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/sites/calculate.js" publishTime="08/13/2014 10:55:39" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/calc-mp.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/popup-title-bg.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/Fanex.NAP.Settlement.Services.pdb" publishTime="08/22/2014 09:31:46" />
+    <file relUrl="Scripts/sites/calculate.js" publishTime="08/18/2014 16:45:35" />
+    <file relUrl="Scripts/plugin/validators/validators.js" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Content/sites/images/no_icon.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_flat_75_ffffff_40x100.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/images/yes_icon.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Content/Billiard.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_100_f6f6f6_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Views/Common/Style/AccessDenied.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/extension/images/loader.gif" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_highlight-soft_75_cccccc_1x100.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.dll" publishTime="08/13/2014 10:58:53" />
-    <file relUrl="bin/Fanex.NAP.Settlement.Web.pdb" publishTime="08/13/2014 10:58:48" />
+    <file relUrl="bin/Fanex.NAP.Settlement.dll" publishTime="08/22/2014 09:31:49" />
+    <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll" publishTime="08/05/2013 10:32:07" />
     <file relUrl="Content/sites/images/calc-header-bg-action.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/IceHockey.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="05/30/2012 01:00:26" />
     <file relUrl="Content/libraries/jquery-ui/images/popup-title-bg.jpg" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Outright/Matches.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Sportsbook/HTOverOnly.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.MetaModels.dll" publishTime="08/13/2014 10:58:48" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_65_ffffff_1x400.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.Services.dll" publishTime="08/13/2014 10:58:50" />
+    <file relUrl="bin/Fanex.NAP.Settlement.Web.pdb" publishTime="08/22/2014 08:58:42" />
+    <file relUrl="Content/sites/images/yes_icon.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/Fanex.NAP.Settlement.Services.dll" publishTime="08/22/2014 09:31:46" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Common.dll" publishTime="08/05/2013 10:32:07" />
     <file relUrl="Areas/UserControl/LeaguesListNotShowAll.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.Controllers.dll" publishTime="08/13/2014 10:58:51" />
+    <file relUrl="Areas/Settlement/Views/Sportsbook/PopupRefund.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_cd0a0a_256x240.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/SPSRemoting.dll" publishTime="06/08/2012 15:52:32" />
     <file relUrl="bin/System.Web.WebPages.Razor.dll" publishTime="07/10/2012 12:03:34" />
     <file relUrl="Content/sites/images/error.gif" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.ViewModels.dll" publishTime="08/13/2014 10:58:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.DTO.pdb" publishTime="08/13/2014 10:58:47" />
+    <file relUrl="bin/Fanex.NAP.Settlement.ViewModels.dll" publishTime="08/22/2014 09:31:45" />
+    <file relUrl="bin/Fanex.NAP.Settlement.DTO.pdb" publishTime="08/22/2014 08:58:41" />
     <file relUrl="bin/Fanex.Logging.dll" publishTime="08/05/2013 10:32:07" />
-    <file relUrl="Content/sites/images/undo.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/sites/settlement-log.js" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Areas/UserLogin/Themes/none-permission.css" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/global.css" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_100_fdf5ce_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Microsoft.Practices.Unity.Interception.dll" publishTime="05/29/2012 14:29:46" />
+    <file relUrl="bin/System.Web.WebPages.xml" publishTime="05/30/2012 01:00:26" />
     <file relUrl="Areas/UserLogin/Views/Common/Style/Images/accessDenied.gif" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Sportsbook/RefreshContent.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/Layout/_LayoutRefund.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Outright/Index.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-icons_228ef1_256x240.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-icons_ef8c08_256x240.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-icons_888888_256x240.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/System.Web.Http.WebHost.xml" publishTime="05/30/2012 01:00:26" />
-    <file relUrl="App_Data/SportTypeSetting.xml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/LogAction/Header/Billiard.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/System.Web.Http.dll" publishTime="07/10/2012 21:51:54" />
+    <file relUrl="Content/sites/images/bgleague.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/Fanex.NAP.Settlement.ViewModels.pdb" publishTime="08/22/2014 09:31:45" />
+    <file relUrl="Areas/Settlement/Views/Shared/Header/RowOnPopup.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/DirectScore/Tennis.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/libraries/jquery.js" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/settlement-log.css" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Log/Popup.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_diagonals-thick_20_666666_40x40.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/System.Web.Http.xml" publishTime="06/09/2012 01:00:32" />
+    <file relUrl="Content/sites/images/top_bg.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/Settlement/Views/Shared/Header/Billiard.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/DirectScore/Soccer.cshtml" publishTime="08/08/2014 10:55:02" />
+    <file relUrl="Areas/Settlement/Views/Shared/DirectScore/Soccer.cshtml" publishTime="08/15/2014 08:59:29" />
     <file relUrl="bin/dotless.Core.dll" publishTime="10/02/2013 09:45:10" />
-    <file relUrl="bin/System.Web.Services.dll" publishTime="03/18/2010 19:31:26" />
-    <file relUrl="Scripts/sites/nap.message-box.js" publishTime="08/13/2014 10:47:13" />
-    <file relUrl="Scripts/sites/outright.js" publishTime="08/13/2014 10:56:19" />
+    <file relUrl="Content/sites/rule.css" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/sites/nap.message-box.js" publishTime="08/15/2014 08:59:30" />
+    <file relUrl="Scripts/sites/outright.js" publishTime="08/15/2014 08:59:30" />
     <file relUrl="bin/System.Web.Routing.dll" publishTime="03/18/2010 19:31:26" />
     <file relUrl="Areas/Settlement/Views/Shared/Header/Volleyball.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="bin/Fanex.NAP.Settlement.DataAccess.dll" publishTime="08/13/2014 10:58:49" />
-    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/images/goal-record-header.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/lock.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserControl/StatusList.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="bin/Fanex.Common.dll" publishTime="08/05/2013 10:32:07" />
     <file relUrl="bin/System.Web.Helpers.dll" publishTime="07/10/2012 12:03:34" />
-    <file relUrl="Areas/Settlement/Views/Sportsbook/OverOnly.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/sites/multiple-ticket.js" publishTime="08/13/2014 10:45:57" />
-    <file relUrl="Scripts/sites/refund.js" publishTime="08/13/2014 10:45:57" />
+    <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Scripts/sites/multiple-ticket.js" publishTime="08/20/2014 10:35:35" />
+    <file relUrl="bin/Fanex.NAP.Settlement.DataAccess.dll" publishTime="08/22/2014 09:31:44" />
     <file relUrl="Content/sites/outright.css" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Content/Billiard.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Areas/Settlement/Views/Shared/Content/Billiard.cshtml" publishTime="08/15/2014 13:00:51" />
     <file relUrl="Areas/Settlement/Views/Shared/Header/NumberGame.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/Shared/Header/Soccer.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="App_Data/SportTypeSetting.xml" publishTime="08/15/2014 13:30:31" />
     <file relUrl="Areas/Settlement/Views/Outright/Filter.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/Settlement/Views/UserControl/ButtonCalc.cshtml" publishTime="08/11/2014 11:27:11" />
+    <file relUrl="Areas/Settlement/Views/UserControl/ButtonCalc.cshtml" publishTime="08/15/2014 08:59:29" />
+    <file relUrl="Areas/UserControl/LeaguesList.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/loading.gif" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/sub_right.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Scripts/sites/settlement-log.js" publishTime="08/13/2014 10:45:57" />
+    <file relUrl="bin/System.Web.Mvc.xml" publishTime="05/30/2012 01:00:26" />
     <file relUrl="Content/libraries/jquery-ui/images/ui-bg_glass_95_fef1ec_1x400.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Views/Common/Offline.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/extension/images/popup-title-bg.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Areas/UserLogin/Views/UserSite/Site.cshtml" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/calc.css" publishTime="08/11/2014 16:47:35" />
+    <file relUrl="Scripts/sites/refund.js" publishTime="08/20/2014 09:33:05" />
+    <file relUrl="Content/sites/calc.css" publishTime="08/15/2014 08:59:30" />
     <file relUrl="Areas/UserLogin/Themes/img/title-bg.jpg" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="bin/System.Web.Http.dll" publishTime="07/10/2012 21:51:54" />
     <file relUrl="Content/sites/images/header.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Themes/img/warn.png" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Areas/UserLogin/Views/SSO/SSOIndex.cshtml" publishTime="05/15/2014 09:47:49" />
     <file relUrl="Content/sites/images/close-match.png" publishTime="05/15/2014 09:47:49" />
-    <file relUrl="Content/sites/refund.css" publishTime="08/11/2014 16:35:31" />
+    <file relUrl="Areas/Settlement/Views/Shared/Header/Soccer.cshtml" publishTime="05/15/2014 09:47:49" />
+    <file relUrl="Content/sites/refund.css" publishTime="08/15/2014 08:59:30" />
     <file relUrl="bin/System.Web.WebPages.Deployment.xml" publishTime="06/22/2012 01:00:28" />
   </publishProfile>
 </publishData>

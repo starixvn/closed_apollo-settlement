@@ -19,10 +19,10 @@ namespace Fanex.NAP.Settlement.MetaModels
     public class OutrightCalculateMetaModel
     {
         /// <summary>
-        ///     Gets or sets Creator.
+        ///     Gets or sets AdminId.
         /// </summary>
-        /// <value>The creator of outright.</value>
-        public int Creator { get; set; }
+        /// <value>The AdminId of outright.</value>
+        public int AdminId { get; set; }
 
         /// <summary>
         ///     Gets or sets MatchId.

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.NAP.Settlement.DTO.Domain
+namespace Fanex.NAP.Settlement.Core.Constants
 {
     /// <summary>
     ///    Status for match.

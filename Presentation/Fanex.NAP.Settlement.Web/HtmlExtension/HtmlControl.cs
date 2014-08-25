@@ -11,15 +11,15 @@
 //  <change who="Kaden" date="2012.10.29">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.HtmlExtension
+namespace Fanex.NAP.Settlement.Core.HtmlExtension
 {
     using System;
     using System.Globalization;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Fanex.NAP.Settlement.DTO;
-    using Fanex.NAP.Settlement.DTO.Domain;
-    using Fanex.NAP.Settlement.Web.Common;
+    using Fanex.NAP.Settlement.Core.Common;
+    using Fanex.NAP.Settlement.Core.Constants;
+    using Fanex.NAP.Settlement.Core.Resources;
 
     /// <summary>
     ///     TODO: Update summary.

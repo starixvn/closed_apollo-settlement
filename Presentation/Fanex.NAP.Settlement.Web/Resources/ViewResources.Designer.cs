@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fanex.NAP.Settlement.DTO {
+namespace Fanex.NAP.Settlement.Core.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Fanex.NAP.Settlement.DTO {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fanex.NAP.Settlement.DTO.ViewResources", typeof(ViewResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Fanex.NAP.Settlement.Core.Resources.ViewResources", typeof(ViewResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -840,6 +840,15 @@ namespace Fanex.NAP.Settlement.DTO {
         public static string NotPrivilege {
             get {
                 return ResourceManager.GetString("NotPrivilege", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have not been privileged to use any function.&lt;/br&gt;Please contact the admin for help..
+        /// </summary>
+        public static string NotPrivilege1 {
+            get {
+                return ResourceManager.GetString("NotPrivilege1", resourceCulture);
             }
         }
         

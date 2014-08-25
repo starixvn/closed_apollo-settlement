@@ -11,99 +11,84 @@
 //  <change who="Kaden" date="2012.08.14">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.Configuration
+namespace Fanex.NAP.Settlement.Core.Configuration
 {
     using System;
     using System.Collections.Generic;
     using System.Configuration;
     using System.Web;
     using System.Xml.Linq;
-    using Fanex.Logging;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     ///     Caching configuration file, implemented by internal constructor + safe singleton + lazy load pattern.
     /// </summary>
     public static class SportViewSettingFactory
     {
-        /// <summary>
-        /// Sport View SettingMapper.
-        /// </summary>
-        private static IDictionary<int, SportViewSetting> sportViewSettingMapper = new Dictionary<int, SportViewSetting>();
-
-        /// <summary>
-        /// Initializes static members of the <see cref="SportViewSettingFactory" /> class.
-        /// </summary>
         static SportViewSettingFactory()
         {
-            try
+            SportViewSettingMapper = new Dictionary<int, SportViewSetting>();
+            var document =
+                XDocument.Load(
+                    HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["SportTypeSetting"]));
+            var root = document.Root;
+
+            if (root == null)
             {
-                var document =
-                    XDocument.Load(
-                        HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["SportTypeSetting"]));
-                var root = document.Root;
+                return;
+            }
 
-                if (root != null)
+            foreach (var elementSportTypeMapping in root.Elements())
+            {
+                foreach (var sportTypeElement in elementSportTypeMapping.Elements())
                 {
-                    foreach (var elementSportTypeMapping in root.Elements())
-                    {
-                        foreach (var sportTypeElement in elementSportTypeMapping.Elements())
-                        {
-                            var sportViewSetting = new SportViewSetting
-                                {
-                                    SportType = Convert.ToInt32(sportTypeElement.Attribute("Id").Value),
-                                    GroupSport = Convert.ToInt32(elementSportTypeMapping.Attribute("GroupSport").Value),
-                                    Template = GetXmlAttributeString(elementSportTypeMapping.Attribute("Template")),
-                                    DirectlyTemplate =
-                                        GetXmlAttributeString(elementSportTypeMapping.Attribute("DirectlyTemplate")),
-                                    IsCheckBoxCalcMp =
-                                        Convert.ToBoolean(elementSportTypeMapping.Attribute("IsCheckBoxCalcMP").Value),
-                                    Colspan = elementSportTypeMapping.Attribute("Colspan") != null
-                                                  ? Convert.ToInt32(elementSportTypeMapping.Attribute("Colspan").Value)
-                                                  : 0
-                                };
+                    var sportViewSetting = SetValue(Convert.ToByte(sportTypeElement.Attribute("Id").Value), elementSportTypeMapping);
 
-                            sportViewSettingMapper.Add(sportViewSetting.SportType, sportViewSetting);
-                        }
-                    }
+                    SportViewSettingMapper.Add(sportViewSetting.SportType, sportViewSetting);
                 }
             }
-            catch (Exception exception)
-            {
-                LogService.Error("Could not load SportTypeSetting configruation file.", exception);
-                throw;
-            }
         }
+
+        private static IDictionary<int, SportViewSetting> SportViewSettingMapper { get; set; }
 
         #region Factory
 
         /// <summary>
-        /// Function Create.
+        /// Get Sport View setting by sport type.
         /// </summary>
-        /// <param name="sportType">Sport type.</param>
-        /// <returns>Sport view setting.</returns>
-        public static SportViewSetting Create(int sportType)
+        /// <param name="sportType">Sport type value.</param>
+        /// <returns>SportViewSetting object.</returns>
+        public static SportViewSetting Create(byte sportType)
         {
-            return sportViewSettingMapper.ContainsKey(sportType)
-                       ? sportViewSettingMapper[sportType]
-                       : new SportViewSetting
-                           {
-                               Template = "Soccer",
-                               DirectlyTemplate = "DirectScore/Soccer",
-                               IsCheckBoxCalcMp = true,
-                               Colspan = 8
-                           };
+            return SportViewSettingMapper.ContainsKey(sportType)
+                       ? SportViewSettingMapper[sportType]
+                       : SportViewSettingMapper[SportType.OtherSports];
         }
 
         #endregion Factory
 
-        /// <summary>
-        /// Check exist attribute on XML Mapping.
-        /// </summary>
-        /// <param name="attributeName">Attribute name.</param>
-        /// <returns>Return string.</returns>
         private static string GetXmlAttributeString(XAttribute attributeName)
         {
             return attributeName != null ? attributeName.Value : string.Empty;
+        }
+
+        /// <summary>
+        /// Set value to view Setting.
+        /// </summary>
+        /// <param name="sportType">Sport type.</param>
+        /// <param name="element">Element value.</param>
+        /// <returns>New Setting.</returns>
+        private static SportViewSetting SetValue(byte sportType, XElement element)
+        {
+            var sportViewSetting = new SportViewSetting
+            {
+                SportType = sportType,
+                GroupSport = Convert.ToByte(element.Attribute("GroupSport").Value),
+                Template = GetXmlAttributeString(element.Attribute("Template")),
+                DirectlyTemplate = GetXmlAttributeString(element.Attribute("DirectlyTemplate")),
+                Colspan = element.Attribute("Colspan") != null ? Convert.ToInt32(element.Attribute("Colspan").Value) : 0
+            };
+            return sportViewSetting;
         }
     }
 }

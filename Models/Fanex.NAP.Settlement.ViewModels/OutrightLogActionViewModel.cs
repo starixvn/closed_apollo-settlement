@@ -14,9 +14,8 @@
 namespace Fanex.NAP.Settlement.ViewModels
 {
     using System.Collections.Generic;
+    using Fanex.NAP.Settlement.Core.Constants;
     using Fanex.NAP.Settlement.DTO;
-    using Fanex.NAP.Settlement.DTO.Domain;
-    using Fanex.NAP.Settlement.MetaModels;
 
     /// <summary>
     ///     TODO: Update summary.

@@ -1,5 +1,6 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@using Fanex.NAP.Settlement.DTO.Permission;
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
+@using Fanex.NAP.Settlement.Core.Common;
+@using Fanex.NAP.Settlement.Core.Constants;
 @model Tuple<Match, SettlementPermission, PageType, String>
 @{
     var match = Model.Item1; // Model Match
@@ -9,10 +10,6 @@
     var disabledAutoSettle = ViewBag.DisabledAutoSettle;//DisabledAutoSettle = NULL or 0  : ON, = 1 : OFF (Global "Auto-Settlment")
     var listAction = match.ListAction; // Model Log Action
     var actionFailed = Utility.GetActionStatusById(match.FailedActionId); // Action Failed
-    var eventStatus = Utility.MapEventStatusString(match.EventStatus, match.IsPending, match.IsHtCal, match.IsCalculated);
-    var backroundColor = match.FailedActionId.HasValue
-        ? Utility.BackgroundColor(true, Background.ActionFailed)
-        : Utility.BackgroundColor(match.IsUndecided, Background.Undecided);
     var autoSettle = "on";
 
     var permissionCalc = false;
@@ -59,7 +56,7 @@
         autoSettle = string.Empty;
     }
 }
-<tr class="row-@match.LeagueId @oddOrEven @backroundColor"
+<tr class="row-@match.LeagueId @oddOrEven @match.UndecidedColor"
     data-match-id="@match.MatchId" data-match-code="@match.MatchCode" data-sport-id="@match.SportType">
     <td class="code" rowspan="2">
         <span class='@(permission.CanViewSettlementLog ? "act-match-log code-link" : "no-link")'>@match.MatchCode</span>
@@ -77,9 +74,9 @@
         </span>
     </td>
     @RenderSection("HomeScore")
-    <td rowspan="2" class='event-status event-status-@match.MatchId @Utility.BackgroundColorEventStatus(eventStatus, match.IsPending)'>
-        <span class="running">@eventStatus
-            @if (eventStatus.Equals(EventStatus.Running, StringComparison.OrdinalIgnoreCase))
+    <td rowspan="2" class='event-status event-status-@match.MatchId @match.EventStatusColor'>
+        <span class="running">@match.EventStatus
+            @if (match.EventStatus.Equals(EventStatus.Running, StringComparison.OrdinalIgnoreCase))
             {
                 if (permissionCloseMatch)
                 {
@@ -94,7 +91,7 @@
         <br />
         <span style="color: Red">@actionFailed</span>
     </td>
-    <td rowspan="2" class="calc-refund @Utility.BackgroundColorCalculate(match.IsHtCal, match.IsCalRefund, match.IsCalculated)">
+    <td rowspan="2" class="calc-refund @match.CalcSBBackgroundColor">
         @if (permissionCalc)
         {
             <div id="calc-@match.MatchId" class='code-link act-calculate'>
@@ -159,7 +156,7 @@
         @Html.Action("ListAction", "Sportsbook", new { groupSport = match.GroupSport, listAction })
     </td>
 </tr>
-<tr class="row-@match.LeagueId @oddOrEven @backroundColor">
+<tr class="row-@match.LeagueId @oddOrEven @match.UndecidedColor">
     <td>
         <div class="match-away">
             @match.AwayName

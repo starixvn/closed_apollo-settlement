@@ -14,7 +14,7 @@
 namespace Fanex.NAP.Settlement.DTO
 {
     using System;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     /// Class MatchLog.
@@ -55,6 +55,10 @@ namespace Fanex.NAP.Settlement.DTO
 
         public int? FinalAwayScore { get; set; }
 
+        public bool IsExistHTFGLG { get; set; }
+
+        public bool IsExistFGLG { get; set; }
+
         #endregion Match Score
 
         #region Extra Property
@@ -63,16 +67,19 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                if (this._betStatusAccess == null)
+                if (!Convert.IsDBNull(BetStatus) && !string.IsNullOrEmpty(BetStatus) && this.ActionId < 11)
                 {
-                    if (!Convert.IsDBNull(this.BetStatus) && !string.IsNullOrWhiteSpace(this.BetStatus) && this.ActionId < 11)
-                    {
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus, false, false, GoalRecord, false);
-                    }
-                    else
-                    {
-                        this._betStatusAccess = new BetStatusAccess();
-                    }
+                    _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, false);
+                }
+                else if (!string.IsNullOrWhiteSpace(GoalRecord) && this.ActionId < 11)
+                {
+                    var isFinalScore = FinalAwayScore != null && FinalHomeScore != null;
+
+                    _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, isFinalScore);
+                }
+                else
+                {
+                    _betStatusAccess = new BetStatusAccess();
                 }
 
                 return this._betStatusAccess;

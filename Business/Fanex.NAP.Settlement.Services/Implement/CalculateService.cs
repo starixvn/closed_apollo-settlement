@@ -16,18 +16,14 @@ namespace Fanex.NAP.Settlement.Services.Implement
 {
     #region
 
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
     using Fanex.NAP.Settlement.DataAccess.Implement;
     using Fanex.NAP.Settlement.DataAccess.Interface;
     using Fanex.NAP.Settlement.DTO;
     using Fanex.NAP.Settlement.DTO.DBResult;
-    using Fanex.NAP.Settlement.DTO.Domain;
     using Fanex.NAP.Settlement.MetaModels;
     using Fanex.NAP.Settlement.Services.Interface;
-    using LVCasinoSetting;
 
     #endregion
 
@@ -204,15 +200,19 @@ namespace Fanex.NAP.Settlement.Services.Implement
 
         #region Excute Calculate or Refund match
 
-        /// <summary>
-        /// Submit action calculate.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="type">Action type.</param>
-        /// <returns>Return result.</returns>
-        public IResult Calculate(Hashtable parameters, string type)
+        public IResult Calculate(DoSingleTicketMetaModel criteria, string action, bool isHalfTimeCalculate)
         {
-            return this._calculateDataAccess.Calculate(parameters, type);
+            return this._calculateDataAccess.Calculate(criteria, action, isHalfTimeCalculate);
+        }
+
+        public IResult CalculateMultiple(DoMultipleTicketMetaModel criteria)
+        {
+            return this._calculateDataAccess.CalculateMultiple(criteria);
+        }
+
+        public IResult Refund(DoSingleTicketMetaModel criteria)
+        {
+            return this._calculateDataAccess.Refund(criteria);
         }
 
         #endregion Excute Calculate or Refund match

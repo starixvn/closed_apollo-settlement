@@ -5,33 +5,50 @@ var Refund = (function ($) {
         init: function () {
             Site.unBlockUI();
 
-            // Event click to Refund half time button
+              // Event click to Refund half time button
             $('.act-refund-ht').click(function () {
-                Refund.scoreConfirm(Type.RefundHalfTime);
+                return Refund.refundNormal(Type.RefundHalfTime);
             });
 
             // Event click to Refund full time button
             $('.act-refund-ft').click(function () {
-                Refund.scoreConfirm(Type.RefundFullTime);
+               return Refund.refundNormal(Type.RefundFullTime);
             });
 
             // Event click to Refund all button
             $('.act-refund-all').click(function () {
-                Refund.scoreConfirm(Type.RefundAll);
+               return Refund.refundNormal(Type.RefundAll);
             });
 
-            // Event click to Refund all FGLG button
+             // Event click to Refund all FGLG button
             $('.act-refund-all-fglg').click(function () {
-                confirm(Languages.RefundAllFGLG, function () {
-                    return DoSingleTicket.doRefundSubmit(Type.RefundAllFgLg);
-                });
+               return Refund.refundNormal(Type.RefundAllFgLg);
             });
 
-            // Event click to Refund all LG button
+             // Event click to Refund all LG button
             $('.act-refund-all-lg').click(function () {
-                confirm(Languages.RefundAllLastGoal, function () {
-                    return DoSingleTicket.doRefundSubmit(Type.RefundAllLg);
-                });
+              return Refund.refundNormal(Type.RefundAllLg);
+            });
+
+            // Offer 1H Total Goal and 1H First Goal/Last Goal Bet Types
+            // Event click to Refund half time first goal last goal
+            $('.act-refund-ht-fglg').click(function () {
+                return Refund.refundNormal(Type.RefundHTFGLG);
+            });
+
+             // Event click to Refund half time last goal
+            $('.act-refund-ht-lg').click(function () {
+                return Refund.refundNormal(Type.RefundHTLastGoal);
+            });
+
+            // Event click to Refund full time first goal last goal
+            $('.act-refund-ft-fglg').click(function () {
+                return Refund.refundNormal(Type.RefundFTFGLG);
+            });
+
+            // Event click to Refund full time last goal
+            $('.act-refund-ft-lg').click(function () {
+                return Refund.refundNormal(Type.RefundFTLastGoal);
             });
 
             // Event click to Refund Parlay half time button
@@ -57,20 +74,33 @@ var Refund = (function ($) {
                 case Type.RefundAll:
                     message = Languages.RefundNormalAll;
                     break;
-
                 case Type.RefundFullTime:
                     message = Languages.RefundNormalFullTime;
                     break;
-
                 case Type.RefundHalfTime:
                     message = Languages.RefundNormalHalfTime;
+                    break;
+                case Type.RefundAllFgLg:
+                    message = Languages.RefundAllFGLG;
+                    break;
+                case Type.RefundAllLg:
+                    message = Languages.RefundAllLastGoal;
+                    break;
+
+                case Type.RefundHTFGLG:
+                    message = Languages.RefundHTFGLG;
+                    break;
+                case Type.RefundHTLastGoal:
+                    message = Languages.RefundHTLG;
+                    break;
+                case Type.RefundFTFGLG:
+                    message = Languages.RefundFTFGLG;
+                    break;
+                case Type.RefundFTLastGoal:
+                    message = Languages.RefundFTLG;
                     break;
             }
             confirm(message, function () { return DoSingleTicket.doRefundSubmit(type); });
         },
-        // Refund action
-        scoreConfirm: function (type) {
-            Refund.refundNormal(type);
-        }
     };
 } (jQuery));

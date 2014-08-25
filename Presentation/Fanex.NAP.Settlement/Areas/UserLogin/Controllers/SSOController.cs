@@ -12,20 +12,16 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
     using Fanex.Common;
-    using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Criteria.User;
     using Fanex.NAP.Core.Model;
     using Fanex.NAP.Core.Service.Impl;
     using Fanex.NAP.Core.Service.Interface;
     using Fanex.NAP.Core.Web.Auth;
     using Fanex.NAP.Core.Web.Session;
-    using Fanex.NAP.Settlement.Web.Configuration;
-    using Fanex.NAP.Settlement.Web.Services;
 
     /// <summary>
     /// SSOController class.
@@ -34,8 +30,8 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
     {
         #region members
 
+        private const int TimeExipration = 10;
         private readonly IFunctionService _functionService;
-        private readonly int _timeExipration = 30;
         private IUserService _userService;
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
@@ -64,57 +60,65 @@ namespace Fanex.NAP.Settlement.Areas.UserLogin.Controllers
         #endregion ctors
 
         /// <summary>
-        /// SSO Controller - Action Index.
+        /// Action Result Index.
         /// </summary>
-        /// <param name="userId">User Id value.</param>
-        /// <param name="onuserId">On User Id value.</param>
-        /// <param name="time">Logged time.</param>
-        /// <returns>Action Result.</returns>
+        /// <param name="userId">Index user ID.</param>
+        /// <param name="onuserId">Index on user ID.</param>
+        /// <param name="time">Index time.</param>
+        /// <param name="redirectUrl">Redirect Url.</param>
+        /// <returns>Redirect URL.</returns>
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index(string userId, string onuserId, string time)
+        public ActionResult Index(string userId, string onuserId, string time, Uri redirectUrl = null)
         {
+            string currentTime = this._userService.UserSSOGetTime();
+            string forwardLink = redirectUrl == null ? FormsAuthentication.DefaultUrl : redirectUrl.ToString();
             userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
             onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
             time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
-            string currentTime = _userService.UserSSOGetTime();
             var expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
 
-            if (expiration.TotalSeconds <= _timeExipration)
+            if (expiration.TotalSeconds <= TimeExipration)
             {
-                var criteria = SetUserCriteria(Convert.ToInt32(userId), Convert.ToInt32(onuserId));
-                _userService.UserSSOCheckIn(ref criteria);
-
+                var criteria = new UserSSOCheckInUserCriteria
+                {
+                    UserId = Convert.ToInt32(userId),
+                    SiteId = SiteId,
+                    CheckOnUserId = Convert.ToInt32(onuserId),
+                    OnUserId = 0,
+                    IP = CurrentContext.IP,
+                    NetSessionId = Session.SessionID,
+                    LoginDate = DateTime.Now,
+                    BrowserName = CurrentContext.BrowserName,
+                    CountryCode = CurrentContext.CountryCode,
+                    Domain = CurrentContext.DomainName,
+                    Platform = CurrentContext.Platform
+                };
+                this._userService.UserSSOCheckIn(ref criteria);
                 if (criteria.OnUserId != 0)
                 {
-                    var user = _userService.GetById(criteria.UserId) as User;
-
-                    _currentSession.UserId = user.Id;
-                    _currentSession.Username = user.Username;
-                    _currentSession.OnUserId = criteria.OnUserId;
-                    _currentSession.SessionId = Session.SessionID.ToString();
-                    _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
-
-                    var currentFunction = _functionService.GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment);
-                    AppSession.CurrentUser = user;
-                    AppSession.RoleAccess = PermissionService.GetRoleAccess(currentFunction);
+                    var user = this._userService.GetById(criteria.UserId) as User;
+                    this._currentSession.UserId = user.Id;
+                    this._currentSession.Username = user.Username;
+                    this._currentSession.OnUserId = criteria.OnUserId;
+                    this._currentSession.SessionId = Session.SessionID.ToString();
+                    this._currentSession.Level = this._userService.GetUserSiteLevel(user.Id, this.SiteId);
 
                     if (this.SiteId != 0)
                     {
-                        _currentSession.Menu = _menuItemService.GetByUserAndSiteIncludeGroup(
+                        this._currentSession.MenuItemList = this._menuItemService.GetByUserAndSiteIncludeGroup(
                                                                                 user.Id,
                                                                                 SiteId,
-                                                                                Environment,
+                                                                                this.Environment,
                                                                                 true) as IList<MenuItem>;
                     }
 
-                    CreateAuthInfo(user);
-
-                    return Redirect(FormsAuthentication.DefaultUrl);
+                    this.CreateAuthInfo(user);
+                    return this.Redirect(forwardLink);
                 }
             }
 
-            return Redirect(FormsAuthentication.LoginUrl);
+            return this.Redirect(FormsAuthentication.LoginUrl);
         }
 
         #region utilities

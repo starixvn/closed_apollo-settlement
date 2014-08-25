@@ -2,7 +2,6 @@
     ViewBag.Title = "Outright";
     Layout = Request.IsAjaxRequest() ? null : "Shared/_Layout.cshtml";
 }
-@using Fanex.NAP.Settlement.DTO.Domain
 @model OutrightViewModel
 @section ContentFilter
 {
@@ -105,7 +104,7 @@
                         <td class="code">@index
                         </td>
                         <td class="code">
-                            @Html.Raw(item.KickOffTime.ToString("yyyy-MM-dd<br/>hh:mm:ss tt"))
+                            @Html.Raw(item.KickOffTime.ToString("yyyy-MM-dd<br />hh:mm:ss tt"))
                         </td>
                         <td align="left" class="league">
                             <b>@item.TeamName</b>
@@ -159,6 +158,5 @@ else
         jQuery(window.document).ready(function () {
             Site.resize(200);
         });
-
     </script>
 }

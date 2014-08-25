@@ -15,30 +15,30 @@ var DoSingleTicket = (function ($) {
                 case 3:     // football
                 case 26:    // rugby
                 case 32:    // netball
-                    return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q']);
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q']);
 
                 case 4:     // ice hockey
                 case 28:    // field hockey
-                    return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxAway1Q',
-                        'TextBoxAway2Q', 'TextBoxAway3Q']);
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Away1Q',
+                        'Away2Q', 'Away3Q']);
 
                 case 5:     // tennis
-                    return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxHome5Q', 'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q',
-                        'TextBoxAway5Q']);
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Home5Q', 'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q',
+                        'Away5Q']);
 
                 case 8:     // baseball
-                    return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxHome5Q', 'TextBoxHome6Q', 'TextBoxHome7Q', 'TextBoxHome8Q', 'TextBoxHome9Q',
-                        'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q', 'TextBoxAway5Q',
-                        'TextBoxAway6Q', 'TextBoxAway7Q', 'TextBoxAway8Q', 'TextBoxAway9Q']);
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Home5Q', 'Home6Q', 'Home7Q', 'Home8Q', 'Home9Q',
+                        'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q', 'Away5Q',
+                        'Away6Q', 'Away7Q', 'Away8Q', 'Away9Q']);
 
                 case 6:     // volleyball
                 case 9:     // badminton
-                    return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxHome5Q', 'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q',
-                        'TextBoxAway5Q']);
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Home5Q', 'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q',
+                        'Away5Q']);
 
                 default:
                     return true;
@@ -65,8 +65,8 @@ var DoSingleTicket = (function ($) {
                 var goalRecord = $('#GoalRecord').val().toLowerCase();
                 var halfTimeGoalRecord = goalRecord.indexOf(';') < 0 ? goalRecord : goalRecord.slice(0, goalRecord.indexOf(';'));
 
-                var homeH = ($('#TextBoxHtHomeScore').val() === "" || $('#TextBoxHtHomeScore').val() === 0) ? 0 : parseInt($('#TextBoxHtHomeScore').val());
-                var awayH = ($('#TextBoxHtAwayScore').val() === "" || $('#TextBoxHtAwayScore').val() === 0) ? 0 : parseInt($('#TextBoxHtAwayScore').val());
+                var homeH = ($('#HtHomeScore').val() === "" || $('#HtHomeScore').val() === 0) ? 0 : parseInt($('#HtHomeScore').val());
+                var awayH = ($('#HtAwayScore').val() === "" || $('#HtAwayScore').val() === 0) ? 0 : parseInt($('#HtAwayScore').val());
                 var isLive = $('#IsLive').val() === 'True';
 
                 if (isLive) {
@@ -114,10 +114,10 @@ var DoSingleTicket = (function ($) {
             var goalRecord = $('#GoalRecord').val().toLowerCase();
             var fullTimeGoalRecord = goalRecord.replace(';', '');
 
-            var homeF = ($('#TextBoxFinalHomeScore').val() === "" || $('#TextBoxFinalHomeScore').val() === 0) ? 0 : parseInt($('#TextBoxFinalHomeScore').val());
-            var awayF = ($('#TextBoxFinalAwayScore').val() === "" || $('#TextBoxFinalAwayScore').val() === 0) ? 0 : parseInt($('#TextBoxFinalAwayScore').val());
-            var homeH = ($('#TextBoxHtHomeScore').val() === "" || $('#TextBoxHtHomeScore').val() === 0) ? 0 : parseInt($('#TextBoxHtHomeScore').val());
-            var awayH = ($('#TextBoxHtAwayScore').val() === "" || $('#TextBoxHtAwayScore').val() === 0) ? 0 : parseInt($('#TextBoxHtAwayScore').val());
+            var homeF = ($('#FinalHomeScore').val() === "" || $('#FinalHomeScore').val() === 0) ? 0 : parseInt($('#FinalHomeScore').val());
+            var awayF = ($('#FinalAwayScore').val() === "" || $('#FinalAwayScore').val() === 0) ? 0 : parseInt($('#FinalAwayScore').val());
+            var homeH = ($('#HtHomeScore').val() === "" || $('#HtHomeScore').val() === 0) ? 0 : parseInt($('#HtHomeScore').val());
+            var awayH = ($('#HtAwayScore').val() === "" || $('#HtAwayScore').val() === 0) ? 0 : parseInt($('#HtAwayScore').val());
 
             if (type === Type.CalculateFgNg) {
                 if (homeH > homeF || awayH > awayF) {
@@ -234,9 +234,9 @@ var DoSingleTicket = (function ($) {
             $('#ActionType').val(type);
 
             if (type === Type.UnCalculate) {
-                url = "DoSingleTicket/UnCalculate";
+                url = "Sportsbook/UnCalculate";
             } else {
-                url = "DoSingleTicket/Calculate";
+                url = "Sportsbook/Calculate";
             }
             Site.blockUI();
             $.ajax({
@@ -260,7 +260,7 @@ var DoSingleTicket = (function ($) {
         doRefundSubmit: function (type) {
             var url;
             $('#ActionType').val(type);
-            url = "DoSingleTicket/Refund";
+            url = "Sportsbook/Refund";
 
             Site.blockUI();
             $.ajax({

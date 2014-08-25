@@ -20,16 +20,17 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
     using System.Web.Mvc;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Web.Session;
+    using Fanex.NAP.Settlement.Core.Constants;
+    using Fanex.NAP.Settlement.Core.Resources;
     using Fanex.NAP.Settlement.DTO;
     using Fanex.NAP.Settlement.DTO.Configuration;
     using Fanex.NAP.Settlement.DTO.DBResult;
-    using Fanex.NAP.Settlement.DTO.Domain;
     using Fanex.NAP.Settlement.DTO.Permission;
     using Fanex.NAP.Settlement.MetaModels;
     using Fanex.NAP.Settlement.Services.Implement;
     using Fanex.NAP.Settlement.Services.Interface;
     using Fanex.NAP.Settlement.ViewModels;
-    using Fanex.NAP.Settlement.Web.Services;
 
     #endregion
 
@@ -60,6 +61,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// </summary>
         private readonly ILeagueService _leagueService;
 
+        private readonly ICurrentSession _currentSession;
         private IResult _result = new Result { ErrorMessage = string.Empty, ErrorCode = 0 };
 
         #endregion Fields
@@ -70,7 +72,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// Initializes a new instance of the <see cref="OutrightController" /> class.
         /// </summary>
         public OutrightController()
-            : this(null, null, null, null)
+            : this(null, null, null, null, null)
         {
         }
 
@@ -81,12 +83,14 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// <param name="admin">Admin Service.</param>
         /// <param name="sport">Sport Service.</param>
         /// <param name="league">League Service.</param>
-        public OutrightController(IOutrightService outright, IAutoSettlementService admin, ISportService sport, ILeagueService league)
+        /// <param name="currentSession">Current session service.</param>
+        public OutrightController(IOutrightService outright, IAutoSettlementService admin, ISportService sport, ILeagueService league, ICurrentSession currentSession)
         {
             this._outrightService = outright ?? new OutrightService();
             this._adminService = admin ?? new AutoSettlementService();
             this._sportService = sport ?? new SportService();
             this._leagueService = league ?? new LeagueService();
+            this._currentSession = currentSession ?? new CurrentSession();
         }
 
         #endregion
@@ -125,8 +129,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         {
             // DisabledAutoSettle = NULL or 0  : ON
             var disabledAutoSettle = this._adminService.GetStatusAutoSettlement();
-            bool canSetAutoSettlement = PermissionService.HasHostPermission(SettlementFunctionKeys.AutoSettlement);
             IList<OutrightLogAction> actionLog;
+
             var viewModel = new OutrightViewModel
             {
                 Param = metaModel,
@@ -135,12 +139,12 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
                 DisabledAutoSettle = !disabledAutoSettle,
                 Permission = new SettlementPermission
                 {
-                    CanCalculateOutright = PermissionService.HasPermission(SettlementFunctionKeys.OutrightCalculate),
-                    CanUncalculateOutright = PermissionService.HasPermission(SettlementFunctionKeys.OutrightUncalculate),
-                    CanSetAutoSettlement = canSetAutoSettlement,
+                    CanCalculateOutright = HasPermission(_currentSession.UserId, SettlementFunctionKeys.OutrightCalculate, Constant.Policy.Read),
+                    CanUncalculateOutright = HasPermission(_currentSession.UserId, SettlementFunctionKeys.OutrightUncalculate, Constant.Policy.Read),
+                    CanSetAutoSettlement = HasPermission(_currentSession.UserId, SettlementFunctionKeys.AutoSettlement, Constant.Policy.Host),
                     SportsBook = new SportsBookPermission()
                     {
-                        CanCalculate = PermissionService.HasHostPermission(SettlementFunctionKeys.SportsbookCalculate)
+                        CanCalculate = HasPermission(_currentSession.UserId, SettlementFunctionKeys.SportsbookCalculate, Constant.Policy.Host),
                     }
                 }
             };
@@ -163,7 +167,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             {
                 Permission = new SettlementPermission
                 {
-                    CanCalculateOutright = PermissionService.HasHostPermission(SettlementFunctionKeys.OutrightCalculate)
+                    CanCalculateOutright = HasPermission(_currentSession.UserId, SettlementFunctionKeys.OutrightCalculate, Constant.Policy.Host)
                 },
                 OutrightList = outright,
                 LogActionList = actionLog,
@@ -188,7 +192,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
             {
                 Permission = new SettlementPermission
                 {
-                    CanUncalculateOutright = PermissionService.HasHostPermission(SettlementFunctionKeys.OutrightUncalculate)
+                    CanUncalculateOutright = HasPermission(_currentSession.UserId, SettlementFunctionKeys.OutrightUncalculate, Constant.Policy.Host)
                 },
                 OutrightList = outright,
                 LogActionList = actionLog,
@@ -230,7 +234,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         {
             var metaModel = new OutrightAutoSettleMetaModel
             {
-                Creator = CurrentSession.UserId,
+                AdminId = _currentSession.UserId,
                 LeagueId = leagueid,
                 IsTurnOn = isTurnOn,
                 IP = Request.ServerVariables["REMOTE_ADDR"]
@@ -419,7 +423,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         {
             return new OutrightCalculateMetaModel
             {
-                Creator = CurrentSession.UserId,
+                AdminId = _currentSession.UserId,
                 MatchId = outrightId,
                 Status = this.Status(statusId),
                 IsDeadheat = isDeadheat,
@@ -437,7 +441,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         {
             return new OutrightCalculateMetaModel
             {
-                Creator = CurrentSession.UserId,
+                AdminId = _currentSession.UserId,
                 MatchId = outrightId,
                 Status = CalculateAction.Uncalculate,
                 IP = Request.ServerVariables["REMOTE_ADDR"]
