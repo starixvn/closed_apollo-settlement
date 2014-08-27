@@ -52,6 +52,8 @@ namespace Fanex.NAP.Settlement.Core.Constants
         /// </summary>
         public const byte ReCalculate = 6;
 
+        public const byte CalculateHTFGNG = 7;
+
         /// <summary>
         /// Refund half time.
         /// </summary>
@@ -83,14 +85,19 @@ namespace Fanex.NAP.Settlement.Core.Constants
         public const byte RefundParlayAll = 16;
 
         /// <summary>
-        /// Refund all FG/NG.
+        /// Refund Full time FGLG.
         /// </summary>
-        public const byte RefundAllFGLG = 17;
+        public const byte RefundFTFGLG = 17;
 
         /// <summary>
-        /// Refund all LG.
+        /// Refund Full time LG.
         /// </summary>
-        public const byte RefundAllLG = 18;
+        public const byte RefundFTLG = 18;
+
+        public const byte RefundHTFGLG = 19;
+        public const byte RefundAllFGLG = 20;
+        public const byte RefundHTLG = 21;
+        public const byte RefundAllLG = 22;
 
         /// <summary>
         /// Update event status.

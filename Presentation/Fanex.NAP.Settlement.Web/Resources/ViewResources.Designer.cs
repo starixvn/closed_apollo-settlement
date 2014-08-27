@@ -349,6 +349,15 @@ namespace Fanex.NAP.Settlement.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calculate 1H FG/NG.
+        /// </summary>
+        public static string CalculateHTFGNG {
+            get {
+                return ResourceManager.GetString("CalculateHTFGNG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculation.
         /// </summary>
         public static string Calculation {
@@ -1006,6 +1015,15 @@ namespace Fanex.NAP.Settlement.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refund All LG.
+        /// </summary>
+        public static string RefundAllLG {
+            get {
+                return ResourceManager.GetString("RefundAllLG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refund FT.
         /// </summary>
         public static string RefundFT {
@@ -1024,11 +1042,11 @@ namespace Fanex.NAP.Settlement.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Refund FT Last Goal.
+        ///   Looks up a localized string similar to Refund FT LG.
         /// </summary>
-        public static string RefundFTLastGoal {
+        public static string RefundFTLG {
             get {
-                return ResourceManager.GetString("RefundFTLastGoal", resourceCulture);
+                return ResourceManager.GetString("RefundFTLG", resourceCulture);
             }
         }
         
@@ -1056,6 +1074,15 @@ namespace Fanex.NAP.Settlement.Core.Resources {
         public static string RefundHTLastGoal {
             get {
                 return ResourceManager.GetString("RefundHTLastGoal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refund HT LG.
+        /// </summary>
+        public static string RefundHTLG {
+            get {
+                return ResourceManager.GetString("RefundHTLG", resourceCulture);
             }
         }
         

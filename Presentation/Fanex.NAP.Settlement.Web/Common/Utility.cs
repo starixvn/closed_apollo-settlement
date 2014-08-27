@@ -275,7 +275,7 @@ namespace Fanex.NAP.Settlement.Core.Common
         /// </summary>
         /// <param name="faildActionId">Action Id.</param>
         /// <returns>Return action value.</returns>
-        private static string GetAction(byte? faildActionId)
+        public static string GetAction(byte? faildActionId)
         {
             switch (faildActionId)
             {
@@ -291,6 +291,8 @@ namespace Fanex.NAP.Settlement.Core.Common
                     return ViewResources.CalculateAll;
                 case ConfirmedAction.CalMixParlay:
                     return ViewResources.CalcMixParlay;
+                case ConfirmedAction.CalculateHTFGNG:
+                    return ViewResources.CalculateHTFGNG;
                 case ConfirmedAction.RefundFT:
                     return ViewResources.RefundFT;
                 case ConfirmedAction.RefundHT:
@@ -303,10 +305,18 @@ namespace Fanex.NAP.Settlement.Core.Common
                     return ViewResources.RefundMultiFT;
                 case ConfirmedAction.RefundParlayAll:
                     return ViewResources.RefundMultiAll;
+                case ConfirmedAction.RefundFTFGLG:
+                    return ViewResources.RefundFTFGLG;
+                case ConfirmedAction.RefundFTLG:
+                    return ViewResources.RefundFTLG;
+                case ConfirmedAction.RefundHTFGLG:
+                    return ViewResources.RefundHTFGLG;
                 case ConfirmedAction.RefundAllFGLG:
                     return ViewResources.RefundAllFGLG;
+                case ConfirmedAction.RefundHTLG:
+                    return ViewResources.RefundHTLG;
                 case ConfirmedAction.RefundAllLG:
-                    return ViewResources.RefundAllLastGoal;
+                    return ViewResources.RefundAllLG;
                 case ConfirmedAction.UpdateEventStatus:
                     return ViewResources.UpdateEventStatus;
                 case ConfirmedAction.UpdateTicket:

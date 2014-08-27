@@ -390,9 +390,6 @@
   <data name="RefundFTFGLG" xml:space="preserve">
     <value>Refund FT FGLG</value>
   </data>
-  <data name="RefundFTLastGoal" xml:space="preserve">
-    <value>Refund FT Last Goal</value>
-  </data>
   <data name="RefundHT" xml:space="preserve">
     <value>Refund HT</value>
   </data>
@@ -566,5 +563,17 @@
   </data>
   <data name="NotPrivilege1" xml:space="preserve">
     <value>You have not been privileged to use any function.&lt;/br&gt;Please contact the admin for help.</value>
+  </data>
+  <data name="CalculateHTFGNG" xml:space="preserve">
+    <value>Calculate 1H FG/NG</value>
+  </data>
+  <data name="RefundAllLG" xml:space="preserve">
+    <value>Refund All LG</value>
+  </data>
+  <data name="RefundFTLG" xml:space="preserve">
+    <value>Refund FT LG</value>
+  </data>
+  <data name="RefundHTLG" xml:space="preserve">
+    <value>Refund HT LG</value>
   </data>
 </root>

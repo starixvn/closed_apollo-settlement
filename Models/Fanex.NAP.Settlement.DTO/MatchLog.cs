@@ -146,9 +146,23 @@ namespace Fanex.NAP.Settlement.DTO
 
                 case ConfirmedAction.CalAll:
                 case ConfirmedAction.CalFGNG:
+                case ConfirmedAction.CalculateHTFGNG:
                     var halfTimeScore = string.Join("-", this.HtHomeScore, this.HtAwayScore);
                     var finalScore = string.Join("-", this.FinalHomeScore, this.FinalAwayScore);
-                    return string.Join(" ; ", halfTimeScore, finalScore, this.GoalRecord.ToUpper());
+                    if (!string.IsNullOrWhiteSpace(halfTimeScore) && !string.IsNullOrWhiteSpace(finalScore))
+                    {
+                        return string.Join(" ; ", halfTimeScore, finalScore, this.GoalRecord.ToUpper());
+                    }
+                    else if (!string.IsNullOrWhiteSpace(halfTimeScore))
+                    {
+                        return string.Join(" ; ", halfTimeScore, this.GoalRecord.ToUpper());
+                    }
+                    else if (!string.IsNullOrWhiteSpace(finalScore))
+                    {
+                        return string.Join(" ; ", halfTimeScore, this.GoalRecord.ToUpper());
+                    }
+                    else
+                        return this.GoalRecord.ToUpper();
 
                 default:
                     return string.Empty;
