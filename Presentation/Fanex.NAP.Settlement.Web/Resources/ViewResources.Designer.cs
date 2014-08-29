@@ -1042,6 +1042,15 @@ namespace Fanex.NAP.Settlement.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Refund FT Last Goal.
+        /// </summary>
+        public static string RefundFTLastGoal {
+            get {
+                return ResourceManager.GetString("RefundFTLastGoal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refund FT LG.
         /// </summary>
         public static string RefundFTLG {
