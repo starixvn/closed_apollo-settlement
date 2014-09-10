@@ -11,10 +11,10 @@
 //  <change who="Kaden" date="2012.08.06">Created</change>
 // </history>
 
-using System;
-
 namespace Fanex.NAP.Settlement.DTO
 {
+    using System;
+
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
