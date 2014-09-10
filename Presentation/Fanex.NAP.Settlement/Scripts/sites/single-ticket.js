@@ -103,8 +103,9 @@ var DoSingleTicket = (function ($) {
             var homeH = $('#HtHomeScore').val();
             var awayH = $('#HtAwayScore').val();
             var hasSemicolon = goalRecord.indexOf(";") > -1 ? true : false;
+            var isAlreadyRefundHT = $('#IsAlreadyRefundHT').val();
 
-            if (homeH !== "" || awayH !== "" || hasSemicolon) {
+            if ((homeH !== "" || awayH !== "" || hasSemicolon)  && !isAlreadyRefundHT) {
                 return false;
             }
 

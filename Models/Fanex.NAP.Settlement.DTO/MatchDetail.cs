@@ -11,6 +11,8 @@
 //  <change who="Kaden" date="2012.08.06">Created</change>
 // </history>
 
+using System;
+
 namespace Fanex.NAP.Settlement.DTO
 {
     /// <summary>
@@ -39,6 +41,16 @@ namespace Fanex.NAP.Settlement.DTO
         /// </summary>
         /// <value>Is exist half time last goal.</value>
         public bool IsExistHTLG { get; set; }
+
+        public bool IsAlreadyRefundHT
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(BetStatus)
+                    ? false
+                    : BetStatus.IndexOf(Core.Constants.EventStatus.RefundHT, StringComparison.OrdinalIgnoreCase) > -1 ? true : false;
+            }
+        }
 
         #endregion Calculation Information
     }

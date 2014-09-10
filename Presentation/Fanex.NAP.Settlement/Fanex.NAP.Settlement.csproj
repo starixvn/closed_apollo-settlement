@@ -483,6 +483,8 @@
     <Content Include="Areas\Settlement\Views\Log\Shared\_Layout.cshtml" />
     <Content Include="Areas\Settlement\Views\Log\Popup.cshtml" />
     <Content Include="Areas\Settlement\Views\Outright\SettledMatches.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Header\OtherSports.cshtml" />
+    <Content Include="Areas\Settlement\Views\Shared\Content\OtherSports.cshtml" />
     <None Include="Areas\UserLogin\Themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\Themes\select-site.less" />
     <Content Include="Areas\UserLogin\Views\Common\AccessDenied.cshtml" />

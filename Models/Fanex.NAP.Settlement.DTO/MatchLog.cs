@@ -139,11 +139,7 @@ namespace Fanex.NAP.Settlement.DTO
             switch (this.ActionId)
             {
                 case ConfirmedAction.CalHT:
-                    return string.Join("-", this.HtHomeScore, this.HtAwayScore);
-
                 case ConfirmedAction.CalFT:
-                    return string.Join(" ; ", string.Join("-", this.FinalHomeScore, this.FinalAwayScore), this.GoalRecord.ToUpper());
-
                 case ConfirmedAction.CalAll:
                 case ConfirmedAction.CalFGNG:
                 case ConfirmedAction.CalculateHTFGNG:
