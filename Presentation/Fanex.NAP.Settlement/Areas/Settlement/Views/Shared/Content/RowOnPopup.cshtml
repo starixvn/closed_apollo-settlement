@@ -1,12 +1,11 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@using Fanex.NAP.Settlement.DTO.Permission;
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
 @model Tuple<Match, SettlementPermission, PageType, String>
 @{
     var match = Model.Item1;
     var permission = Model.Item2;
     var page = Model.Item3;
 }
-<tr class="row-@match.LeagueId  @Utility.BackgroundColor(match.IsUndecided, Background.Undecided)"
+<tr class="row-@match.LeagueId  @match.UndecidedColor"
     data-match-id="@match.MatchId" data-match-code="@match.MatchCode" data-sport-id="@match.SportType">
     <td class="code" rowspan="2">
         <div class='@(permission.CanViewSettlementLog ? "act-match-log code-link" : "no-link")'>@match.MatchCode</div>
@@ -17,17 +16,21 @@
         @match.KickOffTime.ToString("hh:mm:ss tt")
     </td>
     <td>
-        <div class="match-home @match.BetStatusAccess.HomeGoal">
-            @match.HomeName @(Convert.ToBoolean(match.IsNeutral) ? " (N)" : string.Empty)
+        <div class="match-home">
+            @match.HomeName
         </div>
+        <span id="home-icon" class="@match.BetStatusAccess.HomeGoal"></span><span id="ht-home-icon" class="@match.BetStatusAccess.HalfTimeHomeGoal">
+        </span>
     </td>
     @RenderSection("HomeScore")
 </tr>
-<tr class="row-@match.LeagueId @Utility.BackgroundColor(match.IsUndecided, Background.Undecided)">
+<tr class="row-@match.LeagueId @match.UndecidedColor">
     <td>
-        <div class="match-away @match.BetStatusAccess.AwayGoal">
+        <div class="match-away">
             @match.AwayName
         </div>
+        <span id="away-icon" class="@match.BetStatusAccess.AwayGoal"></span><span id="ht-away-icon" class="@match.BetStatusAccess.HalfTimeAwayGoal">
+        </span>
     </td>
     @RenderSection("AwayScore")
 </tr>

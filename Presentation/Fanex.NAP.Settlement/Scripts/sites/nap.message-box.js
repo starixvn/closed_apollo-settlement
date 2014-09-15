@@ -9,7 +9,8 @@
 * @param { String/Object } the confirm callback
 * @param { Object } jQuery Dialog box options
 */
-
+/*jshint strict:false */
+/*exported confirm*/
 function confirm(message, callback, options) {
     var defaults = {
         modal: true,
@@ -21,7 +22,7 @@ function confirm(message, callback, options) {
                 $(this).dialog('close');
 
                 try {
-                    return (typeof callback == 'string') ?
+                    return (typeof callback === 'string') ?
                     window.location.href = callback :
                     callback();
                 }
@@ -32,7 +33,7 @@ function confirm(message, callback, options) {
                 $(this).dialog('close');
                 return false;
             }
-        },        
+        },
         dialogClass: 'modal-shadow confirm-dialog'
     };
 
@@ -41,8 +42,7 @@ function confirm(message, callback, options) {
     $("p", $confirm).html(message);
     // init dialog
     $confirm.dialog($.extend({}, defaults, options));
-};
-
+}
 
 function alert(message, options) {
     var defaults = {
@@ -53,7 +53,7 @@ function alert(message, options) {
             Ok: function () {
                 $(this).dialog('close');
             }
-        },		
+        },
         dialogClass: 'modal-shadow error-dialog'
     };
 
@@ -62,8 +62,8 @@ function alert(message, options) {
     $("p", $alert).html(message);
     // init dialog
     $alert.dialog($.extend({}, defaults, options));
-};
-
+}
+/*exported alert*/
 function alert(message, callback, options) {
     var defaults = {
         modal: true,
@@ -75,7 +75,7 @@ function alert(message, callback, options) {
                     $(this).dialog('close');
                     callback();
                 }
-                catch (e) { 
+                catch (e) {
                 }
             }
         },
@@ -87,4 +87,4 @@ function alert(message, callback, options) {
     $("p", $alert).html(message);
     // init dialog
     $alert.dialog($.extend({}, defaults, options));
-};
+}

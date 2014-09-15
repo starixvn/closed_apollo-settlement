@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NAP.Settlement", "Pre
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NAP.Settlement.Controllers", "Presentation\Fanex.NAP.Settlement.Controllers\Fanex.NAP.Settlement.Controllers.csproj", "{F6AC9AC3-F739-4771-809F-2A6643DBD00F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NAP.Settlement.Web", "Presentation\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Web.csproj", "{11FF2D81-437F-415E-8E48-68E21AECE565}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NAP.Settlement.Core", "Presentation\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Core.csproj", "{11FF2D81-437F-415E-8E48-68E21AECE565}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{2BB471C1-0DD8-417B-AD9D-DF53F0AFEACE}"
 EndProject
@@ -26,8 +26,19 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.NAP.Settlement.ViewModels", "Models\Fanex.NAP.Settlement.ViewModels\Fanex.NAP.Settlement.ViewModels.csproj", "{9B613BBD-0E3C-4155-A749-39C9EE976DB6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{2CBBBA18-77C1-4599-9DAB-7984715B2A8F}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{36F6FFB7-B10A-4CE5-B5EB-4859B47C8769}"
+	ProjectSection(SolutionItems) = preProject
+		JSLintOptions.xml = JSLintOptions.xml
+	EndProjectSection
 EndProject
 Global
+	GlobalSection(JSLint) = preSolution
+		SolutionConfigurationLocation = JSLintOptions.xml
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU

@@ -14,6 +14,7 @@
 namespace Fanex.NAP.Settlement.DTO
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -26,6 +27,18 @@ namespace Fanex.NAP.Settlement.DTO
 
         private const string FirstLastGoal = "first-last-goal";
 
+        private const string HtFirstGoal = "ht-first-goal";
+
+        private const string HtLastGoal = "ht-last-goal";
+
+        private const string HtFirstLastGoal = "ht-first-last-goal";
+
+        private const int ThreeSets = 3;
+
+        private const int FourSets = 4;
+
+        private const int FiveSets = 5;
+
         /// <summary>
         ///  Initializes a new instance of the <see cref="BetStatusAccess" /> class..
         /// </summary>
@@ -34,21 +47,23 @@ namespace Fanex.NAP.Settlement.DTO
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BetStatusAccess"/> class.
+        /// Initializes a new instance of the <see cref="BetStatusAccess" /> class.
         /// Get bet status data, after that analyze them for different group sports type on the template.
         /// </summary>
-        /// <param name="teamPort">Group sports on the template.</param>
+        /// <param name="groupSport">Group sports on the template.</param>
         /// <param name="betStatus">Bet status data.</param>
+        /// <param name="isExistFglg">Is Exist FGLG.</param>
+        /// <param name="isExistHtFglg">Is Exist Half Time FGLG.</param>
         /// <param name="goalRecord">Goal record.</param>
-        /// <param name="isFT">Full time.</param>
-        public BetStatusAccess(int teamPort, string betStatus, string goalRecord = "", bool isFT = false)
+        /// <param name="isFinalScore">Final score.</param>
+        public BetStatusAccess(int groupSport, string betStatus, bool isExistFglg, bool isExistHtFglg, string goalRecord, bool isFinalScore)
             : this()
         {
-            switch (teamPort)
+            switch (groupSport)
             {
                 // Soccer
                 case 1:
-                    this.Soccer(betStatus, goalRecord, isFT);
+                    Soccer(betStatus, isExistFglg, isExistHtFglg, goalRecord, isFinalScore);
                     break;
 
                 // Basketball, Football, Rugby, Netball
@@ -126,100 +141,151 @@ namespace Fanex.NAP.Settlement.DTO
 
         public string AwayGoal { get; set; }
 
+        public string HalfTimeHomeGoal { get; set; }
+
+        public string HalfTimeAwayGoal { get; set; }
+
         #region Handle BetStatus with other SportType
+
+        #region Soccer
 
         /// <summary>
         /// Calculate at IBC.
         /// </summary>
         /// <param name="betStatus">Bet status.</param>
-        /// <param name="index">Index value.</param>
-        private void CalculateAtIBC(string betStatus, int index)
+        /// <param name="firstGoal">First goal value.</param>
+        /// <param name="lastGoal">Last goal value.</param>
+        /// <param name="firstLastGoal">First and Last goal value.</param>
+        /// <returns>Goal icon.</returns>
+        private GoalIcon CalculateByIbc(
+                                        string betStatus,
+                                        string firstGoal,
+                                        string lastGoal,
+                                        string firstLastGoal)
         {
-            var homeAwayGoal = betStatus.Substring(index + 3).Split('-');
+            var goalIcon = new GoalIcon();
+            var goalValue = betStatus.Split('-');
 
-            // FL: 1-1 -> FL
-            if (homeAwayGoal[0] == "1" && homeAwayGoal[1] == "1")
+            // FL: 1-1 -> Home - Home
+            if (goalValue[0].Equals("1") && goalValue[1].Equals("1"))
             {
-                this.HomeGoal = FirstLastGoal;
+                goalIcon.HomeGoal = firstLastGoal;
             }
-            else if (homeAwayGoal[0] == "1" && homeAwayGoal[1] == "2")
+            else if (goalValue[0].Equals("1") && goalValue[1].Equals("2"))
             {
-                // FL: 1-2 -> Away L; Home F
-                this.AwayGoal = LastGoal;
-                this.HomeGoal = FirstGoal;
+                // FL: 1-2 -> Home - Away
+                goalIcon.AwayGoal = lastGoal;
+                goalIcon.HomeGoal = firstGoal;
             }
-            else if (homeAwayGoal[0] == "2" && homeAwayGoal[1] == "1")
+            else if (goalValue[0].Equals("2") && goalValue[1].Equals("1"))
             {
-                // FL: 2-1 -> Away F; Home L
-                this.AwayGoal = FirstGoal;
-                this.HomeGoal = LastGoal;
+                // FL: 2-1 -> Away - Home
+                goalIcon.AwayGoal = firstGoal;
+                goalIcon.HomeGoal = lastGoal;
             }
-            else if (homeAwayGoal[0] == "2" && homeAwayGoal[1] == "2")
+            else if (goalValue[0].Equals("2") && goalValue[1].Equals("2"))
             {
-                // FL: 2-2-> FL
-                this.AwayGoal = FirstLastGoal;
+                // FL: 2-2-> Away - Away
+                goalIcon.AwayGoal = firstLastGoal;
             }
-            else if (homeAwayGoal[1] == "0")
+            else if (goalValue[1].Equals("0"))
             {
                 // FL: x-0 => x[1,2]: just calc HT
-                if (homeAwayGoal[0] == "1")
+                if (goalValue[0].Equals("1"))
                 {
-                    this.HomeGoal = FirstGoal;
+                    // FL: 1-0 -> Home
+                    goalIcon.HomeGoal = firstGoal;
                 }
-                else if (homeAwayGoal[0] == "2")
+                else if (goalValue[0].Equals("2"))
                 {
-                    this.AwayGoal = FirstGoal;
+                    // FL: 2-0 -> Away
+                    goalIcon.AwayGoal = firstGoal;
                 }
             }
-            else
-            {
-                this.HomeGoal = this.AwayGoal = string.Empty;
-            }
+
+            return goalIcon;
         }
 
         /// <summary>
         /// Calculate Home goal and Away goal.
         /// </summary>
         /// <param name="goalRecord">Goal record text.</param>
-        /// <param name="fulltime">Is fulltime or not.</param>
-        private void CalculateByAdmin(string goalRecord, bool fulltime)
+        /// <param name="isFinalScore">Final score.</param>
+        /// <param name="isExistFglg">Is Exist FGLG.</param>
+        /// <param name="isExistHtFglg">Is Exist Half Time FGLG.</param>
+        private void CalculateByAdmin(string goalRecord, bool isFinalScore, bool isExistFglg, bool isExistHtFglg)
         {
-            // Situation Key in HT
-            string firstString = goalRecord[0].ToString().ToLower();
-            if (firstString == "a")
+            if (isExistHtFglg && goalRecord.Contains(";"))
             {
-                this.AwayGoal = FirstGoal;
-            }
-            else if (firstString == "h")
-            {
-                this.HomeGoal = FirstGoal;
+                HandleHalfTimeGoalRecord(goalRecord);
             }
 
-            // Situation Key in FT
-            if (fulltime)
+            if (isExistFglg)
             {
-                string lastString = goalRecord[goalRecord.Length - 1].ToString().ToLower();
-                if (lastString == "a")
+                HandleFullTimeGoalRecord(goalRecord, isFinalScore);
+            }
+        }
+
+        /// <summary>
+        /// Update icon for half time home goal and away goal.
+        /// </summary>
+        /// <param name="goalRecord">Goal record.</param>
+        private void HandleHalfTimeGoalRecord(string goalRecord)
+        {
+            var indexSemicolon = goalRecord.IndexOf(';');
+
+            if (indexSemicolon > -1)
+            {
+                var halfTimeGoalRecord = goalRecord.Substring(0, indexSemicolon);
+
+                if (halfTimeGoalRecord.StartsWith("a", StringComparison.OrdinalIgnoreCase) && halfTimeGoalRecord.EndsWith("a", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (!string.IsNullOrWhiteSpace(this.AwayGoal))
-                    {
-                        this.AwayGoal = FirstLastGoal;
-                    }
-                    else
-                    {
-                        this.AwayGoal = LastGoal;
-                    }
+                    HalfTimeAwayGoal = HtFirstLastGoal;
                 }
-                else if (lastString == "h")
+                else if (halfTimeGoalRecord.StartsWith("h", StringComparison.OrdinalIgnoreCase) && halfTimeGoalRecord.EndsWith("h", StringComparison.OrdinalIgnoreCase))
                 {
-                    if (!string.IsNullOrWhiteSpace(this.HomeGoal))
-                    {
-                        this.HomeGoal = FirstLastGoal;
-                    }
-                    else
-                    {
-                        this.HomeGoal = LastGoal;
-                    }
+                    HalfTimeHomeGoal = HtFirstLastGoal;
+                }
+                else if (halfTimeGoalRecord.StartsWith("a", StringComparison.OrdinalIgnoreCase) && halfTimeGoalRecord.EndsWith("h", StringComparison.OrdinalIgnoreCase))
+                {
+                    HalfTimeAwayGoal = HtFirstGoal;
+                    HalfTimeHomeGoal = HtLastGoal;
+                }
+                else if (halfTimeGoalRecord.StartsWith("h", StringComparison.OrdinalIgnoreCase) && halfTimeGoalRecord.EndsWith("a", StringComparison.OrdinalIgnoreCase))
+                {
+                    HalfTimeHomeGoal = HtFirstGoal;
+                    HalfTimeAwayGoal = HtLastGoal;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Update icon for full time home goal and away goal.
+        /// </summary>
+        /// <param name="goalRecord">Goal record.</param>
+        /// <param name="isFinalScore">Full time goal record.</param>
+        private void HandleFullTimeGoalRecord(string goalRecord, bool isFinalScore)
+        {
+            var fullTimeGoalRecord = goalRecord.Replace(";", string.Empty);
+
+            if (fullTimeGoalRecord.StartsWith("a", StringComparison.OrdinalIgnoreCase))
+            {
+                AwayGoal = FirstGoal;
+            }
+            else if (fullTimeGoalRecord.StartsWith("h", StringComparison.OrdinalIgnoreCase))
+            {
+                HomeGoal = FirstGoal;
+            }
+
+            if (isFinalScore)
+            {
+                if (fullTimeGoalRecord.EndsWith("a", StringComparison.OrdinalIgnoreCase))
+                {
+                    AwayGoal = string.IsNullOrWhiteSpace(AwayGoal) ? LastGoal : FirstLastGoal;
+                }
+                else if (fullTimeGoalRecord.EndsWith("h", StringComparison.OrdinalIgnoreCase))
+                {
+                    HomeGoal = string.IsNullOrWhiteSpace(HomeGoal) ? LastGoal : FirstLastGoal;
                 }
             }
         }
@@ -228,28 +294,48 @@ namespace Fanex.NAP.Settlement.DTO
         ///  SportType Soccer.
         /// </summary>
         /// <param name="betStatus">Bet Status.</param>
+        /// <param name="isExistFglg">Is Exist FGLG.</param>
+        /// <param name="isExistHtFglg">Is Exist Half Time FGLG.</param>
         /// <param name="goalRecord">Goal Record.</param>
-        /// <param name="isFT">Full time.</param>
-        private void Soccer(string betStatus, string goalRecord = "", bool isFT = false)
+        /// <param name="isFinalScore">Full time.</param>
+        private void Soccer(string betStatus, bool isExistFglg, bool isExistHtFglg, string goalRecord, bool isFinalScore)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(betStatus) && (isExistFglg || isExistHtFglg))
             {
-                int index = betStatus.IndexOf("FL:", StringComparison.Ordinal);
+                var indexHalfTime = betStatus.IndexOf("1FL:", StringComparison.Ordinal);
 
-                if (!string.IsNullOrWhiteSpace(betStatus) && index > -1)
+                if (indexHalfTime > -1)
                 {
-                    this.CalculateAtIBC(betStatus, index);
+                    var halfTimeBetStatus = betStatus.Substring(indexHalfTime, 7);
+                    betStatus = betStatus.Replace(halfTimeBetStatus, string.Empty);
+
+                    if (isExistHtFglg && (!string.IsNullOrWhiteSpace(goalRecord) && goalRecord.Contains(";")))
+                    {
+                        var halfTimeScore = halfTimeBetStatus.Replace("1FL:", string.Empty);
+
+                        var goalIcon = this.CalculateByIbc(halfTimeScore, HtFirstGoal, HtLastGoal, HtFirstLastGoal);
+                        HalfTimeHomeGoal = goalIcon.HomeGoal;
+                        HalfTimeAwayGoal = goalIcon.AwayGoal;
+                    }
                 }
-                else if (!string.IsNullOrWhiteSpace(goalRecord))
+
+                var indexFullTime = betStatus.IndexOf("FL:", StringComparison.Ordinal);
+
+                if (indexFullTime > -1 && isExistFglg)
                 {
-                    this.CalculateByAdmin(goalRecord, isFT);
+                    var fullTimeScore = betStatus.Substring(indexFullTime + 3, 3);
+                    var goalIcon = this.CalculateByIbc(fullTimeScore, FirstGoal, LastGoal, FirstLastGoal);
+                    HomeGoal = goalIcon.HomeGoal;
+                    AwayGoal = goalIcon.AwayGoal;
                 }
             }
-            catch (Exception ex)
+            else if (!string.IsNullOrWhiteSpace(goalRecord) && (isExistFglg || isExistHtFglg))
             {
-                throw new Exception(ex.Message);
+                CalculateByAdmin(goalRecord, isFinalScore, isExistFglg, isExistHtFglg);
             }
         }
+
+        #endregion Soccer
 
         /// <summary>
         ///     SportType BasketBall.
@@ -257,46 +343,28 @@ namespace Fanex.NAP.Settlement.DTO
         /// <param name="betStatus">Bet Status.</param>
         private void BasketBall(string betStatus)
         {
-            try
+            var arrayBetStatus = ArrayBetStatus(betStatus);
+            if (arrayBetStatus == null)
             {
-                var arrayBetStatus = this.ArrayBetStatus(betStatus);
-                if (arrayBetStatus != null)
-                {
-                    for (var i = 0; i < arrayBetStatus.Length; i++)
-                    {
-                        var score = arrayBetStatus[i].Trim().Split('-');
-                        if (score.Length >= 2)
-                        {
-                            switch (i)
-                            {
-                                case 0:
-                                    this.Home1Q = Convert.ToInt32(score[0]);
-                                    this.Away1Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 1:
-                                    this.Home2Q = Convert.ToInt32(score[0]);
-                                    this.Away2Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 2:
-                                    this.Home3Q = Convert.ToInt32(score[0]);
-                                    this.Away3Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 3:
-                                    this.Home4Q = Convert.ToInt32(score[0]);
-                                    this.Away4Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 4:
-                                    this.HomeOt = Convert.ToInt32(score[0]);
-                                    this.AwayOt = Convert.ToInt32(score[1]);
-                                    break;
-                            }
-                        }
-                    }
-                }
+                return;
             }
-            catch (Exception ex)
+
+            for (var i = 0; i < arrayBetStatus.Length; i++)
             {
-                throw new Exception(ex.Message);
+                var score = arrayBetStatus[i].Trim().Split('-');
+                if (score.Length <= 1)
+                {
+                    continue;
+                }
+
+                if (i < FourSets)
+                {
+                    ScoreToFourSet(i, score);
+                }
+                else
+                {
+                    ScoreToOverTimeSet(score);
+                }
             }
         }
 
@@ -306,75 +374,29 @@ namespace Fanex.NAP.Settlement.DTO
         /// <param name="betStatus">Bet Status.</param>
         private void Hockey(string betStatus)
         {
-            try
-            {
-                var arrayBetStatus = this.ArrayBetStatus(betStatus);
+            var arrayBetStatus = ArrayBetStatus(betStatus);
 
-                if (arrayBetStatus != null)
+            if (arrayBetStatus == null)
+            {
+                return;
+            }
+
+            for (var i = 0; i < arrayBetStatus.Length; i++)
+            {
+                var score = arrayBetStatus[i].Trim().Split('-');
+                if (score.Length <= 1)
                 {
-                    for (var i = 0; i < arrayBetStatus.Length; i++)
-                    {
-                        var score = arrayBetStatus[i].Trim().Split('-');
-                        if (score.Length >= 2)
-                        {
-                            switch (i)
-                            {
-                                case 0:
-                                    this.Home1Q = Convert.ToInt32(score[0]);
-                                    this.Away1Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 1:
-                                    this.Home2Q = Convert.ToInt32(score[0]);
-                                    this.Away2Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 2:
-                                    this.Home3Q = Convert.ToInt32(score[0]);
-                                    this.Away3Q = Convert.ToInt32(score[1]);
-                                    break;
-                                case 3:
-                                    this.HomeOt = Convert.ToInt32(score[0]);
-                                    this.AwayOt = Convert.ToInt32(score[1]);
-                                    break;
-                            }
-                        }
-                    }
+                    continue;
                 }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
 
-        /// <summary>
-        /// Set Score for tennis.
-        /// </summary>
-        /// <param name="i">Index value.</param>
-        /// <param name="score">Array score.</param>
-        private void SetScoreTennis(int i, string[] score)
-        {
-            switch (i)
-            {
-                case 0:
-                    this.Home1Q = Convert.ToInt32(score[0]);
-                    this.Away1Q = Convert.ToInt32(score[1]);
-                    break;
-                case 1:
-                    this.Home2Q = Convert.ToInt32(score[0]);
-                    this.Away2Q = Convert.ToInt32(score[1]);
-                    break;
-                case 2:
-                    this.Home3Q = Convert.ToInt32(score[0]);
-                    this.Away3Q = Convert.ToInt32(score[1]);
-                    break;
-                case 3:
-                    this.Home4Q = Convert.ToInt32(score[0]);
-                    this.Away4Q = Convert.ToInt32(score[1]);
-                    break;
-                case 4:
-                    this.Home5Q = Convert.ToInt32(score[0]);
-                    this.Away5Q = Convert.ToInt32(score[1]);
-                    break;
+                if (i < ThreeSets)
+                {
+                    ScoreToThreeSet(i, score);
+                }
+                else
+                {
+                    ScoreToOverTimeSet(score);
+                }
             }
         }
 
@@ -384,43 +406,40 @@ namespace Fanex.NAP.Settlement.DTO
         /// <param name="betStatus">Bet Status.</param>
         private void Tennis(string betStatus)
         {
-            try
+            var arrayBetStatus = ArrayBetStatus(betStatus);
+            int totalGameHome = 0, totalGameAway = 0;
+            if (arrayBetStatus == null)
             {
-                var arrayBetStatus = this.ArrayBetStatus(betStatus);
-                int totalGameHome = 0, totalGameAway = 0;
-                if (arrayBetStatus != null)
-                {
-                    for (var i = 0; i < arrayBetStatus.Length; i++)
-                    {
-                        var score = arrayBetStatus[i].Trim().Split('-');
-                        if (score.Length > 1)
-                        {
-                            var homeSet = score.Length >= 1
-                                              ? Convert.ToInt32(arrayBetStatus[i].Trim().Split('-')[0])
-                                              : 0;
-                            var awaySet = score.Length >= 2
-                                              ? Convert.ToInt32(arrayBetStatus[i].Trim().Split('-')[1])
-                                              : 0;
-                            if (score.Length >= 1)
-                            {
-                                totalGameHome += homeSet;
-                                this.HomeTotalGames = totalGameHome;
-                            }
-
-                            if (score.Length >= 2)
-                            {
-                                totalGameAway += awaySet;
-                                this.AwayTotalGames = totalGameAway;
-                            }
-
-                            this.SetScoreTennis(i, score);
-                        }
-                    }
-                }
+                return;
             }
-            catch (Exception ex)
+
+            for (var i = 0; i < arrayBetStatus.Length; i++)
             {
-                throw new Exception(ex.Message);
+                var score = arrayBetStatus[i].Trim().Split('-');
+                if (score.Length <= 1)
+                {
+                    continue;
+                }
+
+                var homeSet = score.Length >= 1
+                    ? Convert.ToInt32(arrayBetStatus[i].Trim().Split('-')[0])
+                    : 0;
+                var awaySet = score.Length >= 2
+                    ? Convert.ToInt32(arrayBetStatus[i].Trim().Split('-')[1])
+                    : 0;
+                if (score.Length >= 1)
+                {
+                    totalGameHome += homeSet;
+                    HomeTotalGames = totalGameHome;
+                }
+
+                if (score.Length >= 2)
+                {
+                    totalGameAway += awaySet;
+                    AwayTotalGames = totalGameAway;
+                }
+
+                ScoreToFiveSet(i, score);
             }
         }
 
@@ -429,50 +448,41 @@ namespace Fanex.NAP.Settlement.DTO
         /// </summary>
         /// <param name="i">Index value.</param>
         /// <param name="score">Array score.</param>
-        private void SetScoreBaseball(int i, string[] score)
+        private void SetScoreBaseball(int i, IList<string> score)
         {
-            switch (i)
+            if (i < FiveSets)
             {
-                case 0:
-                    this.Home1Q = Convert.ToInt32(score[0]);
-                    this.Away1Q = Convert.ToInt32(score[1]);
-                    break;
-                case 1:
-                    this.Home2Q = Convert.ToInt32(score[0]);
-                    this.Away2Q = Convert.ToInt32(score[1]);
-                    break;
-                case 2:
-                    this.Home3Q = Convert.ToInt32(score[0]);
-                    this.Away3Q = Convert.ToInt32(score[1]);
-                    break;
-                case 3:
-                    this.Home4Q = Convert.ToInt32(score[0]);
-                    this.Away4Q = Convert.ToInt32(score[1]);
-                    break;
-                case 4:
-                    this.Home5Q = Convert.ToInt32(score[0]);
-                    this.Away5Q = Convert.ToInt32(score[1]);
-                    break;
-                case 5:
-                    this.Home6Q = Convert.ToInt32(score[0]);
-                    this.Away6Q = Convert.ToInt32(score[1]);
-                    break;
-                case 6:
-                    this.Home7Q = Convert.ToInt32(score[0]);
-                    this.Away7Q = Convert.ToInt32(score[1]);
-                    break;
-                case 7:
-                    this.Home8Q = Convert.ToInt32(score[0]);
-                    this.Away8Q = Convert.ToInt32(score[1]);
-                    break;
-                case 8:
-                    this.Home9Q = Convert.ToInt32(score[0]);
-                    this.Away9Q = Convert.ToInt32(score[1]);
-                    break;
-                case 9:
-                    this.HomeEi = Convert.ToInt32(score[0]);
-                    this.AwayEi = Convert.ToInt32(score[1]);
-                    break;
+                ScoreToFiveSet(i, score);
+            }
+            else
+            {
+                switch (i)
+                {
+                    case 5:
+                        Home6Q = Convert.ToInt32(score[0]);
+                        Away6Q = Convert.ToInt32(score[1]);
+                        break;
+
+                    case 6:
+                        Home7Q = Convert.ToInt32(score[0]);
+                        Away7Q = Convert.ToInt32(score[1]);
+                        break;
+
+                    case 7:
+                        Home8Q = Convert.ToInt32(score[0]);
+                        Away8Q = Convert.ToInt32(score[1]);
+                        break;
+
+                    case 8:
+                        Home9Q = Convert.ToInt32(score[0]);
+                        Away9Q = Convert.ToInt32(score[1]);
+                        break;
+
+                    case 9:
+                        HomeEi = Convert.ToInt32(score[0]);
+                        AwayEi = Convert.ToInt32(score[1]);
+                        break;
+                }
             }
         }
 
@@ -482,24 +492,19 @@ namespace Fanex.NAP.Settlement.DTO
         /// <param name="betStatus">Bet Status.</param>
         private void Baseball(string betStatus)
         {
-            try
+            var arrayBetStatus = ArrayBetStatus(betStatus);
+            if (arrayBetStatus == null)
             {
-                var arrayBetStatus = this.ArrayBetStatus(betStatus);
-                if (arrayBetStatus != null)
-                {
-                    for (var i = 0; i < arrayBetStatus.Length; i++)
-                    {
-                        var score = arrayBetStatus[i].Trim().Split('-');
-                        if (score.Length > 1)
-                        {
-                            this.SetScoreBaseball(i, score);
-                        }
-                    }
-                }
+                return;
             }
-            catch (Exception ex)
+
+            for (var i = 0; i < arrayBetStatus.Length; i++)
             {
-                throw new Exception(ex.Message);
+                var score = arrayBetStatus[i].Trim().Split('-');
+                if (score.Length > 1)
+                {
+                    SetScoreBaseball(i, score);
+                }
             }
         }
 
@@ -516,5 +521,81 @@ namespace Fanex.NAP.Settlement.DTO
         }
 
         #endregion Handle BetStatus with other SportType
+
+        #region Set score helper
+
+        /// <summary>
+        /// Set score to three set.
+        /// </summary>
+        /// <param name="i">Index value.</param>
+        /// <param name="score">Array score.</param>
+        private void ScoreToThreeSet(int i, IList<string> score)
+        {
+            switch (i)
+            {
+                case 0:
+                    Home1Q = Convert.ToInt32(score[0]);
+                    Away1Q = Convert.ToInt32(score[1]);
+                    break;
+
+                case 1:
+                    Home2Q = Convert.ToInt32(score[0]);
+                    Away2Q = Convert.ToInt32(score[1]);
+                    break;
+
+                case 2:
+                    Home3Q = Convert.ToInt32(score[0]);
+                    Away3Q = Convert.ToInt32(score[1]);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Set score to four set.
+        /// </summary>
+        /// <param name="i">Index value.</param>
+        /// <param name="score">Array score.</param>
+        private void ScoreToFourSet(int i, IList<string> score)
+        {
+            if (i < ThreeSets)
+            {
+                ScoreToThreeSet(i, score);
+            }
+            else
+            {
+                Home4Q = Convert.ToInt32(score[0]);
+                Away4Q = Convert.ToInt32(score[1]);
+            }
+        }
+
+        /// <summary>
+        /// Set score to five set.
+        /// </summary>
+        /// <param name="i">Index value.</param>
+        /// <param name="score">Array score.</param>
+        private void ScoreToFiveSet(int i, IList<string> score)
+        {
+            if (i < FourSets)
+            {
+                ScoreToFourSet(i, score);
+            }
+            else
+            {
+                Home5Q = Convert.ToInt32(score[0]);
+                Away5Q = Convert.ToInt32(score[1]);
+            }
+        }
+
+        /// <summary>
+        /// Set score to over time Set.
+        /// </summary>
+        /// <param name="score">Array score.</param>
+        private void ScoreToOverTimeSet(IList<string> score)
+        {
+            HomeOt = Convert.ToInt32(score[0]);
+            AwayOt = Convert.ToInt32(score[1]);
+        }
+
+        #endregion Set score helper
     }
 }

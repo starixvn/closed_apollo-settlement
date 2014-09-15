@@ -1,41 +1,41 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@model BaseViewModel
+﻿@model BaseViewModel
 <table class="table-calculation">
-	<thead>
-		<tr>
-			<th class="code">
-				@ViewResources.MatchCode
-			</th>
-			<th class="kick-off-time">@ViewResources.KickOffTime
-			</th>
-			<th class="event">
-				@Model.HeaderEvent
-			</th>
-			@RenderSection("Score")
-			<th class="event-status">
-				@ViewResources.EventStatus
-			</th>
-			<th class="header-action">
-				@ViewResources.Action
-			</th>
-			<th class="calc-mp">
-				@if (Model.PageType == PageType.OverOnly)
-				{
-					@Html.Raw(ViewResources.BetCount)
-				}
-				else
-				{
-					<div class="calc-mp-button act-calc-mix-parlay">
-					</div>
-					<div>@Html.CheckBox("MixParlayAllChk", new { @class = "parlay-chk", @disabled = "disabled" })</div>
-				}
-			</th>
-			<th class="auto-set">
-				Auto<br />Settlement
-			</th>
-			<th class="confirm">
-				@ViewResources.Confirm
-			</th>
-		</tr>
-	</thead>
+    <thead>
+        <tr>
+            <th class="code">
+                @ViewResources.MatchCode
+            </th>
+            <th class="kick-off-time">@ViewResources.KickOffTime
+            </th>
+            <th class="event">
+                @Model.HeaderEvent
+            </th>
+            @RenderSection("Score")
+            <th class="event-status">
+                @ViewResources.EventStatus
+            </th>
+            <th class="header-action">
+                @ViewResources.Action
+            </th>
+            <th class="calc-mp">
+                @if (Model.PageType == PageType.OverOnly)
+                {
+                    @Html.Raw(ViewResources.BetCount)
+                }
+                else
+                {
+                    <div class="calc-mp-button act-calc-mix-parlay">
+                    </div>
+                    <div>@Html.CheckBox("MixParlayAllChk", new { @class = "parlay-chk", @disabled = "disabled" })</div>
+                }
+            </th>
+            <th class="auto-set">
+                Auto<br />
+                Settlement
+            </th>
+            <th class="confirm">
+                @ViewResources.Confirm
+            </th>
+        </tr>
+    </thead>
 </table>

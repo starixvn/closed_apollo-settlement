@@ -14,6 +14,7 @@ namespace Fanex.NAP.Settlement.Controllers
 {
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.NAP.Core.Web.Session;
 
     /// <summary>
     /// Home Controller.
@@ -37,20 +38,20 @@ namespace Fanex.NAP.Settlement.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            var session = new Core.Web.Session.CurrentSession();
+            var session = new CurrentSession();
             var returnUrl = Url.Content("~/UserLogin/Login");
             if (session.UserId > 0
-                && session.Menu != null && session.Menu.Count > 0)
+                && session.MenuItemList != null && session.MenuItemList.Count > 0)
             {
-                var firstMenu = session.Menu.FirstOrDefault();
+                var firstMenu = session.MenuItemList.FirstOrDefault();
 
                 if (firstMenu != null)
                 {
-                    var childMenu = session.Menu.FirstOrDefault(i => i.Parent != null && i.Parent.Id == firstMenu.Id);
+                    var childMenu = session.MenuItemList.FirstOrDefault(i => i.Parent != null && i.Parent.Id == firstMenu.Id);
                     returnUrl = childMenu != null ? this.Url.Content("~/" + childMenu.Url) : this.Url.Content("~/" + firstMenu.Url);
                 }
             }
-            else if (session.UserId > 0 && session.Menu != null && session.Menu.Count == 0)
+            else if (session.UserId > 0 && session.MenuItemList != null && session.MenuItemList.Count == 0)
             {
                 return this.NonePermission();
             }

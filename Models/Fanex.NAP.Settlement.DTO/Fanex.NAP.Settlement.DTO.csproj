@@ -63,18 +63,11 @@
       <DependentUpon>SettlementFunctionKeys.tt</DependentUpon>
     </Compile>
     <Compile Include="DBResult\IResult.cs" />
-    <Compile Include="Domain\ConfirmedAction.cs" />
-    <Compile Include="Domain\EventStatus.cs" />
-    <Compile Include="Domain\OutrightStatus.cs" />
+    <Compile Include="GoalIcon.cs" />
     <Compile Include="MatchLog.cs" />
     <Compile Include="DBResult\Result.cs" />
-    <Compile Include="Domain\BetType.cs" />
     <Compile Include="Configuration\BalanceUp.cs" />
     <Compile Include="Configuration\CacheKey.cs" />
-    <Compile Include="Domain\CacheRef.cs" />
-    <Compile Include="Domain\CalculateAction.cs" />
-    <Compile Include="Domain\CalculationType.cs" />
-    <Compile Include="Domain\PageType.cs" />
     <Compile Include="IP\IpInfo.cs" />
     <Compile Include="IP\IpVn.cs" />
     <Compile Include="MatchDetail.cs" />
@@ -87,21 +80,7 @@
     <Compile Include="Permission\SettlementPermission.cs" />
     <Compile Include="Permission\SportsBookPermission.cs" />
     <Compile Include="Sport.cs" />
-    <Compile Include="Domain\MatchStatus.cs" />
-    <Compile Include="Domain\SportType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ViewResources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="ViewResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>ViewResources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration\SettlementFunctionKeys.tt">
@@ -111,6 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Presentation\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Core.csproj">
+      <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
+      <Name>Fanex.NAP.Settlement.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

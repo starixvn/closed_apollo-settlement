@@ -96,9 +96,9 @@
       <Project>{0C4BD0B7-C71E-4DA2-84B2-87E315182C64}</Project>
       <Name>Fanex.NAP.Settlement.MetaModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Presentation\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Web.csproj">
+    <ProjectReference Include="..\..\Presentation\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Core.csproj">
       <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
-      <Name>Fanex.NAP.Settlement.Web</Name>
+      <Name>Fanex.NAP.Settlement.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

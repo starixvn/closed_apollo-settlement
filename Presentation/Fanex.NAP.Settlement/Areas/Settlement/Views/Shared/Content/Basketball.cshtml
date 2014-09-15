@@ -1,5 +1,4 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@using Fanex.NAP.Settlement.DTO.Permission;
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
 @model Tuple<Match, SettlementPermission, PageType, String>
 @{
     var match = Model.Item1;
@@ -19,61 +18,47 @@
 }
 @section HomeScore{
     <td class="score-betstatus home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxHome1Q", match.BetStatusAccess.Home1Q, false, new { @class = "score-width", @tabindex = 1 })
-        @Html.Hidden("TextBoxHome1Q_hidden", match.BetStatusAccess.Home1Q)
+        @Html.TextBoxOrLabel(page, "Home1Q", match.BetStatusAccess.Home1Q, false, new { @class = "score-width", @tabindex = 1 })
     </td>
     <td class="score-betstatus home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxHome2Q", match.BetStatusAccess.Home2Q, false, new { @class = "score-width", @tabindex = 3 })
-        @Html.Hidden("TextBoxHome2Q_hidden", match.BetStatusAccess.Home2Q)
+        @Html.TextBoxOrLabel(page, "Home2Q", match.BetStatusAccess.Home2Q, false, new { @class = "score-width", @tabindex = 3 })
     </td>
     <td class="score-betstatus home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxHome3Q", match.BetStatusAccess.Home3Q, false, new { @class = "score-width", @tabindex = 5 })
-        @Html.Hidden("TextBoxHome3Q_hidden", match.BetStatusAccess.Home3Q)
+        @Html.TextBoxOrLabel(page, "Home3Q", match.BetStatusAccess.Home3Q, false, new { @class = "score-width", @tabindex = 5 })
     </td>
     <td class="score-betstatus home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxHome4Q", match.BetStatusAccess.Home4Q, false, new { @class = "score-width", @tabindex = 7 })
-        @Html.Hidden("TextBoxHome4Q_hidden", match.BetStatusAccess.Home4Q)
+        @Html.TextBoxOrLabel(page, "Home4Q", match.BetStatusAccess.Home4Q, false, new { @class = "score-width", @tabindex = 7 })
     </td>
     <td class="score-betstatus home-away">
         @Html.TextBoxOrLabel(page, "TextBoxHomeOT", match.BetStatusAccess.HomeOt, false, new { @class = "score-width", @tabindex = 9 })
-        @Html.Hidden("TextBoxHomeOT_hidden", match.BetStatusAccess.HomeOt)
     </td>
     <td class="score home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxHtHomeScore", match.HtHomeScore, true, new { @class = "total-score-width", @tabindex = 11 })
-        @Html.Hidden("TextBoxHtHomeScore_hidden", match.HtHomeScore)
+        @Html.TextBoxOrLabel(page, "HtHomeScore", match.HtHomeScore, true, new { @class = "total-score-width", @tabindex = 11 })
     </td>
     <td class="score final-score-color home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxFinalHomeScore", match.FinalHomeScore, true, new { @class = "final-score-color total-score-width", @tabindex = 13 })
-        @Html.Hidden("TextBoxFinalHomeScore_hidden", match.FinalHomeScore)
+        @Html.TextBoxOrLabel(page, "FinalHomeScore", match.FinalHomeScore, true, new { @class = "final-score-color total-score-width", @tabindex = 13 })
     </td>
 }
 @section AwayScore{
     <td class="score-betstatus">
-        @Html.TextBoxOrLabel(page, "TextBoxAway1Q", match.BetStatusAccess.Away1Q, false, new { @class = "score-width", @tabindex = 2 })
-        @Html.Hidden("TextBoxAway1Q_hidden", match.BetStatusAccess.Away1Q)
+        @Html.TextBoxOrLabel(page, "Away1Q", match.BetStatusAccess.Away1Q, false, new { @class = "score-width", @tabindex = 2 })
     </td>
     <td class="score-betstatus">
-        @Html.TextBoxOrLabel(page, "TextBoxAway2Q", match.BetStatusAccess.Away2Q, false, new { @class = "score-width", @tabindex = 4 })
-        @Html.Hidden("TextBoxAway2Q_hidden", match.BetStatusAccess.Away2Q)
+        @Html.TextBoxOrLabel(page, "Away2Q", match.BetStatusAccess.Away2Q, false, new { @class = "score-width", @tabindex = 4 })
     </td>
     <td class="score-betstatus">
-        @Html.TextBoxOrLabel(page, "TextBoxAway3Q", match.BetStatusAccess.Away3Q, false, new { @class = "score-width", @tabindex = 6 })
-        @Html.Hidden("TextBoxAway3Q_hidden", match.BetStatusAccess.Away3Q)
+        @Html.TextBoxOrLabel(page, "Away3Q", match.BetStatusAccess.Away3Q, false, new { @class = "score-width", @tabindex = 6 })
     </td>
     <td class="score-betstatus">
-        @Html.TextBoxOrLabel(page, "TextBoxAway4Q", match.BetStatusAccess.Away4Q, false, new { @class = "score-width", @tabindex = 8 })
-        @Html.Hidden("TextBoxAway4Q_hidden", match.BetStatusAccess.Away4Q)
+        @Html.TextBoxOrLabel(page, "Away4Q", match.BetStatusAccess.Away4Q, false, new { @class = "score-width", @tabindex = 8 })
     </td>
     <td class="score-betstatus">
         @Html.TextBoxOrLabel(page, "TextBoxAwayOT", match.BetStatusAccess.AwayOt, false, new { @class = "score-width", @tabindex = 10 })
-        @Html.Hidden("TextBoxAwayOT_hidden", match.BetStatusAccess.AwayOt)
     </td>
     <td class="score">
-        @Html.TextBoxOrLabel(page, "TextBoxHtAwayScore", match.HtAwayScore, true, new { @class = "total-score-width", @tabindex = 12 })
-        @Html.Hidden("TextBoxHtAwayScore_hidden", match.HtAwayScore)
+        @Html.TextBoxOrLabel(page, "HtAwayScore", match.HtAwayScore, true, new { @class = "total-score-width", @tabindex = 12 })
     </td>
     <td class="score final-score-color">
-        @Html.TextBoxOrLabel(page, "TextBoxFinalAwayScore", match.FinalAwayScore, true, new { @class = "final-score-color total-score-width", @tabindex = 14 })
-        @Html.Hidden("TextBoxFinalAwayScore_hidden", match.FinalAwayScore)
+        @Html.TextBoxOrLabel(page, "FinalAwayScore", match.FinalAwayScore, true, new { @class = "final-score-color total-score-width", @tabindex = 14 })
     </td>
 }

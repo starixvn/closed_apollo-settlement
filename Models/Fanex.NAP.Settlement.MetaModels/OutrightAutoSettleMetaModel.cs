@@ -23,10 +23,10 @@ namespace Fanex.NAP.Settlement.MetaModels
     public class OutrightAutoSettleMetaModel
     {
         /// <summary>
-        ///     Gets or sets Creator.
+        ///     Gets or sets AdminId.
         /// </summary>
-        /// <value>The creator of outright auto.</value>
-        public int Creator { get; set; }
+        /// <value>The AdminId of outright auto.</value>
+        public int AdminId { get; set; }
 
         /// <summary>
         ///     Gets or sets LeagueId.

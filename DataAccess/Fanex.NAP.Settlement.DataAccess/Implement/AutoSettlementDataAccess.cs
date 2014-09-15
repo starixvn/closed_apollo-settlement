@@ -43,12 +43,12 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
         /// <summary>
         /// Update status AutoSettlement.
         /// </summary>
-        /// <param name="creator">Creator by.</param>
+        /// <param name="adminid">AdminId by.</param>
         /// <param name="matchId">Match Id parameter.</param>
         /// <param name="turnOn">Turn on parameter.</param>
         /// <param name="ip">Internet protocol.</param>
         /// <returns>Return result.</returns>
-        public IResult UpdateStatusAutoSettlement(int creator, int matchId, bool turnOn, string ip)
+        public IResult UpdateStatusAutoSettlement(int adminid, int matchId, bool turnOn, string ip)
         {
             var uspName = "Admin_AutoSettlement_UpdateFlag";
             IResult result = new Result();
@@ -58,7 +58,7 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
                 {
                     // Assign Params and ExecuteQuery
                     Hashtable p = new Hashtable();
-                    p.Add("creator", creator);
+                    p.Add("adminid", adminid);
                     p.Add("matchid", matchId);
                     p.Add("isturnon", turnOn);
                     p.Add("ip", ip);
@@ -114,11 +114,11 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
         /// <summary>
         /// Clear fail action AutoSettlement.
         /// </summary>
-        /// <param name="creator">Creator by.</param>
+        /// <param name="adminId">AdminId by.</param>
         /// <param name="matchId">Match id parameter.</param>
         /// <param name="matchIds">List match ids.</param>
         /// <returns>Return result.</returns>
-        public IResult ClearFailActionAutoSettlement(int creator, int matchId, string matchIds)
+        public IResult ClearFailActionAutoSettlement(int adminId, int matchId, string matchIds)
         {
             var uspName = "Admin_AutoSettlement_ClearFailAction";
             IResult result = new Result();
@@ -128,9 +128,11 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
                 {
                     // Assign Params and ExecuteQuery
                     Hashtable p = new Hashtable();
-                    p.Add("creator", creator);
+                    p.Add("adminid", adminId);
                     p.Add("matchid", matchId);
                     p.Add("matchids", matchIds);
+                    p.Add("errcode", 0);
+                    p.Add("errmsg", string.Empty);
 
                     db.AssignParamValues(p);
                     db.ExecuteNonQuery();

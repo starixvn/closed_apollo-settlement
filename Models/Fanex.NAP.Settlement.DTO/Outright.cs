@@ -14,38 +14,48 @@
 namespace Fanex.NAP.Settlement.DTO
 {
     using System;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     /// Class Outright.
     /// </summary>
     public class Outright
     {
-        private readonly string _leagueName = string.Empty;
-        private readonly string _teamName = string.Empty;
+        private string _leagueName = string.Empty;
+        private string _teamName = string.Empty;
         private string _matchCode;
 
         public int OrId { get; set; }
 
         public int LeagueId { get; set; }
 
-        public string LeagueName
-        {
-            get
-            {
-                return string.IsNullOrWhiteSpace(_leagueName) ? CacheRef.GetLeagueName(LeagueId) : _leagueName;
-            }
-        }
-
-        public int TeamId { get; set; }
-
         public string TeamName
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_teamName) ? CacheRef.GetTeamName(TeamId) : _teamName;
+                if (string.IsNullOrWhiteSpace(_teamName))
+                {
+                    this._teamName = CacheRef.GetTeamName(TeamId);
+                }
+
+                return this._teamName;
             }
         }
+
+        public string LeagueName
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_leagueName))
+                {
+                    this._leagueName = CacheRef.GetLeagueName(LeagueId);
+                }
+
+                return this._leagueName;
+            }
+        }
+
+        public int TeamId { get; set; }
 
         public string MatchCode
         {

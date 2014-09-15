@@ -15,17 +15,19 @@ namespace Fanex.NAP.Settlement.DTO
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Common;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
     public partial class Match
     {
-        private readonly string _homeName = string.Empty;
-        private readonly string _awayName = string.Empty;
-        private readonly string _leagueName = string.Empty;
+        private string _homeName = string.Empty;
+        private string _awayName = string.Empty;
+        private string _leagueName = string.Empty;
         private BetStatusAccess _betStatusAccess;
+        private string _eventStatus = string.Empty;
 
         #region Match Propery
 
@@ -37,7 +39,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_leagueName) ? CacheRef.GetLeagueName(LeagueId) : _leagueName;
+                if (string.IsNullOrWhiteSpace(_leagueName))
+                {
+                    this._leagueName = CacheRef.GetLeagueName(LeagueId);
+                }
+
+                return this._leagueName;
             }
         }
 
@@ -47,7 +54,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_homeName) ? CacheRef.GetTeamName(HomeId) : _homeName;
+                if (string.IsNullOrWhiteSpace(_homeName))
+                {
+                    this._homeName = CacheRef.GetTeamName(HomeId) + (IsNeutral ? " (N)" : string.Empty);
+                }
+
+                return _homeName;
             }
         }
 
@@ -57,7 +69,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return string.IsNullOrWhiteSpace(_awayName) ? CacheRef.GetTeamName(AwayId) : _awayName;
+                if (string.IsNullOrWhiteSpace(_awayName))
+                {
+                    this._awayName = CacheRef.GetTeamName(AwayId);
+                }
+
+                return _awayName;
             }
         }
 
@@ -71,8 +88,6 @@ namespace Fanex.NAP.Settlement.DTO
 
         public string BetStatus { get; set; }
 
-        public string EventStatus { get; set; }
-
         public string GoalRecord { get; set; }
 
         public string SuspenderHt { get; set; }
@@ -82,6 +97,8 @@ namespace Fanex.NAP.Settlement.DTO
         public string FtStatus { get; set; }
 
         public string FgLgStatus { get; set; }
+
+        public string HtFgLgStatus { get; set; }
 
         public DateTime KickOffTime { get; set; }
 
@@ -127,52 +144,93 @@ namespace Fanex.NAP.Settlement.DTO
 
         public bool DisabledAutoSettle { get; set; }
 
+        public bool IsExistHTFGLG { get; set; }
+
+        public bool IsExistFGLG { get; set; }
+
         #endregion Match Status
 
         #region Extra Property
+
+        public string UndecidedColor
+        {
+            get
+            {
+                if (FailedActionId.HasValue)
+                {
+                    return Background.ActionFailed;
+                }
+                else
+                {
+                    return this.IsUndecided ? Background.Undecided : string.Empty;
+                }
+            }
+        }
+
+        public string CalcSBBackgroundColor
+        {
+            get
+            {
+                return Utility.BackgroundColorCalculate(IsHtCal, IsCalRefund, IsCalculated);
+            }
+        }
+
+        public string EventStatusColor
+        {
+            get
+            {
+                if (this.EventStatus.Equals(Core.Constants.EventStatus.PostPoned, StringComparison.OrdinalIgnoreCase))
+                {
+                    return Background.Postponed;
+                }
+                else
+                {
+                    return this.IsPending ? Background.Pending : string.Empty;
+                }
+            }
+        }
 
         public BetStatusAccess BetStatusAccess
         {
             get
             {
-                if (this._betStatusAccess == null)
+                if (_betStatusAccess == null)
                 {
-                    this._betStatusAccess = new BetStatusAccess();
-
-                    if (!Convert.IsDBNull(this.BetStatus)
-                        && !string.IsNullOrEmpty(this.BetStatus)
-                        && this.SportType == 1)
+                    if (!Convert.IsDBNull(BetStatus) && !string.IsNullOrEmpty(BetStatus))
                     {
-                        if (this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) > -1)
-                        {
-                            var homeAwayGoal = this.BetStatus.Substring(this.BetStatus.IndexOf("FL:", StringComparison.Ordinal) + 3);
-                            var strhwgoals = homeAwayGoal.Split('-');
-                            int homegoal = Convert.ToInt32(strhwgoals[0]);
-                            int awayhome = Convert.ToInt32(strhwgoals[1]);
-                            int total = homegoal + awayhome;
-                            if (total > 0)
-                            {
-                                this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus);
-                            }
-                        }
+                        _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, false);
                     }
-                    else if (string.IsNullOrEmpty(this.BetStatus) && !string.IsNullOrEmpty(GoalRecord) && this.SportType == 1)
+                    else if (!string.IsNullOrWhiteSpace(GoalRecord))
                     {
-                        bool isFullTime = false;
-                        if (this.FinalAwayScore != null && this.FinalHomeScore != null)
-                        {
-                            isFullTime = true;
-                        }
+                        var isFinalScore = FinalAwayScore != null && FinalHomeScore != null;
 
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus, GoalRecord, isFullTime);
+                        _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, isFinalScore);
                     }
-                    else if (!Convert.IsDBNull(this.BetStatus) && !string.IsNullOrEmpty(this.BetStatus))
+                    else
                     {
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus);
+                        _betStatusAccess = new BetStatusAccess();
                     }
                 }
 
-                return this._betStatusAccess;
+                return _betStatusAccess;
+            }
+
+            set
+            {
+                _betStatusAccess = value;
+            }
+        }
+
+        public string EventStatus
+        {
+            get
+            {
+                return Utility.MapEventStatusString(_eventStatus, IsPending, IsHtCal, IsCalculated);
+            }
+
+            set
+            {
+                _eventStatus = value;
             }
         }
 

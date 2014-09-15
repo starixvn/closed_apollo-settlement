@@ -1,9 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DoSingleTicketMetaModel.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
-// </copyright>
-// -----------------------------------------------------------------------
-// <summary>
+﻿// <summary>
 //  DoSingle Ticket Meta Model
 // </summary>
 //
@@ -13,6 +8,8 @@
 
 namespace Fanex.NAP.Settlement.MetaModels
 {
+    using Fanex.NAP.Settlement.Core.Common;
+
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
@@ -25,6 +22,8 @@ namespace Fanex.NAP.Settlement.MetaModels
         {
             this.IsScoreDirect = false;
         }
+
+        public int AdminId { get; set; }
 
         /// <summary>
         ///     Gets or sets MatchId.
@@ -62,6 +61,8 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// <value>The last goal and first goal of the single ticket.</value>
         public bool IsExistFgLg { get; set; }
 
+        public bool IsExistHtFgLg { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether the item is ScoreDirect.
         /// </summary>
@@ -69,207 +70,187 @@ namespace Fanex.NAP.Settlement.MetaModels
         public bool IsScoreDirect { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome1Q.
+        /// Gets or sets Home1Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome1Q { get; set; }
+        public int? Home1Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome2Q.
+        /// Gets or sets Home2Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome2Q { get; set; }
+        public int? Home2Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome3Q.
+        /// Gets or sets Home3Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome3Q { get; set; }
+        public int? Home3Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome4Q.
+        /// Gets or sets Home4Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome4Q { get; set; }
+        public int? Home4Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome5Q.
+        /// Gets or sets Home5Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome5Q { get; set; }
+        public int? Home5Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome6Q.
+        /// Gets or sets Home6Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome6Q { get; set; }
+        public int? Home6Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome7Q.
+        /// Gets or sets Home7Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome7Q { get; set; }
+        public int? Home7Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome8Q.
+        /// Gets or sets Home8Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome8Q { get; set; }
+        public int? Home8Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHome9Q.
+        /// Gets or sets Home9Q.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHome9Q { get; set; }
+        public int? Home9Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHomeEI.
+        /// Gets or sets HomeEI.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHomeEI { get; set; }
+        public int? HomeEI { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHomeOT.
+        /// Gets or sets HomeOT.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHomeOT { get; set; }
+        public int? HomeOT { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHomeTotalGames.
+        /// Gets or sets HomeTotalGames.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHomeTotalGames { get; set; }
+        public int? HomeTotalGames { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxHomeScore.
+        /// Gets or sets HomeScore.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxHtHomeScore { get; set; }
+        public int? HtHomeScore { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxFinalHomeScore.
+        /// Gets or sets FinalHomeScore.
         /// </summary>
         /// <value>The home score of the single ticket.</value>
-        public int? TextBoxFinalHomeScore { get; set; }
+        public int? FinalHomeScore { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway1Q.
+        /// Gets or sets Away1Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway1Q { get; set; }
+        public int? Away1Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway2Q.
+        /// Gets or sets Away2Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway2Q { get; set; }
+        public int? Away2Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway3Q.
+        /// Gets or sets Away3Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway3Q { get; set; }
+        public int? Away3Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway4Q.
+        /// Gets or sets Away4Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway4Q { get; set; }
+        public int? Away4Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway5Q.
+        /// Gets or sets Away5Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway5Q { get; set; }
+        public int? Away5Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway6Q.
+        /// Gets or sets Away6Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway6Q { get; set; }
+        public int? Away6Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway7Q.
+        /// Gets or sets Away7Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway7Q { get; set; }
+        public int? Away7Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway8Q.
+        /// Gets or sets Away8Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway8Q { get; set; }
+        public int? Away8Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAway9Q.
+        /// Gets or sets Away9Q.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAway9Q { get; set; }
+        public int? Away9Q { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAwayEI.
+        /// Gets or sets AwayEI.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAwayEI { get; set; }
+        public int? AwayEI { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAwayOT.
+        /// Gets or sets AwayOT.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAwayOT { get; set; }
+        public int? AwayOT { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAwayTotalGames.
+        /// Gets or sets AwayTotalGames.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxAwayTotalGames { get; set; }
+        public int? AwayTotalGames { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxAwayScore.
+        /// Gets or sets AwayScore.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxHtAwayScore { get; set; }
+        public int? HtAwayScore { get; set; }
 
         /// <summary>
-        /// Gets or sets TextBoxFinalAwayScore.
+        /// Gets or sets FinalAwayScore.
         /// </summary>
         /// <value>The away score of the single ticket.</value>
-        public int? TextBoxFinalAwayScore { get; set; }
-
-        /// <summary>
-        /// Gets or sets HiddenHomeScore.
-        /// </summary>
-        /// <value>The hidden home score of the single ticket.</value>
-        public int HiddenHtHomeScore { get; set; }
-
-        /// <summary>
-        /// Gets or sets HiddenAwayScore.
-        /// </summary>
-        /// <value>The hidden away score of the single ticket.</value>
-        public int HiddenHtAwayScore { get; set; }
-
-        /// <summary>
-        /// Gets or sets HiddenFinalHomeScore.
-        /// </summary>
-        /// <value>The hidden home score of the single ticket.</value>
-        public int HiddenFinalHomeScore { get; set; }
-
-        /// <summary>
-        /// Gets or sets HiddenFinalAwayScore.
-        /// </summary>
-        /// <value>The hidden away score of the single ticket.</value>
-        public int HiddenFinalAwayScore { get; set; }
-
-        /// <summary>
-        /// Gets or sets HiddenBetStatus.
-        /// </summary>
-        /// <value>The hidden bet status of the single ticket.</value>
-        public string HiddenBetStatus { get; set; }
+        public int? FinalAwayScore { get; set; }
 
         /// <summary>
         /// Gets or sets LogId.
         /// </summary>
         /// <value>The log id of the single ticket.</value>
         public long LogId { get; set; }
+
+        public string BetStatus { get; set; }
+
+        public string IP
+        {
+            get
+            {
+                return Utility.GetClientIP;
+            }
+        }
     }
 }

@@ -14,7 +14,6 @@
 namespace Fanex.NAP.Settlement.DTO
 {
     using System;
-    using Fanex.NAP.Settlement.DTO.Domain;
 
     /// <summary>
     ///     Match log details.

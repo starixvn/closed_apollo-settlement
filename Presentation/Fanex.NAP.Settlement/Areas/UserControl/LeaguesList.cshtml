@@ -3,7 +3,7 @@
 }
 @model IList<League>
 @{
-    Model.Insert(0, new League { LeagueId = 0, LeagueName = ViewResources.ShowAllLeagues });
+    Model.Insert(0, new League { LeagueId = 0, LeagueName = Fanex.NAP.Settlement.Core.Resources.ViewResources.ShowAllLeagues });
     var ddlLeagues = Model.Select(i => new SelectListItem
     {
         Text = i.LeagueName,

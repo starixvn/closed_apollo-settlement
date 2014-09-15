@@ -63,6 +63,7 @@
     <SportType Name="Taekwondo" Id="40" />
     <SportType Name="Triathlon" Id="41" />
     <SportType Name="Wrestling" Id="42" />
+    <SportType Name="Horse Racing Fixed Odds" Id="154" />
   </SportTypeMapping>
 
   <SportTypeMapping GroupSport="7"
@@ -75,13 +76,6 @@
     <SportType Name="Squash" Id="30" />
   </SportTypeMapping>
 
-  <SportTypeMapping GroupSport="8"
-                   Template="NumberGame"
-                   IsCheckBoxCalcMP ="false"
-                   Colspan="3">
-    <SportType Name="NumberGame" Id="161" />
-  </SportTypeMapping>
-
   <SportTypeMapping GroupSport="10"
                     Template="HorseRacing"
                     IsCheckBoxCalcMP ="false"
@@ -89,5 +83,10 @@
     <SportType Name="Horse Racing" Id="151" />
     <SportType Name="Greyhounds" Id="152" />
     <SportType Name="Harness" Id="153" />
+  </SportTypeMapping>
+  <SportTypeMapping GroupSport="11"
+                 Template="OtherSports"
+                 Colspan="8">
+    <SportType Name="Other Sports" Id="99" />
   </SportTypeMapping>
 </SportTypes>

@@ -13,8 +13,7 @@
 
 namespace Fanex.NAP.Settlement.ViewModels
 {
-    using System.Diagnostics.CodeAnalysis;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Constants;
     using Fanex.NAP.Settlement.DTO.Permission;
 
     /// <summary>

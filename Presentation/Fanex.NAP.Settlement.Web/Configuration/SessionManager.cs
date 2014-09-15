@@ -7,7 +7,7 @@
 //   <change who="Kaden.Trinh" date="2012.11.22">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.Configuration
+namespace Fanex.NAP.Settlement.Core.Configuration
 {
     using System;
     using System.Web;

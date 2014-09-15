@@ -12,6 +12,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
     using System.Web.Mvc;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Web.Session;
+    using Fanex.NAP.Settlement.Core.Common;
     using Fanex.NAP.Settlement.DTO.Configuration;
     using Fanex.NAP.Settlement.Services.Implement;
     using Fanex.NAP.Settlement.Services.Interface;
@@ -28,6 +30,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// </summary>
         private readonly IAutoSettlementService _adminService;
 
+        private readonly ICurrentSession _currentSession;
+
         #endregion Fields
 
         #region Constructor
@@ -36,7 +40,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// Initializes a new instance of the <see cref="AutoSettlementController" /> class.
         /// </summary>
         public AutoSettlementController()
-            : this(null)
+            : this(null, null)
         {
         }
 
@@ -44,9 +48,11 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// Initializes a new instance of the <see cref="AutoSettlementController" /> class.
         /// </summary>
         /// <param name="adminService">Admin service.</param>
-        public AutoSettlementController(IAutoSettlementService adminService)
+        /// <param name="currentSession">Current session service.</param>
+        public AutoSettlementController(IAutoSettlementService adminService, ICurrentSession currentSession)
         {
             this._adminService = adminService ?? new AutoSettlementService();
+            this._currentSession = currentSession ?? new CurrentSession();
         }
 
         #endregion Constructor
@@ -60,8 +66,8 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         [NapAuth(FunctionKey = SettlementFunctionKeys.AutoSettlement, Policy = Constant.Policy.Host)]
         public ActionResult UpdateStatusAll(int isTurnOn, int matchId)
         {
-            var userId = this.CurrentSession.UserId;
-            string ip = HttpContext.Request.UserHostAddress;
+            var userId = _currentSession.UserId;
+            string ip = Utility.GetClientIP;
             var result = this._adminService.UpdateStatusAutoSettlement(userId, matchId, isTurnOn == 1, ip);
             return this.Json(result);
         }

@@ -1,5 +1,4 @@
-﻿@using Fanex.NAP.Settlement.DTO.Domain
-@using Fanex.NAP.Settlement.DTO.Permission;
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
 @model Tuple<Match, SettlementPermission, PageType, String>
 @{
     var match = Model.Item1;
@@ -19,13 +18,13 @@
 }
 @section HomeScore{
     <td class="score home-away">
-        @Html.TextBoxOrLabel(page, "TextBoxFinalHomeScore", match.FinalHomeScore, false,
+        @Html.TextBoxOrLabel(page, "FinalHomeScore", match.FinalHomeScore, false,
                                       new { @class = "total-score-width", @tabindex = 1 })
     </td>
 }
 @section AwayScore{
     <td class="score final-score-color">
-        @Html.TextBoxOrLabel(page, "TextBoxFinalAwayScore", match.FinalAwayScore, false,
+        @Html.TextBoxOrLabel(page, "FinalAwayScore", match.FinalAwayScore, false,
                                       new { @class = "final-score-color total-score-width", @tabindex = 2 })
     </td>
 }

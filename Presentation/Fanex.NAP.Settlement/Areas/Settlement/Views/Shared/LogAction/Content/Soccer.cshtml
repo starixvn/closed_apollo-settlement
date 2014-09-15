@@ -1,36 +1,37 @@
 ﻿@model MatchLog
 @if (Model.ActionId > 0 && Model.ActionId < 11)
-{  
+{
     <td>
-        @if (Model.ActionId == ConfirmedAction.CalHT 
+        @if (Model.ActionId == ConfirmedAction.CalHT
             || Model.ActionId == ConfirmedAction.CalAll
             || Model.ActionId == ConfirmedAction.CalFGNG)
         {
-            @RazorHelper.DisplayScore(Model.HtHomeScore, Model.HtAwayScore)            
-            //@Html.Raw(string.Format("{0} - {1}", Model.HtHomeScore, Model.HtAwayScore))            
+            @RazorHelper.DisplayScore(Model.HtHomeScore, Model.HtAwayScore)
         }
     </td>
     <td>
-        @if (Model.ActionId == ConfirmedAction.CalFT 
+        @if (Model.ActionId == ConfirmedAction.CalFT
             || Model.ActionId == ConfirmedAction.CalAll
             || Model.ActionId == ConfirmedAction.CalFGNG)
         {
-            @RazorHelper.DisplayScore(Model.FinalHomeScore, Model.FinalAwayScore)                        
-            @*@Html.Raw(string.Format("{0} - {1}", Model.FinalHomeScore, Model.FinalAwayScore))            *@
+            @RazorHelper.DisplayScore(Model.FinalHomeScore, Model.FinalAwayScore)
         }
     </td>
         if (Model.SportType == SportType.Soccer)
         {
     <td class="goal-record">
-            @if (Model.ActionId == ConfirmedAction.CalFGNG
+        @if (Model.ActionId == ConfirmedAction.CalFGNG
                 || Model.ActionId == ConfirmedAction.CalFT
-                || Model.ActionId == ConfirmedAction.CalAll)
+                || Model.ActionId == ConfirmedAction.CalAll
+                || Model.ActionId == ConfirmedAction.CalHT
+            || Model.ActionId == ConfirmedAction.CalculateHTFGNG
+                )
+        {
+            if (!string.IsNullOrWhiteSpace(Model.GoalRecord))
             {
-                if (!string.IsNullOrWhiteSpace(Model.GoalRecord))
-                {
-                  @Html.Raw(Model.GoalRecord);
-                }
+            @Html.Raw(Model.GoalRecord);
             }
+        }
     </td>
         }
 }

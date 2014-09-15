@@ -37,7 +37,7 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// Gets or sets a value indicating whether the sport type.
         /// </summary>
         /// <value>The sport type of the calculate.</value>
-        public int SportTypeId
+        public byte SportTypeId
         {
             get;
             set;
@@ -73,11 +73,13 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// <value>The League id of the calculate.</value>
         public int LeagueId { get; set; }
 
-        /// <summary>
-        ///     Gets or sets MatchCode.
-        /// </summary>
-        /// <value>The match code of the calculate.</value>
-        public string MatchCode { get; set; }
+        public string MatchCode
+        {
+            get;
+            set;
+
+            // { return "8600"; } // "6080"; }
+        }
 
         /// <summary>
         ///     Gets or sets StatusId.

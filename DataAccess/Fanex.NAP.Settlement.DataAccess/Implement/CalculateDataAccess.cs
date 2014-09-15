@@ -16,19 +16,16 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
     using Fanex.Data;
-    using Fanex.Data.Dapper;
     using Fanex.Logging;
+    using Fanex.NAP.Settlement.Core.Constants;
     using Fanex.NAP.Settlement.DataAccess.Exception;
     using Fanex.NAP.Settlement.DataAccess.Interface;
     using Fanex.NAP.Settlement.DTO;
     using Fanex.NAP.Settlement.DTO.DBResult;
-    using Fanex.NAP.Settlement.DTO.Domain;
     using Fanex.NAP.Settlement.MetaModels;
-    using Fanex.NAP.Settlement.Web.Common;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -372,7 +369,7 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
             var uspName = "Admin_Settlement_CloseMatch";
 
             var p = new Hashtable();
-            p.Add("adminid", value.Creator);
+            p.Add("adminid", value.AdminId);
             p.Add("matchid", value.MatchId);
             p.Add("ip", value.IP);
             p.Add("errcode", 0);
@@ -400,16 +397,73 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
         #region Execute Calculate match
 
         /// <summary>
+        /// Calculate Parlay.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Result value.</returns>
+        public IResult CalculateMultiple(DoMultipleTicketMetaModel criteria)
+        {
+            var uspName = "CalculateParlay";
+            var action = string.Empty;
+            var parameters = new Hashtable();
+
+            switch (criteria.ActionType.ToLower())
+            {
+                case CalculationType.RefundParlayHalfTime:
+                    action = CalculateAction.RefundHalfTime;
+                    parameters.Add("matchids", criteria.MatchId);
+                    break;
+
+                case CalculationType.RefundParlayFullTime:
+                    action = CalculateAction.RefundFullTime;
+                    parameters.Add("matchids", criteria.MatchId);
+                    break;
+
+                case CalculationType.RefundParlayAll:
+                    action = CalculateAction.Refund;
+                    parameters.Add("matchids", criteria.MatchId);
+                    break;
+
+                case CalculationType.CalculateParlay:
+                    action = CalculateAction.CalculateAll;
+                    parameters.Add("matchids", criteria.MatchIds);
+                    break;
+            }
+
+            try
+            {
+                using (var db = new ObjectDb(uspName))
+                {
+                    parameters.Add("adminid", criteria.AdminId);
+                    parameters.Add("action", action);
+                    parameters.Add("ip", criteria.IP);
+                    parameters.Add("errcode", 0);
+                    parameters.Add("errmsg", string.Empty);
+
+                    db.AssignParamValues(parameters);
+                    db.ExecuteNonQuery();
+                    return this.GetResult(db);
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, new DataAccessException(sqlException.Message, uspName));
+                throw new DataAccessException(sqlException.Message, uspName);
+            }
+        }
+
+        /// <summary>
         /// Submit action calculate.
         /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="type">Action type.</param>
+        /// <param name="criteria">The parameters.</param>
+        /// <param name="action">Action type.</param>
+        /// <param name="isHalfTimeCalculate">HalfTime Calculate.</param>
         /// <returns>Return result.</returns>
-        public IResult Calculate(Hashtable parameters, string type)
+        public IResult Calculate(DoSingleTicketMetaModel criteria, string action, bool isHalfTimeCalculate)
         {
-            var uspName = this.GetSPNameCalculate(type);
-
-            switch (type)
+            var uspName = this.GetSPNameCalculate(criteria.ActionType);
+            var parameters = CalculateParamters(criteria, action, isHalfTimeCalculate);
+            switch (criteria.ActionType.ToLower())
             {
                 case CalculationType.CalculateHalfTime:
                 case CalculationType.CalculateFullTime:
@@ -417,18 +471,18 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
                     using (var db = new ObjectDb("Settlement_Checking"))
                     {
                         // Assign Params and ExecuteQuery
-                        Hashtable p = new Hashtable();
-                        p.Add("matchid", parameters["matchid"]);
-                        p.Add("action", parameters["action"]);
+                        var p = new Hashtable();
+                        p.Add("matchid", criteria.MatchId);
+                        p.Add("action", action);
                         p.Add("errcode", 0);
                         p.Add("errmsg", string.Empty);
 
                         db.AssignParamValues(p);
                         db.ExecuteNonQuery();
-                        var rs = this.GetResult(db);
-                        if (rs.ErrorCode > 0)
+                        var result = this.GetResult(db);
+                        if (result.ErrorCode > 0)
                         {
-                            return rs;
+                            return result;
                         }
                     }
 
@@ -453,6 +507,117 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
         }
 
         /// <summary>
+        /// Refund single.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Result value.</returns>
+        public IResult Refund(DoSingleTicketMetaModel criteria)
+        {
+            var uspName = this.GetSPNameCalculate(criteria.ActionType);
+
+            try
+            {
+                using (var db = new ObjectDb(uspName))
+                {
+                    var parameters = RefundParameters(criteria);
+                    parameters.Add("matchid", criteria.MatchId);
+                    parameters.Add("adminid", criteria.AdminId);
+                    parameters.Add("ip", criteria.IP);
+                    parameters.Add("errcode", 0);
+                    parameters.Add("errmsg", string.Empty);
+
+                    db.AssignParamValues(parameters);
+                    db.ExecuteNonQuery();
+                    return this.GetResult(db);
+                }
+            }
+            catch (SqlException sqlException)
+            {
+                LogService.Error(sqlException.Message, new DataAccessException(sqlException.Message, uspName));
+                throw new DataAccessException(sqlException.Message, uspName);
+            }
+        }
+
+        /// <summary>
+        /// Calculate value.
+        /// </summary>
+        /// <param name="criteria">The value.</param>
+        /// <param name="action">Action value.</param>
+        /// <param name="isHalfTimeCalculate">HalfTime Calculate.</param>
+        /// <returns>Return parameters.</returns>
+        private Hashtable CalculateParamters(DoSingleTicketMetaModel criteria, string action, bool isHalfTimeCalculate)
+        {
+            var parameters = new Hashtable();
+            parameters.Add("adminid", criteria.AdminId);
+            parameters.Add("matchid", criteria.MatchId);
+            parameters.Add("betstatus", criteria.BetStatus ?? string.Empty);
+            parameters.Add("goalrecord", criteria.GoalRecord);
+            parameters.Add("ip", criteria.IP);
+            parameters.Add("action", action);
+            parameters.Add("errcode", 0);
+            parameters.Add("errmsg", string.Empty);
+            switch (criteria.ActionType.ToLower())
+            {
+                case CalculationType.CalculateFgng:
+                    parameters.Add("includelg", false);
+                    break;
+
+                default:
+                    parameters.Add("hth", criteria.HtHomeScore.HasValue ? criteria.HtHomeScore.Value : 0);
+                    parameters.Add("hta", criteria.HtAwayScore.HasValue ? criteria.HtAwayScore.Value : 0);
+                    parameters.Add("fth", isHalfTimeCalculate ? null : criteria.FinalHomeScore);
+                    parameters.Add("fta", isHalfTimeCalculate ? null : criteria.FinalAwayScore);
+                    break;
+            }
+
+            return parameters;
+        }
+
+        /// <summary>
+        /// Refund value.
+        /// </summary>
+        /// <param name="criteria">The value.</param>
+        /// <returns>Return parameters.</returns>
+        private Hashtable RefundParameters(DoSingleTicketMetaModel criteria)
+        {
+            var parameters = new Hashtable();
+            switch (criteria.ActionType)
+            {
+                case CalculationType.RefundFTFirstGoalLastGoal:
+                    parameters.Add("action", CalculateAction.RefundFullTime);
+                    parameters.Add("lgonly", false);
+                    break;
+
+                case CalculationType.RefundFTLastGoal:
+                    parameters.Add("action", CalculateAction.RefundFullTime);
+                    parameters.Add("lgonly", true);
+                    break;
+
+                case CalculationType.RefundHTFirstGoalLastGoal:
+                    parameters.Add("action", CalculateAction.RefundHalfTime);
+                    parameters.Add("lgonly", false);
+                    break;
+
+                case CalculationType.RefundHTLastGoal:
+                    parameters.Add("action", CalculateAction.RefundHalfTime);
+                    parameters.Add("lgonly", true);
+                    break;
+
+                case CalculationType.RefundAllFgng:
+                    parameters.Add("action", CalculateAction.Refund);
+                    parameters.Add("lgonly", false);
+                    break;
+
+                case CalculationType.RefundAllLastGoal:
+                    parameters.Add("action", CalculateAction.Refund);
+                    parameters.Add("lgonly", true);
+                    break;
+            }
+
+            return parameters;
+        }
+
+        /// <summary>
         /// Get SP Name Calculate.
         /// </summary>
         /// <param name="type">Action type.</param>
@@ -470,8 +635,13 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
                     uspName = "RefundFT";
                     break;
 
+                case CalculationType.RefundFTFirstGoalLastGoal:
+                case CalculationType.RefundFTLastGoal:
+                case CalculationType.RefundHTFirstGoalLastGoal:
+                case CalculationType.RefundHTLastGoal:
                 case CalculationType.RefundAllFgng:
-                case CalculationType.RefundAllLg:
+                case CalculationType.RefundAllLastGoal:
+
                     uspName = "RefundFGLG";
                     break;
 
@@ -488,17 +658,6 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
 
                 case CalculationType.CalculateFgng:
                     uspName = "CalculateFGLG";
-                    break;
-
-                case CalculationType.RefundParlayHalfTime:
-                case CalculationType.RefundParlayFullTime:
-                case CalculationType.RefundParlayAll:
-                case CalculationType.CalculateParlay:
-                    uspName = "CalculateParlay";
-                    break;
-
-                case CalculationType.CalculateNumberGame:
-                    uspName = "ReCalculateNumberGame";
                     break;
             }
 

@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="AdditionalInformation" xml:space="preserve">
+    <value>Additional Information</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="Auto" xml:space="preserve">
+    <value>Auto</value>
+  </data>
+  <data name="AutoSettlement" xml:space="preserve">
+    <value>Auto Settlement</value>
+  </data>
+  <data name="Away" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="BackToSettlement" xml:space="preserve">
+    <value>Back to Settlement</value>
+  </data>
+  <data name="BetCount" xml:space="preserve">
+    <value>Bet Count</value>
+  </data>
+  <data name="CalcMixParlay" xml:space="preserve">
+    <value>Calculate Parlay</value>
+  </data>
+  <data name="CalcMP" xml:space="preserve">
+    <value>Calc MP</value>
+  </data>
+  <data name="Calculate" xml:space="preserve">
+    <value>Calculate</value>
+  </data>
+  <data name="CalculateAll" xml:space="preserve">
+    <value>Calculate All</value>
+  </data>
+  <data name="Calculated" xml:space="preserve">
+    <value>Calculated</value>
+  </data>
+  <data name="CalculateFGAndNG" xml:space="preserve">
+    <value>Calculate FG/NG</value>
+  </data>
+  <data name="CalculateFGNG" xml:space="preserve">
+    <value>Calculate First Goal and No Goal</value>
+  </data>
+  <data name="CalculateFT" xml:space="preserve">
+    <value>Calculate FT</value>
+  </data>
+  <data name="CalculateHT" xml:space="preserve">
+    <value>Calculate HT</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>Calculation</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Closed" xml:space="preserve">
+    <value>Closed</value>
+  </data>
+  <data name="Completed" xml:space="preserve">
+    <value>Completed</value>
+  </data>
+  <data name="Computation" xml:space="preserve">
+    <value>Computation</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Reference Actions</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DeadHeat" xml:space="preserve">
+    <value>Dead Heat</value>
+  </data>
+  <data name="EmptyMessage" xml:space="preserve">
+    <value>There is no information available</value>
+  </data>
+  <data name="Even" xml:space="preserve">
+    <value>EVEN</value>
+  </data>
+  <data name="Event" xml:space="preserve">
+    <value>Event</value>
+  </data>
+  <data name="EventDate" xml:space="preserve">
+    <value>Event date</value>
+  </data>
+  <data name="EventFromTo" xml:space="preserve">
+    <value>Event From {0} To {1}</value>
+  </data>
+  <data name="EventStatus" xml:space="preserve">
+    <value>Event Status</value>
+  </data>
+  <data name="FGLG" xml:space="preserve">
+    <value>FGLG</value>
+  </data>
+  <data name="FilterBy" xml:space="preserve">
+    <value>Filter by</value>
+  </data>
+  <data name="FinalScore" xml:space="preserve">
+    <value>Final Score</value>
+  </data>
+  <data name="FirstHalf" xml:space="preserve">
+    <value>First Half</value>
+  </data>
+  <data name="From" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="FromDate" xml:space="preserve">
+    <value>From Date</value>
+  </data>
+  <data name="FTFGLG" xml:space="preserve">
+    <value>FT FGLG</value>
+  </data>
+  <data name="FTGoalRecord" xml:space="preserve">
+    <value>FT Goal Record</value>
+  </data>
+  <data name="FTScore" xml:space="preserve">
+    <value>FT Score</value>
+  </data>
+  <data name="FullTime" xml:space="preserve">
+    <value>Full Time</value>
+  </data>
+  <data name="GoalRecord" xml:space="preserve">
+    <value>Goal Record</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="HT" xml:space="preserve">
+    <value>Half Time</value>
+  </data>
+  <data name="HTFGLG" xml:space="preserve">
+    <value>HT FGLG</value>
+  </data>
+  <data name="HTGoalRecord" xml:space="preserve">
+    <value>HT Goal Record</value>
+  </data>
+  <data name="HTOverOnly" xml:space="preserve">
+    <value>HT Over Only</value>
+  </data>
+  <data name="HTScore" xml:space="preserve">
+    <value>HT Score</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="IP" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="IsNA" xml:space="preserve">
+    <value>Is N/A</value>
+  </data>
+  <data name="KickOffTime" xml:space="preserve">
+    <value>Kick-off Time</value>
+  </data>
+  <data name="LastBall" xml:space="preserve">
+    <value>Last Ball</value>
+  </data>
+  <data name="League" xml:space="preserve">
+    <value>League</value>
+  </data>
+  <data name="Lose" xml:space="preserve">
+    <value>Lose</value>
+  </data>
+  <data name="MatchCode" xml:space="preserve">
+    <value>Match Code</value>
+  </data>
+  <data name="MatchCodeID" xml:space="preserve">
+    <value>Match Code / ID</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="MsgUncalculateOutright" xml:space="preserve">
+    <value>Uncalculate for this LEAGUE has been disabled due to Calculate failures.</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="No1" xml:space="preserve">
+    <value>1st</value>
+  </data>
+  <data name="No2" xml:space="preserve">
+    <value>2nd</value>
+  </data>
+  <data name="No3" xml:space="preserve">
+    <value>3rd</value>
+  </data>
+  <data name="No4" xml:space="preserve">
+    <value>4th</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Noothers" xml:space="preserve">
+    <value>th</value>
+  </data>
+  <data name="NoPermission" xml:space="preserve">
+    <value>You are not authorized to use this function.&lt;/br&gt;Please contact the admin for help.</value>
+  </data>
+  <data name="NormalTickets" xml:space="preserve">
+    <value>Normal Tickets</value>
+  </data>
+  <data name="NotNewMatch" xml:space="preserve">
+    <value>New match has not been created yet!</value>
+  </data>
+  <data name="NotPrivilege" xml:space="preserve">
+    <value>You have not been privileged to use any function.&lt;/br&gt;Please contact the admin for help.</value>
+  </data>
+  <data name="NotReadyMatchError" xml:space="preserve">
+    <value>Follow by match kick off time, this match is not over yet!!! Please check carefully !!!</value>
+  </data>
+  <data name="NumberGameNo" xml:space="preserve">
+    <value>Number Game No {0}</value>
+  </data>
+  <data name="Odd" xml:space="preserve">
+    <value>ODD</value>
+  </data>
+  <data name="OEFT" xml:space="preserve">
+    <value>O/E FT</value>
+  </data>
+  <data name="Official" xml:space="preserve">
+    <value>Official</value>
+  </data>
+  <data name="OT" xml:space="preserve">
+    <value>OT</value>
+  </data>
+  <data name="OverOnly" xml:space="preserve">
+    <value>Over Only</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="Place" xml:space="preserve">
+    <value>Place</value>
+  </data>
+  <data name="Proceed" xml:space="preserve">
+    <value>Proceed</value>
+  </data>
+  <data name="Race" xml:space="preserve">
+    <value>Race</value>
+  </data>
+  <data name="ReCalc" xml:space="preserve">
+    <value>Re-Calc</value>
+  </data>
+  <data name="ReCalculate" xml:space="preserve">
+    <value>Re-Calculate</value>
+  </data>
+  <data name="Refund" xml:space="preserve">
+    <value>Refund</value>
+  </data>
+  <data name="RefundAll" xml:space="preserve">
+    <value>Refund All</value>
+  </data>
+  <data name="RefundAllFGLG" xml:space="preserve">
+    <value>Refund All FGLG</value>
+  </data>
+  <data name="RefundAllLastGoal" xml:space="preserve">
+    <value>Refund All Last Goal</value>
+  </data>
+  <data name="RefundFT" xml:space="preserve">
+    <value>Refund FT</value>
+  </data>
+  <data name="RefundFTFGLG" xml:space="preserve">
+    <value>Refund FT FGLG</value>
+  </data>
+  <data name="RefundHT" xml:space="preserve">
+    <value>Refund HT</value>
+  </data>
+  <data name="RefundHTFGLG" xml:space="preserve">
+    <value>Refund HT FGLG</value>
+  </data>
+  <data name="RefundHTLastGoal" xml:space="preserve">
+    <value>Refund HT Last Goal</value>
+  </data>
+  <data name="RefundMultiAll" xml:space="preserve">
+    <value>Refund Parlay All</value>
+  </data>
+  <data name="RefundMultiFT" xml:space="preserve">
+    <value>Refund Parlay FT</value>
+  </data>
+  <data name="RefundMultiHT" xml:space="preserve">
+    <value>Refund Parlay HT</value>
+  </data>
+  <data name="RefundNomalTicket" xml:space="preserve">
+    <value>- &lt;b&gt;REFUND&lt;/b&gt; normal tickets</value>
+  </data>
+  <data name="Remark" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="ResultString" xml:space="preserve">
+    <value>Result String</value>
+  </data>
+  <data name="Revalidate" xml:space="preserve">
+    <value>Revalidate</value>
+  </data>
+  <data name="Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SelectTeam" xml:space="preserve">
+    <value>Select Team</value>
+  </data>
+  <data name="Sequence" xml:space="preserve">
+    <value>Sequence</value>
+  </data>
+  <data name="SetDirectlyFinalScore" xml:space="preserve">
+    <value>Input Final Score directly</value>
+  </data>
+  <data name="SetDirectlyHTScoreAndFinalScore" xml:space="preserve">
+    <value>Input HT Score and Final Score directly</value>
+  </data>
+  <data name="SetDirectlyTotalSet" xml:space="preserve">
+    <value>Input Total Set directly</value>
+  </data>
+  <data name="SettleDeterminedTickets" xml:space="preserve">
+    <value>Settle determined tickets (Over/ Under)</value>
+  </data>
+  <data name="ShowAllLeagues" xml:space="preserve">
+    <value>--- Show All Leagues ---</value>
+  </data>
+  <data name="ShowSettledEvent" xml:space="preserve">
+    <value>Show settled events</value>
+  </data>
+  <data name="Sport" xml:space="preserve">
+    <value>Sport</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Submit" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Team" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="ToDate" xml:space="preserve">
+    <value>To Date</value>
+  </data>
+  <data name="TotalGames" xml:space="preserve">
+    <value>Total Games</value>
+  </data>
+  <data name="TotalPoints" xml:space="preserve">
+    <value>Total Points</value>
+  </data>
+  <data name="TotalSet" xml:space="preserve">
+    <value>Total Set</value>
+  </data>
+  <data name="Uncalculate" xml:space="preserve">
+    <value>Uncalculate</value>
+  </data>
+  <data name="UncalculateGameOnly" xml:space="preserve">
+    <value>Un-Calculated Game Only</value>
+  </data>
+  <data name="UncalculateMultipleOnly" xml:space="preserve">
+    <value>Un-Calculated Parlay Only</value>
+  </data>
+  <data name="UpdateEventStatus" xml:space="preserve">
+    <value>Update event status</value>
+  </data>
+  <data name="UpdateTicket" xml:space="preserve">
+    <value>Update ticket</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="Validation" xml:space="preserve">
+    <value>Validation</value>
+  </data>
+  <data name="ViewLog" xml:space="preserve">
+    <value>View Log</value>
+  </data>
+  <data name="Warrior" xml:space="preserve">
+    <value>Warrior</value>
+  </data>
+  <data name="Win" xml:space="preserve">
+    <value>Win</value>
+  </data>
+  <data name="Won" xml:space="preserve">
+    <value>Won</value>
+  </data>
+  <data name="_1P" xml:space="preserve">
+    <value>1P</value>
+  </data>
+  <data name="_1Q" xml:space="preserve">
+    <value>1Q</value>
+  </data>
+  <data name="_1S" xml:space="preserve">
+    <value>1S</value>
+  </data>
+  <data name="_1stBall" xml:space="preserve">
+    <value>1st Ball</value>
+  </data>
+  <data name="_2ndBallWin" xml:space="preserve">
+    <value>2nd ball Win</value>
+  </data>
+  <data name="_2P" xml:space="preserve">
+    <value>2P</value>
+  </data>
+  <data name="_2Q" xml:space="preserve">
+    <value>2Q</value>
+  </data>
+  <data name="_2S" xml:space="preserve">
+    <value>2S</value>
+  </data>
+  <data name="_3P" xml:space="preserve">
+    <value>3P</value>
+  </data>
+  <data name="_3Q" xml:space="preserve">
+    <value>3Q</value>
+  </data>
+  <data name="_3rdBallWin" xml:space="preserve">
+    <value>3rd ball Win</value>
+  </data>
+  <data name="_3S" xml:space="preserve">
+    <value>3S</value>
+  </data>
+  <data name="_4Q" xml:space="preserve">
+    <value>4Q</value>
+  </data>
+  <data name="_4S" xml:space="preserve">
+    <value>4S</value>
+  </data>
+  <data name="_5S" xml:space="preserve">
+    <value>5S</value>
+  </data>
+  <data name="NotPrivilege1" xml:space="preserve">
+    <value>You have not been privileged to use any function.&lt;/br&gt;Please contact the admin for help.</value>
+  </data>
+  <data name="CalculateHTFGNG" xml:space="preserve">
+    <value>Calculate 1H FG/NG</value>
+  </data>
+  <data name="RefundAllLG" xml:space="preserve">
+    <value>Refund All LG</value>
+  </data>
+  <data name="RefundFTLG" xml:space="preserve">
+    <value>Refund FT LG</value>
+  </data>
+  <data name="RefundHTLG" xml:space="preserve">
+    <value>Refund HT LG</value>
+  </data>
+  <data name="RefundFTLastGoal" xml:space="preserve">
+    <value>Refund FT Last Goal</value>
+  </data>
+</root>

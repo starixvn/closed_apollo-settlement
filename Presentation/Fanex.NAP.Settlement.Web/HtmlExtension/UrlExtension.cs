@@ -11,7 +11,7 @@
 //  <change who="Kaden" date="2012.08.23">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.HtmlExtension
+namespace Fanex.NAP.Settlement.Core.HtmlExtension
 {
     using System.Configuration;
     using System.Web.Mvc;

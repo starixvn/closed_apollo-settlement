@@ -458,12 +458,14 @@ div .head-table
     padding-left: 3px;
     font-weight: bold;
     text-align: left;
+    float: left;
 }
 .table-calculation .match-away
 {
     font-size: 12px;
     padding-left: 3px;
     text-align: left;
+    float: left;
 }
 .table-calculation .score
 {
@@ -640,23 +642,46 @@ div .head-table
 /* Icon: first goal and last goal*/
 .first-last-goal
 {
-    background: url(images/first-last-goal.png) no-repeat right 4px;
-    padding-right: 25px;
+    background: url(images/first-last-goal.png) no-repeat 3px 3px;
+    width: 32px;
+    height: 15px;
     float: left;
 }
 .first-goal
 {
-    background: url(images/first-last-goal.png) no-repeat right -26px;
-    padding-right: 25px;
+    background: url(images/first-last-goal.png) no-repeat 3px -30px;
+    width: 15px;
+    height: 15px;
     float: left;
 }
 .last-goal
 {
-    background: url(images/first-last-goal.png) no-repeat right -11px;
-    padding-right: 25px;
+    background: url(images/first-last-goal.png) no-repeat 3px -14px;
+    width: 15px;
+    height: 15px;
     float: left;
 }
-
+.ht-first-last-goal
+{
+    background: url(images/first-last-goal.png) no-repeat 3px -45px;
+    width: 32px;
+    height: 15px;
+    float: left;
+}
+.ht-last-goal
+{
+    background: url(images/first-last-goal.png) no-repeat 3px -81px;
+    width: 15px;
+    height: 15px;
+    float: left;
+}
+.ht-first-goal
+{
+    background: url(images/first-last-goal.png) no-repeat 3px -63px;
+    width: 15px;
+    height: 15px;
+    float: left;
+}
 /*--- style link on grid ---*/
 .no-link
 {

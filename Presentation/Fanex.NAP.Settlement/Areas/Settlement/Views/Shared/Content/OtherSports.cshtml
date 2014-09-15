@@ -1,0 +1,36 @@
+﻿@using Fanex.NAP.Settlement.DTO.Permission;
+@model Tuple<Match, SettlementPermission, PageType, String>
+@{
+    var match = Model.Item1;
+    var page = Model.Item3;
+}
+@{
+    switch (page)
+    {
+        case PageType.Refund:
+        case PageType.Calc:
+            Layout = "RowOnPopup.cshtml";
+            break;
+        default:
+            Layout = "RowOnList.cshtml";
+            break;
+    }
+}
+@section HomeScore{
+    <td class="score home-away">
+        @Html.TextBoxOrLabel(page, "HtHomeScore", match.HtHomeScore, false, new { @class = "score-width-soccer", @tabindex = 1 })
+    </td>
+    <td class="score final-score-color home-away">
+        @Html.TextBoxOrLabel(page, "FinalHomeScore", match.FinalHomeScore, false,
+                                      new { @class = "final-score-color score-width-soccer", @tabindex = 3 })
+    </td>
+}
+@section AwayScore{
+    <td class="score">
+        @Html.TextBoxOrLabel(page, "HtAwayScore", match.HtAwayScore, false, new { @class = "score-width-soccer", @tabindex = 2 })
+    </td>
+    <td class="score final-score-color">
+        @Html.TextBoxOrLabel(page, "FinalAwayScore", match.FinalAwayScore, false,
+                                      new { @class = "final-score-color score-width-soccer", @tabindex = 4 })
+    </td>
+}

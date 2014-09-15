@@ -17,9 +17,12 @@ namespace Fanex.NAP.Settlement.Controllers
 
     using System.Web.Mvc;
     using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Service.Impl;
     using Fanex.NAP.Core.Service.Interface;
     using Fanex.NAP.Core.Web.Session;
+    using Fanex.NAP.Settlement.Services.Implement;
+    using Fanex.NAP.Settlement.Services.Interface;
 
     #endregion
 
@@ -32,26 +35,32 @@ namespace Fanex.NAP.Settlement.Controllers
         /// <summary>
         ///     Initializes a new instance of the <see cref="BaseController" /> class.
         /// </summary>
-        public BaseController()
+        protected BaseController()
         {
-            this.UserService = new UserService();
-            this.CurrentSession = new CurrentSession();
+            UserService = new UserService();
         }
-
-        #region Fields
 
         /// <summary>
         /// Gets or sets UserService.
         /// </summary>
-        /// <value>The user service of base controller.</value>
-        public IUserService UserService { get; set; }
+        /// <value>IUserService instance.</value>
+        protected IUserService UserService
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        /// Gets or sets CurrentSession.
+        ///     Check permission for function.
         /// </summary>
-        /// <value>The current session of base controller.</value>
-        public ICurrentSession CurrentSession { get; set; }
-
-        #endregion Fields
+        /// <param name="userId">User id value.</param>
+        /// <param name="functionKey">Function key value.</param>
+        /// <param name="policy">Policy value.</param>
+        /// <returns>Return true or false.</returns>
+        [NonAction]
+        protected bool HasPermission(int userId, string functionKey, Constant.Policy policy)
+        {
+            return userId > 0 ? UserService.HasPermissionUserSiteFunctionKey(userId, NapSettings.Settings.SiteId, functionKey, policy) : false;
+        }
     }
 }

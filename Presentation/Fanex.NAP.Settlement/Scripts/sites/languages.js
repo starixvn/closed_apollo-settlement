@@ -1,4 +1,5 @@
 ﻿// Define languages on JS
+/*jshint unused:false*/
 var Languages =
 {
     Warning: "WARNING!\n\n",
@@ -11,9 +12,11 @@ var Languages =
     AlreadyRefundHT: "This match is already refunded HT. All refund will be rollback if you calculate HT!\n",
     DoubleCheckCalculateHalfTime: "Please double check the score!\nYou will not be able to cancel the FIRST HALF CALCULATION of this match!",
     CheckAgainCalculateHalfTime: "Check again!\nAre you sure you want to CALCULATE FIRST HALF for this match?",
-    DoubleCheckCalculateFullTime: "Please double check the score!\nYou will not be able to cancel the FULL TIME CALCULATION of this match!",
+    DoubleCheckCalculateFullTime: "Please double check the score!\n" +
+                                    "You will not be able to cancel the FULL TIME CALCULATION of this match!",
     CheckAgainCalculateFullTime: "Check again!\nAre you sure you want to CALCULATE only FULL TIME for this match?",
-    DoubleCheckCalculateAll: "Please double check the score and confirm this match is OVER!\nYou will not be able to cancel the CALCULATION and REUSE this match!",
+    DoubleCheckCalculateAll: "Please double check the score and confirm this match is OVER!\n" +
+                             "You will not be able to cancel the CALCULATION and REUSE this match!",
     CheckAgainCalculateAll: "Check again!\nAre you sure you want to CALCULATE this match and it is OVER?",
     DoubleCheckUnCalculate: "Please double check and confirm this match really needs to be UNSETTLED!",
     CheckAgainUnCalculate: "Check again!\nAre you sure you want to UNSETTLE this match?",
@@ -21,7 +24,13 @@ var Languages =
     RefundParlayFullTime: "Are you sure you want to REFUND PARLAY FULL TIME this match?",
     RefundParlayHalfTime: "Are you sure you want to REFUND PARLAY HALFTIME this match?",
     RefundAllFGLG: "Are you sure you want to REFUND All FGLG this match",
+
     RefundAllLastGoal: "Are you sure you want to REFUND All Last Goal this match?",
+    RefundHTFGLG: "Are you sure you want to REFUND HALFTIME FGLG this match?",
+    RefundHTLG: "Are you sure you want to REFUND HALFTIME LG this match?",
+    RefundFTFGLG: "Are you sure you want to REFUND FULLTIME FGLG this match?",
+    RefundFTLG: "Are you sure you want to REFUND FULLTIME LG this match?",
+
     RefundNormalAll: "Are you sure you want to REFUND/CANCEL.\nThis function is only in use when the match cancel?",
     RefundNormalFullTime: "Are you sure you want to REFUND FULLTIME.\nThis function is only in use when the match cancel?",
     RefundNormalHalfTime: "Are you sure you want to REFUND HALFTIME.\nThis function is only in use when the match cancel?",
@@ -31,11 +40,16 @@ var Languages =
     CardInvalid: "Cards is invalid.",
     BallNumberInvalid: "Ball Number is invalid",
     CannotSettleParlay: "You cannot settle Parlay tickets for a unsettled match.",
-    AutoSettlementAll_OFF_to_ON: 'This global switch will trigger "Auto Settlement" of all the matches in the system from this moment onwards. Please be noted that "Auto Settlement" will not have effects on matches which have been settled successfully in IBC.<br/><b>Are you sure you want to turn on the Auto Settlement?</b>',
-    AutoSettlementAll_ON_to_OFF: 'This global switch will sabotage the "Auto Settlement" of all the matches in the system from this moment onwards. Please be noted that "Auto Settlement" switch cannot be turned off completely for matches which there settlement process is ongoing.<br/><b>Are you sure you want to turn off the Auto Settlement?</b>',
-    AutoSettlementSingle_OFF_to_ON: 'Are you sure you want to turn on the Auto Settlement for this match?',
-    AutoSettlementSingle_ON_to_OFF: 'Are you sure you want to turn off the Auto Settlement for this match?',
-    AutoSettlementOutright_OFF_to_ON: 'Are you sure you want to turn on the Auto Settlement for this league?',
-    AutoSettlementOutright_ON_to_OFF: 'Are you sure you want to turn off the Auto Settlement for this league?',
+    AutoSettlementAllOffToOn: "This global switch will trigger \"Auto Settlement\" of all the matches in the system from this moment onwards." +
+                                " Please be noted that \"Auto Settlement\" will not have effects on matches which have been settled successfully in IBC." +
+                                "<br/><b>Are you sure you want to turn on the Auto Settlement?</b>",
+    AutoSettlementAllOnToOff: "This global switch will sabotage the \"Auto Settlement\" of all the matches in the system from this moment onwards." +
+                                " Please be noted that \"Auto Settlement\" switch cannot be turned off" +
+                                " completely for matches which there settlement process is ongoing." +
+                                "<br/><b>Are you sure you want to turn off the Auto Settlement?</b>",
+    AutoSettlementSingleOffToOn: 'Are you sure you want to turn on the Auto Settlement for this match?',
+    AutoSettlementSingleOnToOff: 'Are you sure you want to turn off the Auto Settlement for this match?',
+    AutoSettlementOutrightOffToOn: 'Are you sure you want to turn on the Auto Settlement for this league?',
+    AutoSettlementOutrightOnToOff: 'Are you sure you want to turn off the Auto Settlement for this league?',
     CloseMatch: "Are you sure you want to close this match?"
-}
+};

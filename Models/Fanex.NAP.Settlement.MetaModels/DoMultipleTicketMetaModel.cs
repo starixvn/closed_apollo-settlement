@@ -6,6 +6,8 @@
 
 namespace Fanex.NAP.Settlement.MetaModels
 {
+    using Fanex.NAP.Settlement.Core.Common;
+
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
@@ -34,5 +36,15 @@ namespace Fanex.NAP.Settlement.MetaModels
         /// </summary>
         /// <value>The action type of the multiple ticket.</value>
         public string ActionType { get; set; }
+
+        public int AdminId { get; set; }
+
+        public string IP
+        {
+            get
+            {
+                return Utility.GetClientIP;
+            }
+        }
     }
 }

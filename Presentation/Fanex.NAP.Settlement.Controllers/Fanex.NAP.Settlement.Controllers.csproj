@@ -36,25 +36,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Fanex.BroadcastCommand.Client">
-      <HintPath>..\..\Dependencies\Fanex\Fanex.BroadcastCommand.Client.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BroadcastCommand.Core">
-      <HintPath>..\..\Dependencies\Fanex\Fanex.BroadcastCommand.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BroadcastCommand.Model, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Fanex\Fanex.BroadcastCommand.Model.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Fanex\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Dependencies\Fanex\Fanex.Common.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Fanex\Fanex.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.NAP.Core">
+    <Reference Include="Fanex.NAP.Core, Version=1.0.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Fanex.NAP.Core\Fanex.NAP.Core\Fanex.NAP.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.NAP.Framework">
@@ -99,29 +94,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseController.cs" />
+    <Compile Include="Helper\CalculationHelper.cs" />
     <Compile Include="Settlement\AutoSettlementController.cs" />
     <Compile Include="Settlement\LogController.cs" />
     <Compile Include="Settlement\OutrightController.cs" />
-    <Compile Include="Settlement\SportsbookController.Calc.cs">
-      <DependentUpon>SportsbookController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Settlement\SportsbookController.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="HomeController.cs" />
-    <Compile Include="Settlement\SportsbookController.Refund.cs">
-      <DependentUpon>SportsbookController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TicketController\DoSingleTicketController.Calc.cs">
-      <DependentUpon>DoSingleTicketController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TicketController\DoSingleTicketController.cs" />
-    <Compile Include="TicketController\DoMultipleTicketController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TicketController\DoSingleTicketController.Refund.cs">
-      <DependentUpon>DoSingleTicketController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TicketController\TicketBaseController.cs" />
     <Compile Include="UserControlController.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -141,14 +122,12 @@
       <Project>{9B613BBD-0E3C-4155-A749-39C9EE976DB6}</Project>
       <Name>Fanex.NAP.Settlement.ViewModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Web.csproj">
+    <ProjectReference Include="..\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Core.csproj">
       <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
-      <Name>Fanex.NAP.Settlement.Web</Name>
+      <Name>Fanex.NAP.Settlement.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\PostSharp.3.0.32\tools\PostSharp.targets" Condition="Exists('..\..\packages\PostSharp.3.0.32\tools\PostSharp.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -1,6 +1,7 @@
 ﻿@using System.Web.WebPages.Html
+@using Fanex.NAP.Settlement.Core.Resources
 @using Fanex.NAP.Settlement.DTO
-@using Fanex.NAP.Settlement.DTO.Domain
+@using Fanex.NAP.Settlement.Core.Constants
 @helper BuildDropDownList(IEnumerable<SelectListItem> listItems, IDictionary<string, object> htmlAttributies)
     {
         var id = htmlAttributies.ContainsKey("id") ? "id=" + htmlAttributies["id"] : string.Empty;
@@ -133,5 +134,5 @@
 }
 @helper DisplayScore(int? homeScore, int? awayScore, string seperator = " - ")
     {
-    @homeScore@seperator@awayScore;               
+    @homeScore@seperator@awayScore;
 }

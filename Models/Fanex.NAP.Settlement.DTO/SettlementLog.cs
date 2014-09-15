@@ -15,13 +15,17 @@ namespace Fanex.NAP.Settlement.DTO
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     ///     Match's Log.
     /// </summary>
     public class SettlementLog
     {
+        private string _leagueName = string.Empty;
+        private string _homeName = string.Empty;
+        private string _awayName = string.Empty;
+
         public int MatchId { get; set; }
 
         public int HomeId { get; set; }
@@ -38,7 +42,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return CacheRef.GetLeagueName(this.LeagueId);
+                if (string.IsNullOrWhiteSpace(_leagueName))
+                {
+                    this._leagueName = CacheRef.GetLeagueName(LeagueId);
+                }
+
+                return this._leagueName;
             }
         }
 
@@ -46,7 +55,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return CacheRef.GetTeamName(this.HomeId);
+                if (string.IsNullOrWhiteSpace(_homeName))
+                {
+                    this._homeName = CacheRef.GetTeamName(HomeId);
+                }
+
+                return _homeName;
             }
         }
 
@@ -54,7 +68,12 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                return CacheRef.GetTeamName(this.AwayId);
+                if (string.IsNullOrWhiteSpace(_awayName))
+                {
+                    this._awayName = CacheRef.GetTeamName(AwayId);
+                }
+
+                return _awayName;
             }
         }
 

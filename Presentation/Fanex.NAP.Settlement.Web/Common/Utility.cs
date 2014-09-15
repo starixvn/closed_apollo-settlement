@@ -11,14 +11,13 @@
 //  <change who="Kaden" date="2012.08.06">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.Common
+namespace Fanex.NAP.Settlement.Core.Common
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
-    using Fanex.NAP.Settlement.DTO;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using System.Web;
+    using Fanex.NAP.Settlement.Core.Constants;
+    using Fanex.NAP.Settlement.Core.Resources;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -32,20 +31,25 @@ namespace Fanex.NAP.Settlement.Web.Common
         /// </summary>
         public static readonly Dictionary<byte, string> RefActionStyle = new Dictionary<byte, string>
         {
-           { 1, "calc-notifier act-calc-ref|FG/NG" },
+           { 1, "calc-notifier act-calc-ref|FT FG/NG" },
            { 2, "calc-notifier act-calc-ref|HT" },
            { 3, "calc-notifier act-calc-ref|FT" },
            { 4, "calc-notifier act-calc-ref|All" },
            { 5, "calc-notifier act-parlay-ref|Parlay" },
            { 6, "calc-notifier act-recalc|Re-Calc" },
+           { 7, "calc-notifier act-calc-ref|1H FG/NG" },
            { 11, "calc-notifier rf|HT" },
            { 12, "calc-notifier rf|FT" },
            { 13, "calc-notifier rf|All" },
            { 14, "calc-notifier rf|Parlay HT" },
            { 15, "calc-notifier rf|Parlay FT" },
            { 16, "calc-notifier rf|Parlay All" },
-           { 17, "calc-notifier rf|All FGLG" },
-           { 18, "calc-notifier rf|All LG" },
+           { 17, "calc-notifier rf|FT FGLG" },
+           { 18, "calc-notifier rf|FT LG" },
+           { 19, "calc-notifier rf|HT FGLG" },
+           { 20, "calc-notifier rf|All FGLG" },
+           { 21, "calc-notifier rf|HT LG" },
+           { 22, "calc-notifier rf|All LG" },
            { 0, "calc-notifier unsettle act-calc-ref|Uncalculate" }
         };
 
@@ -83,6 +87,14 @@ namespace Fanex.NAP.Settlement.Web.Common
                 { Convert.ToInt32("1010010", 2), "pending" },
                 { Convert.ToInt32("1000000", 2), "pending" }
             };
+
+        public static string GetClientIP
+        {
+            get
+            {
+                return HttpContext.Current.Request.IsLocal ? "127.0.0.1" : Convert.ToString(HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+            }
+        }
 
         /// <summary>
         ///     Map event status.
@@ -146,28 +158,6 @@ namespace Fanex.NAP.Settlement.Web.Common
         public static string GetNickNameConfirm(string value)
         {
             return string.IsNullOrEmpty(value) ? "-" : value;
-        }
-
-        /// <summary>
-        ///     Set background column.
-        /// </summary>
-        /// <param name="value">Status value.</param>
-        /// <param name="backgroundColor">Background value.</param>
-        /// <returns>Return background.</returns>
-        public static string BackgroundColor(object value, string backgroundColor)
-        {
-            return Convert.ToBoolean(value) ? backgroundColor : string.Empty;
-        }
-
-        /// <summary>
-        ///     Set background event status column.
-        /// </summary>
-        /// <param name="status">Event status.</param>
-        /// <param name="pending">Status pending.</param>
-        /// <returns>Return background.</returns>
-        public static string BackgroundColorEventStatus(string status, object pending)
-        {
-            return status.ToLower() == PostPoned ? Background.Postponed : BackgroundColor(pending, Background.Pending);
         }
 
         /// <summary>
@@ -285,7 +275,7 @@ namespace Fanex.NAP.Settlement.Web.Common
         /// </summary>
         /// <param name="faildActionId">Action Id.</param>
         /// <returns>Return action value.</returns>
-        private static string GetAction(byte? faildActionId)
+        public static string GetAction(byte? faildActionId)
         {
             switch (faildActionId)
             {
@@ -301,6 +291,8 @@ namespace Fanex.NAP.Settlement.Web.Common
                     return ViewResources.CalculateAll;
                 case ConfirmedAction.CalMixParlay:
                     return ViewResources.CalcMixParlay;
+                case ConfirmedAction.CalculateHTFGNG:
+                    return ViewResources.CalculateHTFGNG;
                 case ConfirmedAction.RefundFT:
                     return ViewResources.RefundFT;
                 case ConfirmedAction.RefundHT:
@@ -313,10 +305,18 @@ namespace Fanex.NAP.Settlement.Web.Common
                     return ViewResources.RefundMultiFT;
                 case ConfirmedAction.RefundParlayAll:
                     return ViewResources.RefundMultiAll;
+                case ConfirmedAction.RefundFTFGLG:
+                    return ViewResources.RefundFTFGLG;
+                case ConfirmedAction.RefundFTLG:
+                    return ViewResources.RefundFTLG;
+                case ConfirmedAction.RefundHTFGLG:
+                    return ViewResources.RefundHTFGLG;
                 case ConfirmedAction.RefundAllFGLG:
                     return ViewResources.RefundAllFGLG;
+                case ConfirmedAction.RefundHTLG:
+                    return ViewResources.RefundHTLG;
                 case ConfirmedAction.RefundAllLG:
-                    return ViewResources.RefundAllLastGoal;
+                    return ViewResources.RefundAllLG;
                 case ConfirmedAction.UpdateEventStatus:
                     return ViewResources.UpdateEventStatus;
                 case ConfirmedAction.UpdateTicket:

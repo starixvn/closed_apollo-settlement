@@ -1,7 +1,7 @@
-﻿/// <reference path="../libraries/01.jquery.js" />
-/// <reference path="81.global.js" />
+﻿/*global DialogBox, Site, Languages, Validators*/
 
 var SettlementLog = (function ($) {
+    "use strict";
     return {
         init: function () {
             Site.unBlockUI();
@@ -36,17 +36,17 @@ var SettlementLog = (function ($) {
         },
         refreshDate: function (id) {
             var date;
-            if (id == SettlementLog.FromDate) {
+            if (id === SettlementLog.FromDate) {
                 date = $("#OriginalFromDate").val();
             }
-            else if (id == SettlementLog.ToDate) {
+            else if (id === SettlementLog.ToDate) {
                 date = $("#OriginalToDate").val();
             }
             id.val(date);
         },
         // Event Submit
         submitForm: function () {
-            if ($("#MatchCode").val() == "") {
+            if ($("#MatchCode").val() === "") {
                 Validators.show("MatchCode", Languages.InputMatchCode, true);
                 return false;
             }
@@ -60,7 +60,7 @@ var SettlementLog = (function ($) {
             var matchinfo = document.getElementById("matchBlock" + id);
             var btnRight = document.getElementById("btnRight" + id);
 
-            if (matchinfo.className.length == 0) {
+            if (matchinfo.className.length === 0) {
                 matchinfo.className = "hide";
 
                 $(btnRight).removeClass("btn-right").addClass("btn-right-up");

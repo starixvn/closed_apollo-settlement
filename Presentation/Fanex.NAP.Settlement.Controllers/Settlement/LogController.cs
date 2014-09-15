@@ -13,11 +13,11 @@
 namespace Fanex.NAP.Settlement.Controllers.Settlement
 {
     using System.Web.Mvc;
-    using Core.Web.Attribute;
     using DTO.Configuration;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Settlement.Core.Configuration;
     using Fanex.NAP.Settlement.Services.Implement;
     using Fanex.NAP.Settlement.Services.Interface;
-    using Fanex.NAP.Settlement.Web.Configuration;
     using MetaModels;
     using ViewModels;
 
@@ -118,7 +118,7 @@ namespace Fanex.NAP.Settlement.Controllers.Settlement
         /// <param name="sportId">SportType Id.</param>
         /// <returns>Return action result.</returns>
         [HttpGet]
-        public ActionResult ReferenceActions(int matchId, int sportId)
+        public ActionResult ReferenceActions(int matchId, byte sportId)
         {
             var listAction = this._calculateService.GetListConfirmedAction(matchId);
             var match = this._calculateService.GetMatchDetail(matchId, true);

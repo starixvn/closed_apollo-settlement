@@ -146,7 +146,7 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
             var uspName = "Dot_Admin_SettleOutright_Event";
 
             var p = new Hashtable();
-            p.Add("creator", request.Creator);
+            p.Add("adminid", request.AdminId);
             p.Add("matchid", request.MatchId);
             p.Add("status", request.Status);
             p.Add("isdeadheat", request.IsDeadheat);
@@ -181,7 +181,7 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
             var uspName = "Dot_Admin_SettleOutright_Trans";
 
             var p = new Hashtable();
-            p.Add("creator", request.Creator);
+            p.Add("adminid", request.AdminId);
             p.Add("matchid", request.MatchId);
             p.Add("status", request.Status);
             p.Add("deadheat", request.DeadHeat);
@@ -216,7 +216,7 @@ namespace Fanex.NAP.Settlement.DataAccess.Implement
             var uspName = "Admin_AutoSettlement_UpdateFlagOutright";
 
             var p = new Hashtable();
-            p.Add("creator", request.Creator);
+            p.Add("adminid", request.AdminId);
             p.Add("leagueid", request.LeagueId);
             p.Add("isturnon", request.IsTurnOn);
             p.Add("ip", request.IP);

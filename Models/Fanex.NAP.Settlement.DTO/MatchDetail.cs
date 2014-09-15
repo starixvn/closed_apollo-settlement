@@ -13,14 +13,14 @@
 
 namespace Fanex.NAP.Settlement.DTO
 {
+    using System;
+
     /// <summary>
     ///     TODO: Update summary.
     /// </summary>
     public class MatchDetail : Match
     {
         #region Calculation Information
-
-        public bool IsExistFgLg { get; set; }
 
         public bool IsExistLG { get; set; }
 
@@ -35,6 +35,22 @@ namespace Fanex.NAP.Settlement.DTO
         public int ConfirmFt { get; set; }
 
         public int ConfirmHt { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether.
+        /// </summary>
+        /// <value>Is exist half time last goal.</value>
+        public bool IsExistHTLG { get; set; }
+
+        public bool IsAlreadyRefundHT
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(BetStatus)
+                    ? false
+                    : BetStatus.IndexOf(Core.Constants.EventStatus.RefundHT, StringComparison.OrdinalIgnoreCase) > -1 ? true : false;
+            }
+        }
 
         #endregion Calculation Information
     }

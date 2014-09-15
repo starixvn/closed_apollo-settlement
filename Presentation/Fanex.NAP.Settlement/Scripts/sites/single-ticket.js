@@ -1,229 +1,294 @@
-﻿var DoSingleTicket = (function ($) {
-	return {
-		// Check input value
-		checkInputValue: function (sportId) {
-			switch (sportId) {
-				case 1:     // soccer
-				case 7:     // billiard
-				case 10:    // golf
-				case 11:    // motorsports
-					return true;
+﻿/*global CalcPopup, Languages, Site*/
+var DoSingleTicket = (function ($) {
+    "use strict";
+    return {
+        // Check input value
+        checkInputValue: function (sportId) {
+            switch (sportId) {
+                case 1:     // soccer
+                case 7:     // billiard
+                case 10:    // golf
+                case 11:    // motorsports
+                    return true;
 
-				case 2:     // basketball
-				case 3:     // football
-				case 26:    // rugby
-				case 32:    // netball
-					return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q']);
+                case 2:     // basketball
+                case 3:     // football
+                case 26:    // rugby
+                case 32:    // netball
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q']);
 
-				case 4:     // ice hockey
-				case 28:    // field hockey
-					return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxAway1Q',
-                        'TextBoxAway2Q', 'TextBoxAway3Q']);
+                case 4:     // ice hockey
+                case 28:    // field hockey
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Away1Q',
+                        'Away2Q', 'Away3Q']);
 
-				case 5:     // tennis
-					return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxHome5Q', 'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q',
-                        'TextBoxAway5Q']);
+                case 5:     // tennis
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Home5Q', 'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q',
+                        'Away5Q']);
 
-				case 8:     // baseball
-					return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxHome5Q', 'TextBoxHome6Q', 'TextBoxHome7Q', 'TextBoxHome8Q', 'TextBoxHome9Q',
-                        'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q', 'TextBoxAway5Q',
-                        'TextBoxAway6Q', 'TextBoxAway7Q', 'TextBoxAway8Q', 'TextBoxAway9Q']);
+                case 8:     // baseball
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Home5Q', 'Home6Q', 'Home7Q', 'Home8Q', 'Home9Q',
+                        'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q', 'Away5Q',
+                        'Away6Q', 'Away7Q', 'Away8Q', 'Away9Q']);
 
-				case 6:     // volleyball
-				case 9:     // badminton
-					return Site.isValidScore(['TextBoxHome1Q', 'TextBoxHome2Q', 'TextBoxHome3Q', 'TextBoxHome4Q',
-                        'TextBoxHome5Q', 'TextBoxAway1Q', 'TextBoxAway2Q', 'TextBoxAway3Q', 'TextBoxAway4Q',
-                        'TextBoxAway5Q']);
+                case 6:     // volleyball
+                case 9:     // badminton
+                    return Site.isValidScore(['Home1Q', 'Home2Q', 'Home3Q', 'Home4Q',
+                        'Home5Q', 'Away1Q', 'Away2Q', 'Away3Q', 'Away4Q',
+                        'Away5Q']);
 
-				default:
-					return true;
-			}
-		},
+                default:
+                    return true;
+            }
+        },
 
-		// is exist first goal and last goal
-		checkValueGoalRecord: function (type, sportId) {
-			// only check for soccer and FT or ALL
-			if (sportId == 1 && (type == Type.CalculateAll || type == Type.CalculateFullTime
-				|| type == Type.CalculateFgNg)) {
-				var goalRecord = $('#GoalRecord').val().toLowerCase();
-				var homeF = ($('#TextBoxFinalHomeScore').val() == 0) ? 0 : parseInt($('#TextBoxFinalHomeScore').val());
-				var awayF = ($('#TextBoxFinalAwayScore').val() == 0) ? 0 : parseInt($('#TextBoxFinalAwayScore').val());
-				var homeH = ($('#TextBoxHtHomeScore').val() == 0) ? 0 : parseInt($('#TextBoxHtHomeScore').val());
-				var awayH = ($('#TextBoxHtAwayScore').val() == 0) ? 0 : parseInt($('#TextBoxHtAwayScore').val());
+        // is exist first goal and last goal
+        checkValueGoalRecord: function (type, sportId) {
+            // only check for soccer and FT or ALL
+            if (sportId === 1) {
+                if (type === Type.CalculateAll || type === Type.CalculateFullTime || type === Type.CalculateFgNg) {
+                    return DoSingleTicket.isGoalRecordExist(type);
+                } else if (type === Type.CalculateHalfTime) {
+                    return DoSingleTicket.isHalfTimeGoalRecordConsist();
+                }
+            }
 
-				if (type == Type.CalculateFgNg) {
-					if (homeH > homeF || awayH > awayF) {
-						homeF = homeH;
-						awayF = awayH;
-					}
-				}
-				var isLive = $('#IsLive').val() == 'True';
-				var isHedge = $('#MatchCode').val().toLowerCase().indexOf('hedge') >= 0;
-				var isExistFgLg = $('#IsExistFgLg').val() == 'True';
+            return true;
+        },
 
-				if (!isHedge && isExistFgLg) {
-					if (isLive) {
-						if ((homeF + awayF) != goalRecord.length || Site.replaceAll(goalRecord, 'a', '').length != homeF) {
-							Site.showErrorMessage(Languages.GoalRecordNotConsistent);
-							return false;
-						}
-					} else {
-						if (homeF < 0 || awayF < 0) {
-							Site.showErrorMessage(Languages.GoalRecordNotConsistent);
-							return false;
-						}
+        isHalfTimeGoalRecordConsist: function () {
+            var isExistHtFgLg = $('#IsExistHtFgLg').val().toLowerCase() === 'true' ? true : false;
+            if (isExistHtFgLg) {
+                var goalRecord = $('#GoalRecord').val().toLowerCase();
+                var halfTimeGoalRecord = goalRecord.indexOf(';') < 0 ? goalRecord : goalRecord.slice(0, goalRecord.indexOf(';'));
 
-						if (homeF + awayF != goalRecord.length) {
-							Site.showErrorMessage(Languages.GoalRecordNotConsistent);
-							return false;
-						}
+                var homeH = ($('#HtHomeScore').val() === "" || $('#HtHomeScore').val() === 0) ? 0 : parseInt($('#HtHomeScore').val());
+                var awayH = ($('#HtAwayScore').val() === "" || $('#HtAwayScore').val() === 0) ? 0 : parseInt($('#HtAwayScore').val());
+                var isLive = $('#IsLive').val() === 'True';
 
-						if (goalRecord.length > 0) {
-							var goalRecordTrimH = Site.replaceAll(goalRecord, 'h', '');
-							var goalRecordTrimA = Site.replaceAll(goalRecord, 'a', '');
+                if (isLive) {
+                    if ((homeH + awayH) !== halfTimeGoalRecord.length || Site.replaceAll(halfTimeGoalRecord, 'a', '').length !== homeH) {
+                        Site.showErrorMessage(Languages.HalfTimeGoalRecordNotConsistent);
+                        return false;
+                    }
+                } else {
+                    if (homeH < 0 || awayH < 0) {
+                        Site.showErrorMessage(Languages.HalfTimeGoalRecordNotConsistent);
+                        return false;
+                    }
 
-							if (goalRecordTrimA.length != homeF || goalRecordTrimH.length != awayF) {
-								Site.showErrorMessage(Languages.GoalRecordNotConsistent);
-								return false;
-							}
-						}
-					}
-				}
-			}
-			return true;
-		},
+                    if (homeH + awayH !== halfTimeGoalRecord.length) {
+                        Site.showErrorMessage(Languages.HalfTimeGoalRecordNotConsistent);
+                        return false;
+                    }
 
-		// Do calculation
-		doCalculate: function (type, ext) {
-			var sportId = parseInt($("#SportId").val());
+                    if (halfTimeGoalRecord.length > 0) {
+                        var goalRecordTrimH = Site.replaceAll(halfTimeGoalRecord, 'h', '');
+                        var goalRecordTrimA = Site.replaceAll(halfTimeGoalRecord, 'a', '');
 
-			// Exist first goal and last goal
-			if (!DoSingleTicket.checkValueGoalRecord(type, sportId)) {
-				return false;
-			}
+                        if (goalRecordTrimA.length !== homeH || goalRecordTrimH.length !== awayH) {
+                            Site.showErrorMessage(Languages.HalfTimeGoalRecordNotConsistent);
+                            return false;
+                        }
+                    }
+                }
+            }
 
-			var messageFirst = "";
-			var messageSecond = "";
+            return true;
+        },
+        isSuspendHalfTime: function (goalRecord) {
+            var homeH = $('#HtHomeScore').val();
+            var awayH = $('#HtAwayScore').val();
+            var hasSemicolon = goalRecord.indexOf(";") > -1 ? true : false;
+            var isAlreadyRefundHT = $('#IsAlreadyRefundHT').val();
 
-			switch (type) {
-				case Type.CalculateHalfTime:
-					if (!CalcPopup.isInputScoreDirectly && !DoSingleTicket.checkInputValue(sportId)) {
-						$("#messageBox").show();
-						return false;
-					}
-					var message = "";
-					if ($('#IsAlreadyRefundHT').val().toLowerCase() == 'true') {
-						message = Languages.AlreadyRefundHT;
-					}
-					message += Languages.DoubleCheckCalculateHalfTime;
-					messageFirst = Languages.Warning + message;
-					messageSecond = Languages.CheckAgainCalculateHalfTime;
-					break;
-				case Type.CalculateFullTime:
-					if (!CalcPopup.isInputScoreDirectly && !DoSingleTicket.checkInputValue(sportId)) {
-						$("#messageBox").show();
-						return false;
-					}
-					messageFirst = Languages.Warning + Languages.DoubleCheckCalculateFullTime;
-					messageSecond = Languages.CheckAgainCalculateFullTime;
-					break;
-				case Type.CalculateAll:
-					if (!CalcPopup.isInputScoreDirectly && !DoSingleTicket.checkInputValue(sportId)) {
-						$("#messageBox").show();
-						return false;
-					}
-					messageFirst = Languages.Warning + Languages.DoubleCheckCalculateAll;
-					messageSecond = Languages.CheckAgainCalculateAll;
-					break;
+            if ((homeH !== "" || awayH !== "" || hasSemicolon)  && !isAlreadyRefundHT) {
+                return false;
+            }
 
-				case Type.CalculateFgNg:
-					messageFirst = Languages.CalculateFirstGoalAndNoGoal;
-					break;
-				case Type.UnCalculate:
-					messageFirst = Languages.Warning + Languages.DoubleCheckUnCalculate;
-					messageSecond = Languages.CheckAgainUnCalculate;
-					break;
-			}
-			$("#messageBox").hide();
-			confirm(messageFirst, function () {
-				if (messageSecond.length > 1) {
-					confirm(messageSecond, function () {
-						DoSingleTicket.doCalculateSubmit(type);
-						return true;
-					});
-					return false;
-				}
-				else {
-					DoSingleTicket.doCalculateSubmit(type);
-					return true;
-				}
-			});
-			return false;
-		},
+            return true;
+        },
+        isGoalRecordExist: function (type) {
+            var goalRecord = $('#GoalRecord').val().toLowerCase();
+            var fullTimeGoalRecord = goalRecord.replace(';', '');
 
-		// Do Calculate
-		doCalculateSubmit: function (type) {
-			var url;
-			$('#ActionType').val(type);
+            var homeF = ($('#FinalHomeScore').val() === "" || $('#FinalHomeScore').val() === 0) ? 0 : parseInt($('#FinalHomeScore').val());
+            var awayF = ($('#FinalAwayScore').val() === "" || $('#FinalAwayScore').val() === 0) ? 0 : parseInt($('#FinalAwayScore').val());
+            var homeH = ($('#HtHomeScore').val() === "" || $('#HtHomeScore').val() === 0) ? 0 : parseInt($('#HtHomeScore').val());
+            var awayH = ($('#HtAwayScore').val() === "" || $('#HtAwayScore').val() === 0) ? 0 : parseInt($('#HtAwayScore').val());
 
-			if (type == Type.UnCalculate) {
-				url = "DoSingleTicket/UnCalculate";
-			} else {
-				url = "DoSingleTicket/Calculate";
-			}
-			Site.blockUI();
-			$.ajax({
-				type: 'POST',
-				async: true,
-				url: Site.getAbsoluteUrl(url),
-				data: $("#frm-calculate").serialize(),
-				success: function (result) {
-					DoSingleTicket.resultCalculate(result);
-				},
-				error: function () {
-					alert(Languages.SystemError);
-				},
-				complete: function () {
-					Site.unBlockUI();
-				}
-			});
-		},
+            if (type === Type.CalculateFgNg) {
+                if (homeH > homeF || awayH > awayF) {
+                    homeF = homeH;
+                    awayF = awayH;
+                }
+            }
+            var isLive = $('#IsLive').val() === 'True';
+            var isExistFgLg = $('#IsExistFgLg').val() === 'True';
 
-		// Do Refund
-		doRefundSubmit: function (type) {
-			var url;
-			$('#ActionType').val(type);
-			url = "DoSingleTicket/Refund";
+            if (!DoSingleTicket.isSuspendHalfTime(goalRecord)) {
+                if (!DoSingleTicket.isHalfTimeGoalRecordConsist()) {
+                    return false;
+                }
+            }
 
-			Site.blockUI();
-			$.ajax({
-				type: 'POST',
-				async: true,
-				url: Site.getAbsoluteUrl(url),
-				data: $("#frm-calculate").serialize(),
-				success: function (result) {
-					DoSingleTicket.resultCalculate(result);
-				},
-				error: function () {
-					alert(Languages.SystemError);
-				},
-				complete: function () {
-					Site.unBlockUI();
-				}
-			});
-		},
+            if (isExistFgLg) {
+                if (isLive) {
+                    if ((homeF + awayF) !== fullTimeGoalRecord.length || Site.replaceAll(fullTimeGoalRecord, 'a', '').length !== homeF) {
+                        Site.showErrorMessage(Languages.GoalRecordNotConsistent);
+                        return false;
+                    }
+                } else {
+                    if (homeF < 0 || awayF < 0) {
+                        Site.showErrorMessage(Languages.GoalRecordNotConsistent);
+                        return false;
+                    }
 
-		resultCalculate: function (result) {
-			if (!result.IsSuccessful) {
-				Site.showErrorMessage(result.ErrorMessage);
-			}
-			else {
-				parent.DialogBox.closePopup();
-				parent.Calculate.submitForm();
-			}
-		}
-	};
+                    if (homeF + awayF !== fullTimeGoalRecord.length) {
+                        Site.showErrorMessage(Languages.GoalRecordNotConsistent);
+                        return false;
+                    }
+
+                    if (fullTimeGoalRecord.length > 0) {
+                        var goalRecordTrimH = Site.replaceAll(fullTimeGoalRecord, 'h', '');
+                        var goalRecordTrimA = Site.replaceAll(fullTimeGoalRecord, 'a', '');
+
+                        if (goalRecordTrimA.length !== homeF || goalRecordTrimH.length !== awayF) {
+                            Site.showErrorMessage(Languages.GoalRecordNotConsistent);
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        },
+
+        // Do calculation
+        doCalculate: function (type) {
+            var sportId = parseInt($("#SportId").val());
+
+            // Exist first goal and last goal
+            if (!DoSingleTicket.checkValueGoalRecord(type, sportId)) {
+                return false;
+            }
+
+            var messageFirst = "";
+            var messageSecond = "";
+
+            switch (type) {
+                case Type.CalculateHalfTime:
+                    if (!CalcPopup.isInputScoreDirectly && !DoSingleTicket.checkInputValue(sportId)) {
+                        $("#messageBox").show();
+                        return false;
+                    }
+                    messageFirst = Languages.Warning + Languages.DoubleCheckCalculateHalfTime;
+                    messageSecond = Languages.CheckAgainCalculateHalfTime;
+                    break;
+                case Type.CalculateFullTime:
+                    if (!CalcPopup.isInputScoreDirectly && !DoSingleTicket.checkInputValue(sportId)) {
+                        $("#messageBox").show();
+                        return false;
+                    }
+                    messageFirst = Languages.Warning + Languages.DoubleCheckCalculateFullTime;
+                    messageSecond = Languages.CheckAgainCalculateFullTime;
+                    break;
+                case Type.CalculateAll:
+                    if (!CalcPopup.isInputScoreDirectly && !DoSingleTicket.checkInputValue(sportId)) {
+                        $("#messageBox").show();
+                        return false;
+                    }
+                    messageFirst = Languages.Warning + Languages.DoubleCheckCalculateAll;
+                    messageSecond = Languages.CheckAgainCalculateAll;
+                    break;
+
+                case Type.CalculateFgNg:
+                    messageFirst = Languages.CalculateFirstGoalAndNoGoal;
+                    break;
+                case Type.UnCalculate:
+                    messageFirst = Languages.Warning + Languages.DoubleCheckUnCalculate;
+                    messageSecond = Languages.CheckAgainUnCalculate;
+                    break;
+            }
+            $("#messageBox").hide();
+            confirm(messageFirst, function () {
+                if (messageSecond.length > 1) {
+                    confirm(messageSecond, function () {
+                        DoSingleTicket.doCalculateSubmit(type);
+                        return true;
+                    });
+                    return false;
+                }
+                else {
+                    DoSingleTicket.doCalculateSubmit(type);
+                    return true;
+                }
+            });
+            return false;
+        },
+
+        // Do Calculate
+        doCalculateSubmit: function (type) {
+            var url;
+            $('#ActionType').val(type);
+
+            if (type === Type.UnCalculate) {
+                url = "Sportsbook/UnCalculate";
+            } else {
+                url = "Sportsbook/Calculate";
+            }
+            Site.blockUI();
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: Site.getAbsoluteUrl(url),
+                data: $("#frm-calculate").serialize(),
+                success: function (result) {
+                    DoSingleTicket.resultCalculate(result);
+                },
+                error: function () {
+                    alert(Languages.SystemError);
+                },
+                complete: function () {
+                    Site.unBlockUI();
+                }
+            });
+        },
+
+        // Do Refund
+        doRefundSubmit: function (type) {
+            var url;
+            $('#ActionType').val(type);
+            url = "Sportsbook/Refund";
+
+            Site.blockUI();
+            $.ajax({
+                type: 'POST',
+                async: true,
+                url: Site.getAbsoluteUrl(url),
+                data: $("#frm-calculate").serialize(),
+                success: function (result) {
+                    DoSingleTicket.resultCalculate(result);
+                },
+                error: function () {
+                    alert(Languages.SystemError);
+                },
+                complete: function () {
+                    Site.unBlockUI();
+                }
+            });
+        },
+
+        resultCalculate: function (result) {
+            if (!result.IsSuccessful) {
+                Site.showErrorMessage(result.ErrorMessage);
+            }
+            else {
+                parent.DialogBox.closePopup();
+                parent.Calculate.submitForm();
+            }
+        }
+    };
 } (jQuery));

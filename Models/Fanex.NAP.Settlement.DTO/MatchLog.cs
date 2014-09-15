@@ -14,7 +14,7 @@
 namespace Fanex.NAP.Settlement.DTO
 {
     using System;
-    using Fanex.NAP.Settlement.DTO.Domain;
+    using Fanex.NAP.Settlement.Core.Constants;
 
     /// <summary>
     /// Class MatchLog.
@@ -55,6 +55,10 @@ namespace Fanex.NAP.Settlement.DTO
 
         public int? FinalAwayScore { get; set; }
 
+        public bool IsExistHTFGLG { get; set; }
+
+        public bool IsExistFGLG { get; set; }
+
         #endregion Match Score
 
         #region Extra Property
@@ -63,16 +67,19 @@ namespace Fanex.NAP.Settlement.DTO
         {
             get
             {
-                if (this._betStatusAccess == null)
+                if (!Convert.IsDBNull(BetStatus) && !string.IsNullOrEmpty(BetStatus) && this.ActionId < 11)
                 {
-                    if (!Convert.IsDBNull(this.BetStatus) && !string.IsNullOrWhiteSpace(this.BetStatus) && this.ActionId < 11)
-                    {
-                        this._betStatusAccess = new BetStatusAccess(this.GroupSport, this.BetStatus);
-                    }
-                    else
-                    {
-                        this._betStatusAccess = new BetStatusAccess();
-                    }
+                    _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, false);
+                }
+                else if (!string.IsNullOrWhiteSpace(GoalRecord) && this.ActionId < 11)
+                {
+                    var isFinalScore = FinalAwayScore != null && FinalHomeScore != null;
+
+                    _betStatusAccess = new BetStatusAccess(GroupSport, BetStatus, IsExistFGLG, IsExistHTFGLG, GoalRecord, isFinalScore);
+                }
+                else
+                {
+                    _betStatusAccess = new BetStatusAccess();
                 }
 
                 return this._betStatusAccess;
@@ -132,16 +139,26 @@ namespace Fanex.NAP.Settlement.DTO
             switch (this.ActionId)
             {
                 case ConfirmedAction.CalHT:
-                    return string.Join("-", this.HtHomeScore, this.HtAwayScore);
-
                 case ConfirmedAction.CalFT:
-                    return string.Join(" ; ", string.Join("-", this.FinalHomeScore, this.FinalAwayScore), this.GoalRecord.ToUpper());
-
                 case ConfirmedAction.CalAll:
                 case ConfirmedAction.CalFGNG:
+                case ConfirmedAction.CalculateHTFGNG:
                     var halfTimeScore = string.Join("-", this.HtHomeScore, this.HtAwayScore);
                     var finalScore = string.Join("-", this.FinalHomeScore, this.FinalAwayScore);
-                    return string.Join(" ; ", halfTimeScore, finalScore, this.GoalRecord.ToUpper());
+                    if (!string.IsNullOrWhiteSpace(halfTimeScore) && !string.IsNullOrWhiteSpace(finalScore))
+                    {
+                        return string.Join(" ; ", halfTimeScore, finalScore, this.GoalRecord.ToUpper());
+                    }
+                    else if (!string.IsNullOrWhiteSpace(halfTimeScore))
+                    {
+                        return string.Join(" ; ", halfTimeScore, this.GoalRecord.ToUpper());
+                    }
+                    else if (!string.IsNullOrWhiteSpace(finalScore))
+                    {
+                        return string.Join(" ; ", halfTimeScore, this.GoalRecord.ToUpper());
+                    }
+                    else
+                        return this.GoalRecord.ToUpper();
 
                 default:
                     return string.Empty;
@@ -200,9 +217,11 @@ namespace Fanex.NAP.Settlement.DTO
                 case ConfirmedAction.CalHT:
                     result = string.Join("-", this.HtHomeScore, this.HtAwayScore);
                     break;
+
                 case ConfirmedAction.CalFT:
                     result = string.Join("-", this.FinalHomeScore, this.FinalAwayScore);
                     break;
+
                 case ConfirmedAction.CalAll:
                     var home = string.Join("-", this.HtHomeScore, this.HtAwayScore);
                     var away = string.Join("-", this.FinalHomeScore, this.FinalAwayScore);

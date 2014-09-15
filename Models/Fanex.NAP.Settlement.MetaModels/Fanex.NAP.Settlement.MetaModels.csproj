@@ -60,6 +60,10 @@
     <Compile Include="RefundMetaModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Presentation\Fanex.NAP.Settlement.Web\Fanex.NAP.Settlement.Core.csproj">
+      <Project>{11FF2D81-437F-415E-8E48-68E21AECE565}</Project>
+      <Name>Fanex.NAP.Settlement.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.NAP.Settlement.DTO\Fanex.NAP.Settlement.DTO.csproj">
       <Project>{7CEA4A9C-3ADD-4DA6-97EF-D5939F4C0DF3}</Project>
       <Name>Fanex.NAP.Settlement.DTO</Name>

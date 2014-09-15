@@ -110,13 +110,11 @@ namespace Fanex.NAP.Settlement.Services.Interface
 
         #region Excute Calculate or Refund match
 
-        /// <summary>
-        /// Submit action calculate.
-        /// </summary>
-        /// <param name="parameters">The parameters.</param>
-        /// <param name="type">Action type.</param>
-        /// <returns>Return result.</returns>
-        IResult Calculate(Hashtable parameters, string type);
+        IResult Calculate(DoSingleTicketMetaModel criteria, string action, bool isHalfTimeCalculate);
+
+        IResult CalculateMultiple(DoMultipleTicketMetaModel criteria);
+
+        IResult Refund(DoSingleTicketMetaModel criteria);
 
         #endregion Excute Calculate or Refund match
 

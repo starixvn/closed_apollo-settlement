@@ -11,15 +11,15 @@
 //  <change who="Kaden" date="2012.10.29">Created</change>
 // </history>
 
-namespace Fanex.NAP.Settlement.Web.HtmlExtension
+namespace Fanex.NAP.Settlement.Core.HtmlExtension
 {
     using System;
     using System.Globalization;
     using System.Web.Mvc;
     using System.Web.Routing;
-    using Fanex.NAP.Settlement.DTO;
-    using Fanex.NAP.Settlement.DTO.Domain;
-    using Fanex.NAP.Settlement.Web.Common;
+    using Fanex.NAP.Settlement.Core.Common;
+    using Fanex.NAP.Settlement.Core.Constants;
+    using Fanex.NAP.Settlement.Core.Resources;
 
     /// <summary>
     ///     TODO: Update summary.
@@ -80,52 +80,9 @@ namespace Fanex.NAP.Settlement.Web.HtmlExtension
         /// <returns>Action name.</returns>
         public static MvcHtmlString ActionName(this HtmlHelper htmlHelper, byte actionId)
         {
-            switch (actionId)
-            {
-                case ConfirmedAction.UnCal:
-                    return MvcHtmlString.Create(ViewResources.Uncalculate);
+            var action = Utility.GetAction(actionId);
 
-                case ConfirmedAction.CalFGNG:
-                    return MvcHtmlString.Create(ViewResources.CalculateFGAndNG);
-
-                case ConfirmedAction.CalHT:
-                    return MvcHtmlString.Create(ViewResources.CalculateHT);
-
-                case ConfirmedAction.CalFT:
-                    return MvcHtmlString.Create(ViewResources.CalculateFT);
-
-                case ConfirmedAction.CalAll:
-                    return MvcHtmlString.Create(ViewResources.CalculateAll);
-
-                case ConfirmedAction.CalMixParlay:
-                    return MvcHtmlString.Create(ViewResources.CalcMixParlay);
-
-                case ConfirmedAction.RefundFT:
-                    return MvcHtmlString.Create(ViewResources.RefundFT);
-
-                case ConfirmedAction.RefundHT:
-                    return MvcHtmlString.Create(ViewResources.RefundHT);
-
-                case ConfirmedAction.RefundAll:
-                    return MvcHtmlString.Create(ViewResources.RefundAll);
-
-                case ConfirmedAction.RefundParlayHT:
-                    return MvcHtmlString.Create(ViewResources.RefundMultiHT);
-
-                case ConfirmedAction.RefundParlayFT:
-                    return MvcHtmlString.Create(ViewResources.RefundMultiFT);
-
-                case ConfirmedAction.RefundParlayAll:
-                    return MvcHtmlString.Create(ViewResources.RefundMultiAll);
-
-                case ConfirmedAction.RefundAllFGLG:
-                    return MvcHtmlString.Create(ViewResources.RefundAllFGLG);
-
-                case ConfirmedAction.RefundAllLG:
-                    return MvcHtmlString.Create(ViewResources.RefundAllLastGoal);
-            }
-
-            return MvcHtmlString.Create(string.Empty);
+            return MvcHtmlString.Create(action);
         }
 
         /// <summary>

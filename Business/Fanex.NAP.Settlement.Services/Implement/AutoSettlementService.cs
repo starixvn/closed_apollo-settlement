@@ -35,12 +35,12 @@ namespace Fanex.NAP.Settlement.Services.Implement
         /// <summary>
         /// Update status AutoSettlement.
         /// </summary>
-        /// <param name="creator">Creator by.</param>
+        /// <param name="adminId">AdminId by.</param>
         /// <param name="matchId">Match Id parameter.</param>
         /// <param name="turnOn">Turn on parameter.</param>
         /// <param name="ip">Internet protocol.</param>
         /// <returns>Return result.</returns>
-        public IResult UpdateStatusAutoSettlement(int creator, int matchId, bool turnOn, string ip)
+        public IResult UpdateStatusAutoSettlement(int adminId, int matchId, bool turnOn, string ip)
         {
             IResult result = new Result();
             if (matchId > 0)
@@ -59,7 +59,7 @@ namespace Fanex.NAP.Settlement.Services.Implement
                 }
             }
 
-            result = _adminDataAccess.UpdateStatusAutoSettlement(creator, matchId, turnOn, ip);
+            result = _adminDataAccess.UpdateStatusAutoSettlement(adminId, matchId, turnOn, ip);
             return result;
         }
 
@@ -75,13 +75,13 @@ namespace Fanex.NAP.Settlement.Services.Implement
         /// <summary>
         /// Clear fail action AutoSettlement.
         /// </summary>
-        /// <param name="creator">Creator by.</param>
+        /// <param name="adminId">AdminId by.</param>
         /// <param name="matchId">Match id parameter.</param>
         /// <param name="matchIds">List match ids.</param>
         /// <returns>Return result.</returns>
-        public IResult ClearFailActionAutoSettlement(int creator, int matchId, string matchIds)
+        public IResult ClearFailActionAutoSettlement(int adminId, int matchId, string matchIds)
         {
-            return _adminDataAccess.ClearFailActionAutoSettlement(creator, matchId, matchIds);
+            return _adminDataAccess.ClearFailActionAutoSettlement(adminId, matchId, matchIds);
         }
     }
 }
