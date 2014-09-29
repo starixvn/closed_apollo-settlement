@@ -22,6 +22,7 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
         private const int NumberSetOfBadminton = 6;
         private const string BetStatusFullTime = "FL:{0}-{1};";
         private const string BetStatusHalfTime = "1FL:{0}-{1};";
+        private const string RefundHalfTime = "Refund HT;";
 
         /// <summary>
         /// Set bet status value.
@@ -70,7 +71,20 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
         /// </returns>
         public static string SetBetStatusForSoccer(DoSingleTicketMetaModel criteria)
         {
-            return (criteria.IsExistFgLg || criteria.IsExistHtFgLg) ? SetNewValueBetStatusForGoalRecord(criteria) : string.Empty;
+            if (criteria.IsExistFgLg || criteria.IsExistHtFgLg)
+            {
+                return SetNewValueBetStatusForGoalRecord(criteria);
+            }
+            else
+            {
+                if (criteria.ActionType.Equals(CalculationType.CalculateFullTime, StringComparison.OrdinalIgnoreCase)
+                    && criteria.BetStatus.Contains(RefundHalfTime))
+                {
+                    return criteria.BetStatus;
+                }
+            }
+
+            return string.Empty;
         }
 
         /// <summary>
@@ -344,7 +358,9 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
                     if (isExistRefundHT)
                     {
                         var isExistHalfTime = criteria.BetStatus.IndexOf("1FL", StringComparison.OrdinalIgnoreCase) > -1;
-                        halfTimeBetStatus = isExistHalfTime ? "Refund HT;1FL:0-0;" : "Refund HT;";
+                        halfTimeBetStatus = isExistHalfTime
+                                            ? string.Join(string.Empty, RefundHalfTime, string.Format(BetStatusHalfTime, 0, 0))
+                                            : RefundHalfTime;
                     }
                     else
                     {
@@ -359,7 +375,7 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
 
                     if (isExistRefundHT && halfTimeBetStatus.IndexOf(EventStatus.RefundHT, StringComparison.OrdinalIgnoreCase) < 0)
                     {
-                        fullTimeBetStatus = "Refund HT;";
+                        fullTimeBetStatus = RefundHalfTime;
                     }
 
                     fullTimeBetStatus += BetStatusValue(BetStatusFullTime, goalRecord);
@@ -413,7 +429,7 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
                 && (string.IsNullOrEmpty(criteria.GoalRecord)
                 || (!string.IsNullOrEmpty(criteria.GoalRecord) && string.IsNullOrEmpty(criteria.GoalRecord.Replace(";", string.Empty)))))
             {
-                betStatus = "1FL:0-0;";
+                betStatus = string.Format(BetStatusHalfTime, 0, 0);
             }
             else if (IsCalculateHalfTimeWithSemicolon(criteria))
             {
@@ -423,7 +439,7 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
             else if (IsCalculateHalfTimeWithoutSemicolon(criteria))
             {
                 var firstGoal = criteria.GoalRecord.StartsWith("h", StringComparison.OrdinalIgnoreCase) ? 1 : 2;
-                betStatus = string.Format("1FL:{0}-0;", firstGoal);
+                betStatus = string.Format(BetStatusHalfTime, firstGoal, 0);
             }
 
             return betStatus;
@@ -448,7 +464,7 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
                     firstGoal = criteria.GoalRecord.StartsWith("h", StringComparison.OrdinalIgnoreCase) ? 1 : 2;
                 }
 
-                fullTimeBetStatus = string.Format("FL:{0}-0;", firstGoal);
+                fullTimeBetStatus = string.Format(BetStatusFullTime, firstGoal, 0);
             }
 
             if (criteria.IsExistHtFgLg)
@@ -474,12 +490,12 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
 
             if (criteria.IsExistFgLg)
             {
-                fullTimeBetStatus = string.Format("FL:{0}-0;", firstGoal);
+                fullTimeBetStatus = string.Format(BetStatusFullTime, firstGoal, 0);
             }
 
             if (criteria.IsExistHtFgLg)
             {
-                halfTimeBetStatus = string.Format("1FL:{0}-0;", firstGoal);
+                halfTimeBetStatus = string.Format(BetStatusHalfTime, firstGoal, 0);
             }
 
             return string.Join(string.Empty, halfTimeBetStatus, fullTimeBetStatus);
@@ -505,6 +521,11 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
             else if (IsCalculateHalfTimeWithSemicolon(criteria))
             {
                 betStatus = UpdateBetStatusWithSemicolonForCalculateFgng(criteria);
+            }
+
+            if (criteria.BetStatus.Contains(RefundHalfTime))
+            {
+                return string.Join(string.Empty, RefundHalfTime, betStatus);
             }
 
             return betStatus;
@@ -566,12 +587,12 @@ namespace Fanex.NAP.Settlement.Controllers.Helper
 
             if (criteria.IsExistFgLg)
             {
-                fullTimeBetStatus = "FL:0-0;";
+                fullTimeBetStatus = string.Format(BetStatusFullTime, 0, 0);
             }
 
             if (criteria.IsExistHtFgLg)
             {
-                halfTimeBetStatus = "1FL:0-0;";
+                halfTimeBetStatus = string.Format(BetStatusHalfTime, 0, 0);
             }
 
             return string.Join(string.Empty, halfTimeBetStatus, fullTimeBetStatus);
