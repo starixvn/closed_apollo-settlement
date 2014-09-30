@@ -537,6 +537,18 @@
     <Content Include="Configuration\Web.Sandbox.AppSettings.config">
       <DependentUpon>Web.AppSettings.Config.tt</DependentUpon>
     </Content>
+    <Content Include="Configuration\Web.Local.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configuration\Web.PRO.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configuration\Web.Sandbox.config">
+      <DependentUpon>Web.config.tt</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="deployment.ignore" />
   </ItemGroup>
   <ItemGroup />

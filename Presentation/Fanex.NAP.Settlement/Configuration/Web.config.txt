@@ -1,1 +1,7 @@
-﻿ErrorGeneratingOutput
+﻿
+
+// Generated helper templates
+// Generated items
+// Fanex.NAP.Settlement\Configuration\Web.PRO.config
+// Fanex.NAP.Settlement\Configuration\Web.Sandbox.config
+// Fanex.NAP.Settlement\Configuration\Web.Local.config

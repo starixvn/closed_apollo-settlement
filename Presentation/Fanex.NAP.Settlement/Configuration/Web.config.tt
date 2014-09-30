@@ -28,17 +28,16 @@
     </sectionGroup>
   </configSections>
   <!--Integrate with nap hub-->
- <NapSettings UMAddress="http://10.103.181.198:81/um-status" 
-               Environment="LIVE" 
-               EnableDirectLogin="false" 
+ <NapSettings UMAddress="<#= site.NapUMAddress #>"
+               Environment="<#=  site.NapEnvironment #>" 
+               EnableDirectLogin="<#= site.NapEnableDirectLogin #>"
                SiteId="67" 
-               EnableCheckUM="1" 
-               EnableReCheckin="1" 
-               HubUrl="http://csd.sunsport66.com/Hub/UserLogin"
+               EnableCheckUM="<#= site.NapEnableCheckUM #>"
+               EnableReCheckin="<#= site.NapEnableReCheckin #> "
+               HubUrl="<#=  site.NapHubUrl #>"
                UnauthorizeUrl="~/Home/NonePermission">
-    <!--HubUrl="http://10.18.200.209:7100">-->
     <Domain>
-      <add Name="csd.sunsport66.com" Path="/Settlement"/>
+      <add Name="<#= site.NapDomainName #>" Path="/Settlement"/>
     </Domain>
   </NapSettings>
   <!--/Integrate with nap hub-->
@@ -47,11 +46,11 @@
       <add name="XmlDbSettingProvider" type="Fanex.Data.Configuration.XmlDbSettingProvider, Fanex.Data" resourcePath="~\App_Data\FanexSpName.xml" enableWatching="1"/>
     </providers>
   </Fanex.Data.DbSettingProvider>
-  <Fanex.Logging msmqPath="FormatName:DIRECT=TCP:10.40.41.11\private$\entlib" defaultCategory="CSD_Sandbox_Settlement" />
+  <Fanex.Logging msmqPath="<#= site.MsmqPath #>" defaultCategory="<#= site.DefaultCategory #>" />
   <appSettings configSource="Web.AppSettings.config"/>
   <connectionStrings configSource="Web.ConnectionStrings.config"/>
   <system.web>
-    <compilation targetFramework="4.0" debug="false" />
+    <compilation targetFramework="4.0" debug="<#= site.Debug #>" />
     <authentication mode="Forms">
       <forms protection="All" ticketCompatibilityMode="Framework40" cookieless="UseCookies"  loginUrl="~/UserLogin/Login"  timeout="2880" defaultUrl="~/Home/Index" path="/Settlement"/>
     </authentication>
@@ -71,7 +70,7 @@
         <add namespace="System.Web.WebPages"/>
       </namespaces>
     </pages>
-    <sessionState mode="StateServer" stateConnectionString="tcpip=10.40.41.112:42424" timeout="120" stateNetworkTimeout="10"  />
+    <sessionState mode="StateServer" <#= site.StateConnectionStringAttr #> timeout="120" stateNetworkTimeout="10"  />
     <globalization fileEncoding="utf-8" requestEncoding="utf-8" responseEncoding="utf-8"/>
     <trace enabled="false" localOnly="true" traceMode="SortByTime"/>
 	<machineKey decryptionKey="4B8E6E85CAB4A993CF307CC13D8D6BED038C862216B3EE8C,IsolateApps" validationKey="AB4BCD07F56686EEF11A5F053CF99E7D28CE6D7DF0114DDC16C257B79DF3EB0E932711D385A800BACE10A1AEC0298C0594CA971702CA75811C070173CDFD9651,IsolateApps" />
@@ -80,7 +79,6 @@
     <validation validateIntegratedModeConfiguration="false"/>
     <modules runAllManagedModulesForAllRequests="true"/>
 	  <staticContent>
-		 <!-- <clientCache cacheControlMode="UseMaxAge" cacheControlMaxAge="365.00:00:00" /> -->
 		  <mimeMap fileExtension=".less" mimeType="text/css" />
 	  </staticContent>
   </system.webServer>
