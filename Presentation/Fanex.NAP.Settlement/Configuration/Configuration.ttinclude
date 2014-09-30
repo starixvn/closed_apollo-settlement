@@ -1,0 +1,55 @@
+﻿<#@ import namespace="System" #>
+<#
+    var sites = new SiteInfo[]{
+         new SiteInfo
+        {
+            Environment = SiteEnvironment.Local
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.Sandbox
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.PRO
+        }
+    };
+#>
+<#+
+    enum SiteEnvironment
+    {
+        Local,
+        Sandbox,
+        PRO
+    }
+    class SiteInfo
+    {
+        public SiteEnvironment Environment { get; set; }
+        
+        #region For AppSetting file
+        public string RemotingRefUrl
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "tcp://10.40.40.29:8098/CallGetRefFunction";
+
+                  
+                    case SiteEnvironment.Local:
+
+                    case SiteEnvironment.Sandbox:
+                        return "tcp://10.18.200.209:8888/CallGetRefFunction";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+         #endregion End for AppSetting file
+
+        #region For Webconfig file
+        #endregion End for Webconfig file
+    }
+#>

@@ -216,6 +216,11 @@
     <Compile Include="Areas\UserLogin\Controllers\SSOController.cs" />
     <Compile Include="Areas\UserLogin\Controllers\UserSiteController.cs" />
     <Compile Include="Areas\UserLogin\UserLogInAreaRegistration.cs" />
+    <Compile Include="Configuration\Configuration.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Configuration.ttinclude</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -257,6 +262,16 @@
     <Content Include="Areas\UserLogin\Views\SSO\SSOIndex.cshtml" />
     <Content Include="Areas\UserLogin\Views\UserSite\Site.cshtml" />
     <Content Include="Areas\UserLogin\Views\Web.config" />
+    <Content Include="Configuration\Web.AppSettings.Config.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Web.AppSettings.Config.tt</DependentUpon>
+    </Content>
+    <Content Include="Configuration\Web.config.txt">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Web.config.tt</DependentUpon>
+    </Content>
     <Content Include="Content\extension\jquery-block-ui.ext.css" />
     <Content Include="Content\extension\images\confirm-title_bg.jpg" />
     <Content Include="Content\extension\images\error-red_bg.jpg" />
@@ -498,21 +513,35 @@
     <Content Include="Web.Local.AppSettings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Local.ConnectionStrings.config">
-      <SubType>Designer</SubType>
+    <None Include="Configuration\Configuration.ttinclude">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Configuration.cs</LastGenOutput>
+    </None>
+    <None Include="Configuration\Web.AppSettings.Config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Web.AppSettings.Config.txt</LastGenOutput>
+    </None>
+    <None Include="Configuration\Web.config.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Web.config.txt</LastGenOutput>
+    </None>
+    <Content Include="Configuration\Web.Local.ConnectionStrings.config" />
+    <Content Include="Configuration\Web.SandBox.ConnectionStrings.config" />
+    <Content Include="Configuration\Web.PRO.ConnectionStrings.config" />
+    <Content Include="Configuration\Web.Local.AppSettings.config">
+      <DependentUpon>Web.AppSettings.Config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.Local.config">
-      <SubType>Designer</SubType>
+    <Content Include="Configuration\Web.PRO.AppSettings.config">
+      <DependentUpon>Web.AppSettings.Config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.Local.Debug.config">
-      <DependentUpon>Web.Local.config</DependentUpon>
+    <Content Include="Configuration\Web.Sandbox.AppSettings.config">
+      <DependentUpon>Web.AppSettings.Config.tt</DependentUpon>
     </Content>
-    <Content Include="Web.Local.Release.config">
-      <DependentUpon>Web.Local.config</DependentUpon>
-    </Content>
+    <None Include="deployment.ignore" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Configuration\" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
