@@ -1,5 +1,4 @@
 ﻿@model Fanex.NAP.Settlement.DTO.IP.IpInfo
-@*@{Layout = "../Shared/Layout/_Layout.cshtml";}*@
 <div id="ipInfo">
     <table width="100%" cellpadding="3" cellspacing="0">
         <tr>
@@ -9,7 +8,7 @@
             <td class="tdvalue">
                 @Model.CountryName
                 @if (!string.IsNullOrEmpty(Model.CountryCode))
-                {                    
+                {
                     <img src='~/Content/sites/images/flags/@string.Format("{0}.gif", Model.CountryCode)'  alt="@Model.CountryCode" />
                 }
             </td>
