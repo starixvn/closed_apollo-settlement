@@ -34,12 +34,12 @@
                 switch(Environment)
                 {
                     case SiteEnvironment.PRO:
-                        return "tcp://10.40.40.29:8098/CallGetRefFunction";
+                        return "tcp://10.40.41.111:8098/CallGetRefFunction";
 
-                  
+                   case SiteEnvironment.Sandbox:
+                        return "tcp://10.40.41.111:8098/CallGetRefFunction";
+
                     case SiteEnvironment.Local:
-
-                    case SiteEnvironment.Sandbox:
                         return "tcp://10.18.200.209:8888/CallGetRefFunction";
 
                     default:
