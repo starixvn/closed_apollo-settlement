@@ -546,7 +546,7 @@
       <DependentUpon>Web.config.tt</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="deployment.ignore" />
+    <Content Include="deployment.ignore" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
