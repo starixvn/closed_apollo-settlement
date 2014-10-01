@@ -1,0 +1,285 @@
+﻿<#@ import namespace="System" #>
+<#
+    var sites = new SiteInfo[]{
+         new SiteInfo
+        {
+            Environment = SiteEnvironment.Local
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.Sandbox
+        },
+        new SiteInfo
+        {
+            Environment = SiteEnvironment.PRO
+        }
+    };
+#>
+<#+
+    enum SiteEnvironment
+    {
+        Local,
+        Sandbox,
+        PRO
+    }
+    class SiteInfo
+    {
+        public SiteEnvironment Environment { get; set; }
+        
+        #region For AppSetting file
+        public string RemotingRefUrl
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "tcp://10.40.41.111:8098/CallGetRefFunction";
+
+                   case SiteEnvironment.Sandbox:
+                        return "tcp://10.40.41.111:8098/CallGetRefFunction";
+
+                    case SiteEnvironment.Local:
+                        return "tcp://10.18.200.209:8888/CallGetRefFunction";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+        #endregion End for AppSetting file
+
+        #region For Webconfig file
+		public string NapUMAddress
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "http://10.103.181.198:81/um-status";
+
+                   case SiteEnvironment.Sandbox:
+                        return "http://10.103.181.1:8088/Home/jsonUM";
+
+                    case SiteEnvironment.Local:
+                        return "http://10.21.10.19:8123/home/umstatus";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+		public string NapEnvironment
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "LIVE";
+
+                   case SiteEnvironment.Sandbox:
+                        return "UAT";
+
+                    case SiteEnvironment.Local:
+                        return "UAT";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+		public string NapEnableDirectLogin
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "false";
+
+                   case SiteEnvironment.Sandbox:
+                        return "false";
+
+                    case SiteEnvironment.Local:
+                        return "1";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+		public string NapEnableCheckUM
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "1";
+
+                   case SiteEnvironment.Sandbox:
+                        return "1";
+
+                    case SiteEnvironment.Local:
+                        return "false";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+		
+		public string NapEnableReCheckin
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "1";
+
+                   case SiteEnvironment.Sandbox:
+                        return "1";
+
+                    case SiteEnvironment.Local:
+                        return "false";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }
+
+		public string NapHubUrl
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "http://csd.sunsport66.com/Hub/UserLogin";
+
+                   case SiteEnvironment.Sandbox:
+                        return "http://csd.sunsport77.com/Hub/UserLogin";
+
+                    case SiteEnvironment.Local:
+                        return "http://localhost:54332/NAPHub";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        } 
+
+		public string NapDomainName
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "csd.sunsport66.com";
+
+                   case SiteEnvironment.Sandbox:
+                        return "csd.sunsport77.com";
+
+                    case SiteEnvironment.Local:
+                        return "localhost:54763";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        } 
+
+		public string StateConnectionStringAttr
+		{
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "stateConnectionString=\"tcpip=10.40.41.112:42424\"";
+
+                   case SiteEnvironment.Sandbox:
+                        return "stateConnectionString=\"tcpip=10.40.41.112:42424\"";
+
+                    case SiteEnvironment.Local:
+                        return "";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        }  
+
+		public string MsmqPath
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return @"FormatName:DIRECT=TCP:10.40.41.11\private$\entlib";
+
+                   case SiteEnvironment.Sandbox:
+                        return @"FormatName:DIRECT=TCP:10.40.41.11\private$\entlib";
+
+                    case SiteEnvironment.Local:
+                        return @"FormatName:DIRECT=tcp:10.18.200.201\private$\entlib";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        } 
+
+		public string DefaultCategory
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "CSD_Sandbox_Settlement";
+
+                   case SiteEnvironment.Sandbox:
+                        return "CSD_Sandbox_Settlement";
+
+                    case SiteEnvironment.Local:
+                        return "NAP-Settlement";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        } 
+
+		public string Debug
+        {
+            get
+            {
+                switch(Environment)
+                {
+                    case SiteEnvironment.PRO:
+                        return "false";
+
+                   case SiteEnvironment.Sandbox:
+                        return "false";
+
+                    case SiteEnvironment.Local:
+                        return "true";
+
+                    default:
+                        return string.Empty;
+                }
+            }
+        } 
+        #endregion End for Webconfig file
+    }
+#>

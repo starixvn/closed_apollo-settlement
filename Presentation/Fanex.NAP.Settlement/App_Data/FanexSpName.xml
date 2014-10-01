@@ -40,11 +40,7 @@
     <Setting Key="Admin_Settlement_CloseMatch" SpName="Admin_Settlement_CloseMatch" DbName="SVRTXN.TransDB.aplweb" />
   </Function>
 
-  <Function Name="Result page">
-    <Setting Key="Acc_Set_MatchGetResult" SpName="Acc_Set_MatchGetResult" DbName="SVRPRO.ProdDB.aplweb" />
-  </Function>
-
-  <Function Name="Refund">
+   <Function Name="Refund">
     <Setting Key="Acc_Set_MatchSelDetail " SpName="Acc_Set_MatchSelDetail " DbName="SVRTXN.TransDB.aplweb" />
   </Function>
 

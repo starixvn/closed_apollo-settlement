@@ -1,0 +1,28 @@
+﻿<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ include file="$(SolutionDir)\Packages\T4.TemplateFileManager.2.1.2\tools\ttinc\TemplateFilemanager.CS.ttinclude" #>
+<#@ include file="Configuration.ttinclude" #>
+<#
+    var manager = TemplateFileManager.Create(this);
+    foreach(var site in sites)
+    {
+        var fileName = string.Format("Web.{0}.AppSettings.config", site.Environment);
+        manager.StartNewFile(fileName);
+#>
+<appSettings>
+  <clear />
+  <add key="aspnet:UseTaskFriendlySynchronizationContext" value="true"/>
+  <add key="webpages:Version" value="2.0.0.0"/>
+  <add key="webpages:Enabled" value="false"/>
+  <add key="PreserveLoginUrl" value="true"/>
+  <add key="ClientValidationEnabled" value="true"/>
+  <add key="UnobtrusiveJavaScriptEnabled" value="true"/>
+  <!--add new key for remote ref-->
+  <add key="RemoteRefURL" value="<#=site.RemotingRefUrl#>" />
+  <!--End key for remote ref-->
+  <add key="SportTypeSetting" value="~\App_Data\SportTypeSetting.xml"/>  
+</appSettings>
+<#
+    }
+    manager.Process();
+#>
